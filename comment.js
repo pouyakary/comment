@@ -13,9 +13,16 @@
     var vscode = require( 'vscode' );
 
 //
+// ─── CONSTANTS ──────────────────────────────────────────────────────────────────
+//
+
+    const commentLineCharacter = '\u2500';
+
+//
 // ─── DEFS ───────────────────────────────────────────────────────────────────────
 //
 
+    // Environmental information
     var oneLineCommentSign;
     var currentLine;
     var currentLineString;
@@ -24,16 +31,24 @@
     var currentTabSize;
     var lineFormat;
 
+    // Information for processing...
+    var linesFirstSpacing;
+    var realIndentationSize;
+    var relativeIndentationSize;
+
 //
 // ─── GET ENVIRONMENTAL INFORMATION ──────────────────────────────────────────────
 //
 
     function loadEnvironmentalInformation (  ) {
-        currentLine                 = vscode.window.activeTextEditor.selection.start.line;
-        currentLineString           = vscode.window.activeTextEditor.document.lineAt( currentLine );
+        // loading information
+        currentLine                 = vscode.window.activeTextEditor.selection.active.line;
+        currentLineString           = vscode.window.activeTextEditor.document.lineAt( currentLine ).text;
         currentLanguageId           = vscode.window.activeTextEditor.document.languageId;
         currentInsertSpacesStatus   = vscode.window.activeTextEditor.options.insertSpaces;
         currentTabSize              = vscode.window.activeTextEditor.options.tabSize;
+
+        // information that also needs computation (order is important in here...)
         oneLineCommentSign          = getOneLineLanguageCommentSignForCurrentLanguage( );
         lineFormat                  = generateRegExForCurrentLanguage( );
     }
@@ -58,17 +73,147 @@
     }
 
 //
+// ─── PROCESS CURRENT LINE ───────────────────────────────────────────────────────
+//
+
+    function processCurrentLine ( ) {
+        linesFirstSpacing   = getFirstSpacingOfTheLine( );
+        realIndentationSize = getRealIndentationSize( linesFirstSpacing );
+        realIndentationSize = getKFCSRelativeIndentation( realIndentationSize );
+    }
+
+//
+// ─── GET SPACING FOR THE FIRST OF THE LINE ──────────────────────────────────────
+//
+
+    function getFirstSpacingOfTheLine ( ) {
+        let tabs = 0;
+        let spaces = 0;
+        let index = 0;
+
+        while ( index < currentLineString.length ) {
+            switch ( currentLineString[ index ] ) {
+                case '\t':
+                    tabs++;
+                    index++;
+                    break;
+
+                case ' ':
+                    spaces++;
+                    index++;
+                    break;
+
+                default:
+                    return {
+                        'tabs': tabs,
+                        'spaces': spaces
+                    }
+            }
+        }
+
+        return {
+            'tabs': tabs, 'spaces': spaces
+        }
+    }
+
+//
+// ─── GET INDENTATION SIZE ───────────────────────────────────────────────────────
+//
+
+    function getRealIndentationSize ( ) {
+        let spaces = linesFirstSpacing['spaces']
+        let tabs = linesFirstSpacing['tabs'];
+        return currentTabSize * ( tabs + Math.floor( spaces / currentTabSize ) );
+    }
+
+//
+// ─── GET RELATIVE INDENTATION SIZE ──────────────────────────────────────────────
+//
+
+    function getKFCSRelativeIndentation ( realIndentation ) {
+        return Math.floor( realIndentation / 2 );
+    }
+
+//
+// ─── GENERATE COMMENT ───────────────────────────────────────────────────────────
+//
+
+    function generateSectionComment (  ) {
+        let text = currentLineString.toUpperCase( ).trim( );
+        let indentationText = generateIndentation( );
+
+        // line 1
+        let result = `${ indentationText }${ oneLineCommentSign }\n`;
+
+        // line 2
+        result += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 3 )} ${ text } ${ repeat( commentLineCharacter, 75 - text.length ) }\n`;
+
+        // line 3
+        result += `${ indentationText }${ oneLineCommentSign }\n`
+
+        // done
+        return result;
+    }
+
+//
+// ─── INDENT BASED ON THE INDENTATION INFO ───────────────────────────────────────
+//
+
+    function generateIndentation ( ) {
+        let result = '';
+        let size = linesFirstSpacing.tabs * currentTabSize + linesFirstSpacing.spaces;
+        return repeat( ' ' , size );
+    }
+
+//
+// ─── REPEAT TEXT ────────────────────────────────────────────────────────────────
+//
+
+    function repeat ( text, times ) {
+        let result = '';
+        for ( let index = 0; index < times; index ++ ) {
+            result += text;
+        }
+        return result;
+    }
+
+//
+// ─── CANCEL SELECTION ───────────────────────────────────────────────────────────
+//
+
+    function removeSelection ( ) {
+        
+    }
+
+//
 // ─── BODY ───────────────────────────────────────────────────────────────────────
 //
 
     function activate( context ) {
         var disposable = vscode.commands.registerCommand(
             'commentVSCode.makeLineSectionComment', ( ) => {
-                loadEnvironmentalInformation( );
+
+                try {
+                    // basic information:
+                    loadEnvironmentalInformation( );
+                    processCurrentLine( );
+
+                    // generate comment
+                    vscode.window.activeTextEditor.edit( textEditorEdit => {
+                        textEditorEdit.replace(
+                            vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
+                            generateSectionComment( )
+                        );
+                    });
+
+                    removeSelection( );
+                } catch ( err ) {
+                    vscode.window.showInformationMessage( err.message );
+                }
 
             });
 
-        context.subscriptions.push(disposable);
+        context.subscriptions.push( disposable );
     }
 
     exports.activate = activate;
