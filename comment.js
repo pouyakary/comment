@@ -48,10 +48,6 @@
         currentLanguageId           = vscode.window.activeTextEditor.document.languageId;
         currentInsertSpacesStatus   = vscode.window.activeTextEditor.options.insertSpaces;
         currentTabSize              = vscode.window.activeTextEditor.options.tabSize;
-
-        // information that also needs computation (order is important in here...)
-        oneLineCommentSign          = getOneLineLanguageCommentSignForCurrentLanguage( );
-        lineFormat                  = generateRegExForCurrentLanguage( );
     }
 
 //
@@ -68,8 +64,52 @@
 
     function getOneLineLanguageCommentSignForCurrentLanguage ( ) {
         switch ( currentLanguageId ) {
-            default :
+            case 'arendelle':
+            case 'pageman':
+            case 'javascript':
+            case 'typescript':
+            case 'swift':
+            case 'csharp':
+            case 'c':
+            case 'processing':
+            case 'java':
+            case 'json':
+            case 'rust':
+            case 'go':
+            case 'scala':
+            case 'qml':
+            case 'stylus':
                 return '//';
+
+            case 'ruby':
+            case 'python':
+            case 'julia':
+            case 'make':
+            case 'makefile':
+            case 'shell':
+            case 'bash':
+            case 'coffeescript':
+            case 'powershell':
+                return '#';
+
+            case 'tex':
+            case 'latex':
+            case 'matlab':
+            case 'octave':
+                return '%';
+            
+            case 'lua':
+            case 'haskell':
+            case 'elm':
+                return '--';
+
+            case 'scheme':
+            case 'racket':
+            case 'lisp':
+                return ';;;';
+
+            default :
+                return null;
         }
     }
 
@@ -239,9 +279,16 @@
                 try {
                     // basic information:
                     loadEnvironmentalInformation( );
-                    processCurrentLine( );
+                    oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
+                    if ( oneLineCommentSign === null ) {
+                        vscode.window.showInformationMessage(`Comment 5 Error: Language "${ currentLanguageId }" is not supported by Comment 5.`);
+                        return;
+                    }
+        
+                    lineFormat          = generateRegExForCurrentLanguage( );
 
                     // generate comment
+                    processCurrentLine( );
                     let comment = generateCommentBasedOnIndentation( );
 
                     // apply to editor
