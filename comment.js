@@ -250,6 +250,18 @@
     }
 
 //
+// ─── GENERATE ADDITIONAL SPACINGS ───────────────────────────────────────────────
+//
+
+    function generateAdditionalSpacings ( ) {
+        let spacings = `\n${ generateIndentation( ) }`;
+        if ( relativeIndentationSize < 2 ) {
+            spacings += repeat( ' ' , currentTabSize );
+        }
+        return spacings;
+    } 
+
+//
 // ─── REPLACE COMMENT ON TEXT EDITOR ─────────────────────────────────────────────
 //
 
@@ -257,7 +269,7 @@
         vscode.window.activeTextEditor.edit( textEditorEdit => {
             textEditorEdit.replace(
                 vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
-                comment
+                comment + generateAdditionalSpacings( )
             );
         });
     }
