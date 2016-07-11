@@ -4,6 +4,8 @@
 //    Author: Pouya Kary <k@karyfoundation.org>
 //
 
+
+
 "use strict";
 
 //
@@ -77,9 +79,9 @@
 //
 
     function processCurrentLine ( ) {
-        linesFirstSpacing   = getFirstSpacingOfTheLine( );
-        realIndentationSize = getRealIndentationSize( linesFirstSpacing );
-        realIndentationSize = getKFCSRelativeIndentation( realIndentationSize );
+        linesFirstSpacing       = getFirstSpacingOfTheLine( );
+        realIndentationSize     = getRealIndentationSize( linesFirstSpacing );
+        relativeIndentationSize = getKFCSRelativeIndentation( realIndentationSize );
     }
 
 //
@@ -121,9 +123,7 @@
 //
 
     function getRealIndentationSize ( ) {
-        let spaces = linesFirstSpacing['spaces']
-        let tabs = linesFirstSpacing['tabs'];
-        return currentTabSize * ( tabs + Math.floor( spaces / currentTabSize ) );
+        return linesFirstSpacing.tabs + Math.floor( linesFirstSpacing.spaces / currentTabSize );
     }
 
 //
@@ -138,7 +138,7 @@
 // ─── GENERATE COMMENT ───────────────────────────────────────────────────────────
 //
 
-    function generateSectionComment (  ) {
+    function generateSectionComment ( width ) {
         let text = currentLineString.toUpperCase( ).trim( );
         let indentationText = generateIndentation( );
 
@@ -146,7 +146,28 @@
         let result = `${ indentationText }${ oneLineCommentSign }\n`;
 
         // line 2
-        result += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 3 )} ${ text } ${ repeat( commentLineCharacter, 75 - text.length ) }\n`;
+        result += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 3 )} ${ text } ${ repeat( commentLineCharacter, width - text.length - 5 ) }\n`;
+
+        // line 3
+        result += `${ indentationText }${ oneLineCommentSign }\n`
+
+        // done
+        return result;
+    }
+
+//
+// ─── GENERATE INSECTION COMMENTS ────────────────────────────────────────────────
+//
+
+    function generateInSectionComments ( ) {
+        let text = currentLineString.toUpperCase( ).trim( );
+        let indentationText = generateIndentation( );
+
+        // line 1
+        let result = `${ indentationText }${ oneLineCommentSign }\n`;
+
+        // line 2
+        result += `${ indentationText }${ oneLineCommentSign } ${ text }\n`;
 
         // line 3
         result += `${ indentationText }${ oneLineCommentSign }\n`
@@ -178,6 +199,21 @@
     }
 
 //
+// ─── GENERATE COMMENT BASED ON INDENTATION ──────────────────────────────────────
+//
+
+    function generateCommentBasedOnIndentation ( ) {
+        switch ( relativeIndentationSize ) {
+            case 0:
+                return generateSectionComment( 80 );
+            case 1:
+                return generateSectionComment( 65 );
+            default:
+                return generateInSectionComments( );
+        }
+    }
+
+//
 // ─── CANCEL SELECTION ───────────────────────────────────────────────────────────
 //
 
@@ -202,11 +238,12 @@
                     vscode.window.activeTextEditor.edit( textEditorEdit => {
                         textEditorEdit.replace(
                             vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
-                            generateSectionComment( )
+                            generateCommentBasedOnIndentation( )
                         );
                     });
 
                     removeSelection( );
+
                 } catch ( err ) {
                     vscode.window.showInformationMessage( err.message );
                 }
