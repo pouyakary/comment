@@ -214,6 +214,19 @@
     }
 
 //
+// ─── REPLACE COMMENT ON TEXT EDITOR ─────────────────────────────────────────────
+//
+
+    function replaceCommentOnEditor ( comment ) {
+        vscode.window.activeTextEditor.edit( textEditorEdit => {
+            textEditorEdit.replace(
+                vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
+                comment
+            );
+        });
+    }
+
+//
 // ─── CANCEL SELECTION ───────────────────────────────────────────────────────────
 //
 
@@ -235,13 +248,10 @@
                     processCurrentLine( );
 
                     // generate comment
-                    vscode.window.activeTextEditor.edit( textEditorEdit => {
-                        textEditorEdit.replace(
-                            vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
-                            generateCommentBasedOnIndentation( )
-                        );
-                    });
+                    let comment = generateCommentBasedOnIndentation( );
 
+                    // apply to editor
+                    replaceCommentOnEditor( comment );
                     removeSelection( );
 
                 } catch ( err ) {
