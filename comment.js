@@ -1,10 +1,9 @@
+
 //
 // Comment VSCODE - Having a basic support for KFCS inside Visual Studio Code
 // Copyright 2016 Kary Foundation, Inc. All rights reserved.a
 //    Author: Pouya Kary <k@karyfoundation.org>
 //
-
-
 
 "use strict";
 
@@ -106,17 +105,12 @@
                     break;
 
                 default:
-                    return {
-                        'tabs': tabs,
-                        'spaces': spaces
-                    }
+                    return { 'tabs': tabs, 'spaces': spaces }
             }
         }
-
-        return {
-            'tabs': tabs, 'spaces': spaces
-        }
     }
+
+
 
 //
 // ─── GET INDENTATION SIZE ───────────────────────────────────────────────────────
@@ -238,7 +232,7 @@
 // ─── BODY ───────────────────────────────────────────────────────────────────────
 //
 
-    function activate( context ) {
+    function activate ( context ) {
         var disposable = vscode.commands.registerCommand(
             'commentVSCode.makeLineSectionComment', ( ) => {
 
@@ -270,9 +264,7 @@
 //
 
     function deactivate ( ) {
-
         // And there was a place, nothing ever happened at....
-
     }
 
     exports.deactivate = deactivate;
