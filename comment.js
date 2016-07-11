@@ -22,6 +22,7 @@
 //
 
     const commentLineCharacter = '\u2500';
+    const lineFormat = /^\s*([a-z ]|[0-9][0-9\.]*)+\s*$/i;
 
 //
 // ─── DEFS ───────────────────────────────────────────────────────────────────────
@@ -34,7 +35,6 @@
     var currentLanguageId;
     var currentInsertSpacesStatus;
     var currentTabSize;
-    var lineFormat;
 
     // Information for processing...
     var linesFirstSpacing;
@@ -52,14 +52,6 @@
         currentLanguageId           = vscode.window.activeTextEditor.document.languageId;
         currentInsertSpacesStatus   = vscode.window.activeTextEditor.options.insertSpaces;
         currentTabSize              = vscode.window.activeTextEditor.options.tabSize;
-    }
-
-//
-// ─── GENERATE REGEX FOR LANGUAGE ────────────────────────────────────────────────
-//
-
-    function generateRegExForCurrentLanguage (  ) {
-        return new RegExp( `^\s*(${ oneLineCommentSign })?([a-zA-Z ]|[0-9][0-9\.]*)+\s*$` );
     }
 
 //
@@ -288,7 +280,18 @@
             spacings += computeTabs( 1 );
         }
         return spacings;
-    } 
+    }
+
+//
+// ─── REMOVE STARTING PARTS OF THE COMMENT ───────────────────────────────────────
+//
+
+    function removeStartingCommentParts ( ) {
+        let comment = currentLineString.trim( );
+        if ( comment.startsWith( oneLineCommentSign ) ) {
+            vscode.window.showInformationMessage( comment.substring( oneLineCommentSign.length ) );
+        }
+    }
 
 //
 // ─── REPLACE COMMENT ON TEXT EDITOR ─────────────────────────────────────────────
@@ -320,7 +323,7 @@
             'comment5.makeLineSectionComment', ( ) => {
 
                 try {
-                    // basic information:
+                    // basic information:.
                     loadEnvironmentalInformation( );
 
                     // language specific parts:
@@ -329,7 +332,6 @@
                         vscode.window.showInformationMessage(`Comment 5 Error: Language "${ currentLanguageId }" is not supported by Comment 5.`);
                         return;
                     }
-                    lineFormat = generateRegExForCurrentLanguage( );
 
                     // checking the input against the regex
                     if ( !lineFormat.test( currentLineString ) ) {
