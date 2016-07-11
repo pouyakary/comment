@@ -217,9 +217,7 @@
 //
 
     function generateIndentation ( ) {
-        let result = '';
-        let size = linesFirstSpacing.tabs * currentTabSize + linesFirstSpacing.spaces;
-        return repeat( ' ' , size );
+        return repeat( ' ' , linesFirstSpacing.spaces ) + computeTabs( linesFirstSpacing.tabs );
     }
 
 //
@@ -232,6 +230,18 @@
             result += text;
         }
         return result;
+    }
+
+//
+// ─── GET TAB ────────────────────────────────────────────────────────────────────
+//
+
+    function computeTabs ( tabs ) {
+        if ( currentInsertSpacesStatus ) {
+            return repeat( ' ' , currentTabSize * tabs );
+        } else {
+            return repeat( '\t', tabs );
+        }
     }
 
 //
@@ -256,7 +266,7 @@
     function generateAdditionalSpacings ( ) {
         let spacings = `\n${ generateIndentation( ) }`;
         if ( relativeIndentationSize < 2 ) {
-            spacings += repeat( ' ' , currentTabSize );
+            spacings += computeTabs( 1 );
         }
         return spacings;
     } 
