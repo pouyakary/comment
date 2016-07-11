@@ -2,7 +2,7 @@
     "name": "comment5",
     "displayName": "Comment 5 for Visual Studio Code",
     "description": "Enjoy Section Comments of KFCS that you used to generate with Comment IV inside your Visual Studio Code with just a ⌘5.",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "publisher": "karyfoundation",
     "icon": "icon.png",
     "engines": {
