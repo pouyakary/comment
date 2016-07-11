@@ -19,15 +19,14 @@
         "keybindings": [
             {
                 "command": "comment5.makeLineSectionComment",
-                "key": "alt+y",
-                "mac": "alt+y",
+                "key": "ctrl+y",
+                "mac": "cmd+y",
                 "when": "editorTextFocus"
             },
             {
-                "keybindings": [{
                 "command": "comment5.makeLineSectionComment",
-                "key": "ctrl+y",
-                "mac": "cmd+y",
+                "key": "alt+y",
+                "mac": "alt+y",
                 "when": "editorTextFocus"
             }
         ]
