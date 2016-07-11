@@ -5,7 +5,11 @@
 //    Author: Pouya Kary <k@karyfoundation.org>
 //
 
-"use strict";
+//
+// ─── SETTINGS ───────────────────────────────────────────────────────────────────
+//
+
+    "use strict";
 
 //
 // ─── IMPORTS ────────────────────────────────────────────────────────────────────
@@ -290,8 +294,6 @@
                     if ( !lineFormat.test( currentLineString ) ) {
                         vscode.window.showInformationMessage( 'Comment 5 Error: Comment text must only contain basic alphabet and numbers.' );
                         return;
-                    } else {
-                        vscode.window.showInformationMessage('here');
                     }
 
                     // generate comment
@@ -300,7 +302,9 @@
 
                     // apply to editor
                     replaceCommentOnEditor( comment );
-                    removeSelection( );
+
+                    // done!
+                    vscode.commands.executeCommand('cancelSelection');
 
                 } catch ( err ) {
                     vscode.window.showInformationMessage( err.message );
