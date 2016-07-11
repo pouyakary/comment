@@ -347,7 +347,7 @@
                     replaceCommentOnEditor( comment );
 
                     // done!
-                    vscode.commands.executeCommand('cancelSelection');
+                    vscode.commands.executeCommand( 'cancelSelection' );
 
                 } catch ( err ) {
                     vscode.window.showInformationMessage( err.message );
