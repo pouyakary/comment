@@ -307,11 +307,105 @@
     }
 
 //
-// ─── CANCEL SELECTION ───────────────────────────────────────────────────────────
+// ─── GENERATE LINE COMMENT ──────────────────────────────────────────────────────
 //
 
-    function removeSelection ( ) {
-        
+    function generateLineComment ( width ) {
+        let indentationText = generateIndentation( );
+
+        // line 1
+        let result = `${ indentationText }${ oneLineCommentSign }\n`;
+
+        // line 2
+        result += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter, width ) }\n`;
+
+        // line 3
+        result += `${ indentationText }${ oneLineCommentSign }\n`
+
+        // done
+        return result;
+    }
+
+//
+// ─── ON GENERATE COMMENT ────────────────────────────────────────────────────────
+//
+
+    function onGenerateComment ( ) {
+        generateCommentWithFormula( ( ) => {
+            // checking the input against the regex
+            if ( !lineFormat.test( currentLineString ) ) {
+                vscode.window.showInformationMessage( 'Comment 5 Error: Comment text must only contain basic alphabet and numbers.' );
+                return null;
+            }
+
+            // return comment...
+            return generateCommentBasedOnIndentation( );
+        });
+    }
+
+//
+// ─── GENERATE SEPARATOR COMMENTS ────────────────────────────────────────────────
+//
+
+    function generateSeparatorComments ( ) {
+        return `${ oneLineCommentSign } • • • • •`;
+    }
+
+//
+// ─── ON GENERATE LINE ───────────────────────────────────────────────────────────
+//
+
+    function onGenerateLine ( ) {
+        generateCommentWithFormula( ( ) => {
+            switch ( relativeIndentationSize ) {
+                case 0:
+                    return generateLineComment( 80 );
+                case 1:
+                    return generateLineComment( 65 );
+                default:
+                    return generateSeparatorComments( );
+            }
+        });
+    }
+
+//
+// ─── COMMENT GENERATION BODY ────────────────────────────────────────────────────
+//
+
+    function generateCommentWithFormula ( func ) {
+        try {
+            // basic information:
+            loadEnvironmentalInformation( );
+
+            // language specific parts:
+            oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
+            if ( oneLineCommentSign === null ) {
+                vscode.window.showInformationMessage(`Comment 5 Error: Language "${ currentLanguageId }" is not supported by Comment 5.`);
+                return;
+            }
+
+            // checking the input against the regex
+            if ( !lineFormat.test( currentLineString ) ) {
+                vscode.window.showInformationMessage( 'Comment 5 Error: Comment text must only contain basic alphabet and numbers.' );
+                return;
+            }
+
+            // generate comment
+            processCurrentLine( );
+
+            // generate the comment
+            let comment = func( );
+            if ( comment === null ) return;
+
+            // apply to editor
+            replaceCommentOnEditor( comment );
+
+            // done!
+            vscode.commands.executeCommand( 'cancelSelection' );
+
+        } catch ( err ) {
+            vscode.window.showInformationMessage( `Comment 5 Error: ${ err.message }` );
+        }
     }
 
 //
@@ -319,43 +413,17 @@
 //
 
     function activate ( context ) {
-        var disposable = vscode.commands.registerCommand(
-            'comment5.makeLineSectionComment', ( ) => {
+        // Generate comment command
+        var generateCommentDisposable = vscode.commands.registerCommand(
+            'comment5.makeLineSectionComment', onGenerateComment
+        );
+        context.subscriptions.push( generateCommentDisposable );
 
-                try {
-                    // basic information:.
-                    loadEnvironmentalInformation( );
-
-                    // language specific parts:
-                    oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
-                    if ( oneLineCommentSign === null ) {
-                        vscode.window.showInformationMessage(`Comment 5 Error: Language "${ currentLanguageId }" is not supported by Comment 5.`);
-                        return;
-                    }
-
-                    // checking the input against the regex
-                    if ( !lineFormat.test( currentLineString ) ) {
-                        vscode.window.showInformationMessage( 'Comment 5 Error: Comment text must only contain basic alphabet and numbers.' );
-                        return;
-                    }
-
-                    // generate comment
-                    processCurrentLine( );
-                    let comment = generateCommentBasedOnIndentation( );
-
-                    // apply to editor
-                    replaceCommentOnEditor( comment );
-
-                    // done!
-                    vscode.commands.executeCommand( 'cancelSelection' );
-
-                } catch ( err ) {
-                    vscode.window.showInformationMessage( err.message );
-                }
-
-            });
-
-        context.subscriptions.push( disposable );
+        // Generate line command
+        var generateLineDisposable = vscode.commands.registerCommand(
+            'comment5.makeLineLineComment', onGenerateLine
+        );
+        context.subscriptions.push( generateLineDisposable );
     }
 
     exports.activate = activate;
