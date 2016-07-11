@@ -234,7 +234,7 @@
 
     function activate ( context ) {
         var disposable = vscode.commands.registerCommand(
-            'commentVSCode.makeLineSectionComment', ( ) => {
+            'comment5.makeLineSectionComment', ( ) => {
 
                 try {
                     // basic information:
