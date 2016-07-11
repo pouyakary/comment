@@ -1,5 +1,5 @@
 
-# Comment5 _for Visual Studio Code_
+# Comment 5 _for Visual Studio Code_
 
 If you're coding with [KFCS](https://github.com/karyfoundation/comment/wiki) you most probably use either [Comment IV](https://github.com/karyfoundation/comment) or [Comment 3](https://github.com/karyfoundation/comment-3). The experience on Comment IV has been dramatically improved over time and it's now a very fast experience creating comments, however that requires many switching over applications:
 
