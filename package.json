@@ -2,7 +2,7 @@
     "name": "comment5",
     "displayName": "Comment 5 for Visual Studio Code",
     "description": "Enjoy Section Comments of KFCS that you used to generate with Comment IV inside your Visual Studio Code with just a ⌘5.",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "publisher": "karyfoundation",
     "icon": "icon.png",
     "engines": {
@@ -12,7 +12,7 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:comment5.makeLineSectionComment"
+        "*"
     ],
     "main": "./comment",
     "contributes": {
@@ -27,6 +27,18 @@
                 "command": "comment5.makeLineSectionComment",
                 "key": "alt+y",
                 "mac": "alt+y",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "comment5.makeLineLineComment",
+                "key": "alt+l",
+                "mac": "alt+l",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "comment5.makeLineLineComment",
+                "key": "ctrl+l",
+                "mac": "cmd+l",
                 "when": "editorTextFocus"
             }
         ]
