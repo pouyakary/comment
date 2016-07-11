@@ -1,9 +1,10 @@
 {
     "name": "comment-vscode",
-    "displayName": "comment-vscode",
+    "displayName": "Comment for Visual Studio Code",
     "description": "Enjoy Section Comments of KFCS that you used to generate with Comment IV inside your Visual Studio Code.",
     "version": "0.0.1",
     "publisher": "karyfoundation",
+    "icon": "icon.png",
     "engines": {
         "vscode": "^0.10.1"
     },
