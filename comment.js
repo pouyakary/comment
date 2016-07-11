@@ -55,7 +55,7 @@
 //
 
     function generateRegExForCurrentLanguage (  ) {
-        return new RegExp( `\s*(${ oneLineCommentSign })?([a-zA-Z ]|[0-9][0-9\.]*)+\s*` );
+        return new RegExp( `^\s*(${ oneLineCommentSign })?([a-zA-Z ]|[0-9][0-9\.]*)+\s*$` );
     }
 
 //
@@ -149,8 +149,6 @@
             }
         }
     }
-
-
 
 //
 // ─── GET INDENTATION SIZE ───────────────────────────────────────────────────────
@@ -279,13 +277,22 @@
                 try {
                     // basic information:
                     loadEnvironmentalInformation( );
+
+                    // language specific parts:
                     oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
                     if ( oneLineCommentSign === null ) {
                         vscode.window.showInformationMessage(`Comment 5 Error: Language "${ currentLanguageId }" is not supported by Comment 5.`);
                         return;
                     }
-        
-                    lineFormat          = generateRegExForCurrentLanguage( );
+                    lineFormat = generateRegExForCurrentLanguage( );
+
+                    // checking the input against the regex
+                    if ( !lineFormat.test( currentLineString ) ) {
+                        vscode.window.showInformationMessage( 'Comment 5 Error: Comment text must only contain basic alphabet and numbers.' );
+                        return;
+                    } else {
+                        vscode.window.showInformationMessage('here');
+                    }
 
                     // generate comment
                     processCurrentLine( );
