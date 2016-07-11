@@ -160,9 +160,10 @@
                     break;
 
                 default:
-                    return { 'tabs': tabs, 'spaces': spaces }
+                    return { 'tabs': tabs, 'spaces': spaces };
             }
         }
+        return { 'tabs': tabs, 'spaces': spaces };
     }
 
 //
@@ -260,26 +261,39 @@
 //
 
     function generateCommentBasedOnIndentation ( ) {
+        let comment;
         switch ( relativeIndentationSize ) {
             case 0:
-                return generateSectionComment( 80 );
+                comment = generateSectionComment( 80 );
+                break;
             case 1:
-                return generateSectionComment( 65 );
+                comment = generateSectionComment( 65 );
+                break;
             default:
-                return generateInSectionComments( );
+                comment = generateInSectionComments( );
+                break;
         }
+        return comment + generateAdditionalSpacingsForComments( );
     }
 
 //
 // ─── GENERATE ADDITIONAL SPACINGS ───────────────────────────────────────────────
 //
 
-    function generateAdditionalSpacings ( ) {
+    function generateAdditionalSpacingsForComments ( ) {
         let spacings = `\n${ generateIndentation( ) }`;
         if ( relativeIndentationSize < 2 ) {
             spacings += computeTabs( 1 );
         }
         return spacings;
+    }
+
+//
+// ─── GENERATE ADDITIONAL SPACING FOR LINES ──────────────────────────────────────
+//
+
+    function generateAdditionalSpacingsForLines ( ) {
+        return `\n${ generateIndentation( ) }`;
     }
 
 //
@@ -297,11 +311,11 @@
 // ─── REPLACE COMMENT ON TEXT EDITOR ─────────────────────────────────────────────
 //
 
-    function replaceCommentOnEditor ( comment ) {
+    function replaceCommentOnEditor ( comment , spacings ) {
         vscode.window.activeTextEditor.edit( textEditorEdit => {
             textEditorEdit.replace(
                 vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
-                comment + generateAdditionalSpacings( )
+                comment
             );
         });
     }
@@ -311,19 +325,7 @@
 //
 
     function generateLineComment ( width ) {
-        let indentationText = generateIndentation( );
-
-        // line 1
-        let result = `${ indentationText }${ oneLineCommentSign }\n`;
-
-        // line 2
-        result += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter, width ) }\n`;
-
-        // line 3
-        result += `${ indentationText }${ oneLineCommentSign }\n`
-
-        // done
-        return result;
+        return `${ generateIndentation( ) }${ oneLineCommentSign } ${ repeat( commentLineCharacter, width ) }\n`;;
     }
 
 //
@@ -348,7 +350,7 @@
 //
 
     function generateSeparatorComments ( ) {
-        return `${ oneLineCommentSign } • • • • •`;
+        return `${ generateIndentation( ) }${ oneLineCommentSign } • • • • •`;
     }
 
 //
@@ -357,14 +359,19 @@
 
     function onGenerateLine ( ) {
         generateCommentWithFormula( ( ) => {
+            let line;
             switch ( relativeIndentationSize ) {
                 case 0:
-                    return generateLineComment( 80 );
+                    line = generateLineComment( 80 );
+                    break;
                 case 1:
-                    return generateLineComment( 65 );
+                    line = generateLineComment( 65 );
+                    break;
                 default:
-                    return generateSeparatorComments( );
+                    line = generateSeparatorComments( );
+                    break;
             }
+            return line + generateAdditionalSpacingsForLines( );
         });
     }
 
@@ -384,12 +391,6 @@
                 return;
             }
 
-            // checking the input against the regex
-            if ( !lineFormat.test( currentLineString ) ) {
-                vscode.window.showInformationMessage( 'Comment 5 Error: Comment text must only contain basic alphabet and numbers.' );
-                return;
-            }
-
             // generate comment
             processCurrentLine( );
 
@@ -404,7 +405,7 @@
             vscode.commands.executeCommand( 'cancelSelection' );
 
         } catch ( err ) {
-            vscode.window.showInformationMessage( `Comment 5 Error: ${ err.message }` );
+            vscode.window.showInformationMessage( `Comment 5 Error: ${ err.message } at ${ err.lineNumber }` );
         }
     }
 
@@ -414,16 +415,14 @@
 
     function activate ( context ) {
         // Generate comment command
-        var generateCommentDisposable = vscode.commands.registerCommand(
+        context.subscriptions.push( vscode.commands.registerCommand(
             'comment5.makeLineSectionComment', onGenerateComment
-        );
-        context.subscriptions.push( generateCommentDisposable );
+        ));
 
         // Generate line command
-        var generateLineDisposable = vscode.commands.registerCommand(
+        context.subscriptions.push( vscode.commands.registerCommand (
             'comment5.makeLineLineComment', onGenerateLine
-        );
-        context.subscriptions.push( generateLineDisposable );
+        ));
     }
 
     exports.activate = activate;
