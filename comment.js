@@ -70,7 +70,7 @@
             case 'typescript':
             case 'swift':
             case 'csharp':
-            case 'c':
+            case 'cpp':
             case 'processing':
             case 'java':
             case 'json':
