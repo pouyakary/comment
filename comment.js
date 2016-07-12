@@ -102,7 +102,7 @@
             case 'matlab':
             case 'octave':
                 return '%';
-            
+
             case 'lua':
             case 'haskell':
             case 'elm':
