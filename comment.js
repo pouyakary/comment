@@ -236,6 +236,7 @@
 // ─── REPEAT TEXT ────────────────────────────────────────────────────────────────
 //
 
+
     function repeat ( text, times ) {
         let result = '';
         for ( let index = 0; index < times; index ++ ) {
@@ -252,7 +253,7 @@
         if ( currentInsertSpacesStatus ) {
             return repeat( ' ' , currentTabSize * tabs );
         } else {
-            return repeat( '\t', tabs );
+            return repeat( '\t' , tabs );
         }
     }
 
@@ -261,7 +262,9 @@
 //
 
     function generateCommentBasedOnIndentation ( ) {
+
         let comment;
+
         switch ( relativeIndentationSize ) {
             case 0:
                 comment = generateSectionComment( 80 );
@@ -273,6 +276,7 @@
                 comment = generateInSectionComments( );
                 break;
         }
+
         return comment + generateAdditionalSpacingsForComments( );
     }
 
@@ -303,7 +307,9 @@
     function removeStartingCommentParts ( ) {
         let comment = currentLineString.trim( );
         if ( comment.startsWith( oneLineCommentSign ) ) {
-            vscode.window.showInformationMessage( comment.substring( oneLineCommentSign.length ) );
+            vscode.window.showInformationMessage(
+                comment.substring( oneLineCommentSign.length )
+            );
         }
     }
 
@@ -336,7 +342,9 @@
         generateCommentWithFormula( ( ) => {
             // checking the input against the regex
             if ( !lineFormat.test( currentLineString ) ) {
-                vscode.window.showInformationMessage( 'Comment 5 Error: Comment text must only contain basic alphabet and numbers.' );
+                vscode.window.showInformationMessage(
+                    'Comment 5 Error: Comment text must only contain basic alphabet and numbers.'
+                );
                 return null;
             }
 
@@ -387,7 +395,9 @@
             // language specific parts:
             oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
             if ( oneLineCommentSign === null ) {
-                vscode.window.showInformationMessage(`Comment 5 Error: Language "${ currentLanguageId }" is not supported by Comment 5.`);
+                vscode.window.showInformationMessage(
+                    `Comment 5 Error: Language "${ currentLanguageId }" is not supported by Comment 5.`
+                );
                 return;
             }
 
@@ -405,7 +415,9 @@
             vscode.commands.executeCommand( 'cancelSelection' );
 
         } catch ( err ) {
-            vscode.window.showInformationMessage( `Comment 5 Error: ${ err.message } at ${ err.lineNumber }` );
+            vscode.window.showInformationMessage(
+                `Comment 5 Error: ${ err.message } at ${ err.lineNumber }`
+            );
         }
     }
 
