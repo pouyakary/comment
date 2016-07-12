@@ -3,6 +3,8 @@
 
 ![](http://www.karyfoundation.org/media-server/comment-vscode/screen.gif)
 
+## Are you using KFCS?
+
 If you're coding with [KFCS](https://github.com/karyfoundation/comment/wiki) you most probably use either [Comment IV](https://github.com/karyfoundation/comment) or [Comment 3](https://github.com/karyfoundation/comment-3). The experience on Comment IV has been dramatically improved over time and it's now a very fast experience creating comments, however that requires many switching over applications:
 
 ```
@@ -25,4 +27,6 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 - For ending the section use: `Ctrl+l`, `Command+l` or `Alt+l` (based on your preferred ergonomics)
 
 <br />
-<img src="http://www.karyfoundation.org/foundation/logo/github-full-horse.png" width="250"/>
+<a href="http://www.karyfoundation.org/">
+    <img src="http://www.karyfoundation.org/foundation/logo/github-full-horse.png" width="250"/>
+</a>
