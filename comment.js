@@ -500,7 +500,7 @@
 // ─── ON GENERATE FLAG ───────────────────────────────────────────────────────────
 //
 
-    function onGenerateFlagComment ( ) {
+    function createFlagComment ( index ) {
         generateCommentWithFormula( ( ) => {
             // checking the input against the regex
             if ( !lineFormat.test( currentLineString ) ) {
@@ -511,7 +511,7 @@
             }
 
             // generating the comment
-            return generateFlagCommentString( ) + generateAdditionalSpacingsForComments( );
+            return generateFlagCommentString( index ) + generateAdditionalSpacingsForLines( );
         });
     }
 
@@ -519,13 +519,13 @@
 // ─── GET NUMBER INPUT FROM USER ─────────────────────────────────────────────────
 //
 
-    function getInputNumber ( ) {
+    function onGenerateFlagComment ( ) {
         // input
         let promptNumber = vscode.window.showInputBox({
             prompt: "Please give your flag number an index",
             value: "1",
             validateInput: ( value ) => {
-                if ( /^\s*[0-9]+\s*$/.test( value ) ) {
+                if ( /^\s*[0-9]*\s*$/.test( value ) ) {
                     return null;
                 } else {
                     return "Input must be a number.";
@@ -533,21 +533,27 @@
             }
         });
 
-        // making it a number
-        return parseInt( promptNumber.trim( ) );
+        // prompt number
+        promptNumber.then( value => {
+            let index;
+            if ( value === null ) {
+                index = 1;
+            } else {
+                index = value;
+            }
+
+            createFlagComment( index );
+        });
     }
 
 //
 // ─── GENERATE FLAG COMMENT ──────────────────────────────────────────────────────
 //
 
-    function generateFlagCommentString ( ) {
+    function generateFlagCommentString ( index ) {
         // info
         const text = makeFlagCommentText( currentLineString.toUpperCase( ).trim( ) );
         const indentationText = generateIndentation( );
-
-        // TEMP:
-        let index = getInputNumber( );
 
         // line 1
         let comment = `${ indentationText }${ oneLineCommentSign }\n`;
