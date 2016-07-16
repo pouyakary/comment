@@ -511,7 +511,7 @@
             }
 
             // generating the comment
-            return generateFlagCommentString( index ) + generateAdditionalSpacingsForLines( );
+            return generateFlagCommentString( index );
         });
     }
 
@@ -536,7 +536,7 @@
         // prompt number
         promptNumber.then( value => {
             let index;
-            if ( value === null ) {
+            if ( value == null || value == undefined ) {
                 index = 1;
             } else {
                 index = value;
@@ -568,7 +568,10 @@
         comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 50 + text.length ) } \n`;
 
         // line 5
-        comment += `${ indentationText }${ oneLineCommentSign }\n`;
+        comment += `${ indentationText }${ oneLineCommentSign }\n\n`;
+
+        // line 7
+        comment += indentationText;
 
         // done
         return comment;
