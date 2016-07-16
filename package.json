@@ -1,8 +1,8 @@
 {
     "name": "comment",
     "displayName": "Comment",
-    "description": "Enjoy Section Comments of KFCS that you used to generate with Comment inside your Visual Studio Code with just a ⌘5.",
-    "version": "2.0.1",
+    "description": "Enjoy Section Comments of KFCS that you used to generate with Comment inside your Visual Studio Code with just alt+y.",
+    "version": "3.0.0",
     "publisher": "karyfoundation",
     "icon": "icon.png",
     "engines": {
