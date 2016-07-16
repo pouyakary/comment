@@ -541,7 +541,6 @@
             } else {
                 index = value;
             }
-
             createFlagComment( index );
         });
     }
@@ -609,7 +608,7 @@
         // disabled for now:
         return;
 
-        // info
+        /*
         const lineCount = vscode.window.activeTextEditor.document.lineCount;
         const flagCommentSecondLineRegex = /^.*[\u2500]+ ([IVXLCDM])+ [\u2500]+$/;
         let flagCounter = 0;
@@ -631,6 +630,7 @@
 
         // done
         vscode.commands.executeCommand( 'cancelSelection' );
+        */
     }
 
 //
