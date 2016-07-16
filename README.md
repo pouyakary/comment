@@ -27,9 +27,11 @@ In order to reduce the settings time, this extension has a content-aware system,
 ## How to use?
 Comment 5 is content-aware so you don't have to choose your section type of comment. Comment uses `KFCS Section Comment Width 80`, `KFCS Section Comment Width 60` and `KFCS Section InSection Comment` for start of your part and `KFCS Line Comment Width 80`, `KFCS Line Comment Width 60` and `KFCS Separator Comment` for end of your section. What you have to do is to specify if the comment is start or the end of the section.
 
-- For flag comment use: `alt` + `shift` + `y` and then you have to enter index.
-- For starting the section use: `alt` + `y`.
-- For ending the section use: `alt` + `l`.
+| Comments      | Keybindings           | Additional Information                                    |
+|---------------|-----------------------|-----------------------------------------------------------|
+| Flag          | `alt` + `shift` + `y` | You'll have to also give it the index number              |
+| Section Start | `alt` + `y`           | It will generate Section Comment or InSection Comment     |
+| Section End   | `alt` + `l`           | It will generate Line Comment or Separator                |
 
 <br />
 <a href="http://www.karyfoundation.org/">
