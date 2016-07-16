@@ -30,8 +30,8 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 | Comments      | Keybindings           | Additional Information                                    |
 |---------------|-----------------------|-----------------------------------------------------------|
 | Flag          | `alt` + `shift` + `y` | You'll have to also give it the index number              |
-| Section Start | `alt` + `y`           | It will generate Section Comment or InSection Comment     |
-| Section End   | `alt` + `l`           | It will generate Line Comment or Separator                |
+| Section Start | `alt` + `y`           | Section Comment for Indentation less than 2 and InSection comment for the rest    |
+| Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest 
 
 <br />
 <a href="http://www.karyfoundation.org/">
