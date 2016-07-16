@@ -1,7 +1,11 @@
 
-# Comment 5 _for Visual Studio Code_
+# Comment _for Visual Studio Code_
 
+### Section Comment
 ![](http://www.karyfoundation.org/media-server/comment-vscode/screen.gif)
+
+### Flag comment
+![](https://cloud.githubusercontent.com/assets/2157285/16894346/850c6090-4b68-11e6-8a52-ad2be0d9efa0.gif)
 
 ## Are you using KFCS?
 
@@ -14,7 +18,7 @@ cmd + alt  -->  going back to editor
 cmd + v    -->  to paste the comments
 ```
 
-And this is too much work for a comment. That's why this extension exists. You may just type your comment in a line you want to commentify and then use `⌘+y` / `Ctrl+y` to make it a comment.
+And this is too much work for a comment. That's why this extension exists. Comment 5 is a complete KFCS experience with intelligence in mind.
 
 In order to reduce the settings time, this extension has a content-aware system, it scans the spacing of your lines start and then understands the real and relative indentations needed for KFCS. It then chooses a comment template between `Section W80`, `Section W65` and `InSection` comments. The language is also understood by the editors environmental settings.
 
@@ -23,8 +27,9 @@ In order to reduce the settings time, this extension has a content-aware system,
 ## How to use?
 Comment 5 is content-aware so you don't have to choose your section type of comment. Comment uses `KFCS Section Comment Width 80`, `KFCS Section Comment Width 60` and `KFCS Section InSection Comment` for start of your part and `KFCS Line Comment Width 80`, `KFCS Line Comment Width 60` and `KFCS Separator Comment` for end of your section. What you have to do is to specify if the comment is start or the end of the section.
 
-- For starting the section use: `Ctrl+y`, `Command+y` or `Alt+y` (based on your preferred ergonomics)
-- For ending the section use: `Ctrl+l`, `Command+l` or `Alt+l` (based on your preferred ergonomics)
+- For flag comment use: `alt` + `shift` + `y` and then you have to enter index.
+- For starting the section use: `alt` + `y`.
+- For ending the section use: `alt` + `l`.
 
 <br />
 <a href="http://www.karyfoundation.org/">
