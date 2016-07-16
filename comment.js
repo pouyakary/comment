@@ -6,6 +6,12 @@
 //
 
 //
+// ──────────────────────────────────────────────── I ──────────
+//  :::::: B A S E : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────
+//
+
+//
 // ─── SETTINGS ───────────────────────────────────────────────────────────────────
 //
 
@@ -16,6 +22,7 @@
 //
 
     var vscode = require( 'vscode' );
+    var roman  = require( './roman.js' );
 
 //
 // ─── CONSTANTS ──────────────────────────────────────────────────────────────────
@@ -40,6 +47,39 @@
     var linesFirstSpacing;
     var realIndentationSize;
     var relativeIndentationSize;
+
+//
+// ─── BODY ───────────────────────────────────────────────────────────────────────
+//
+
+    function activate ( context ) {
+        // Generate flag comment
+        context.subscriptions.push( vscode.commands.registerCommand(
+            'comment.makeFlagComment', onGenerateFlagComment
+        ));
+
+        // Generate comment command
+        context.subscriptions.push( vscode.commands.registerCommand(
+            'comment.makeSectionComment', onGenerateSectionComment
+        ));
+
+        // Generate line command
+        context.subscriptions.push( vscode.commands.registerCommand (
+            'comment.makeLineComment', onGenerateLineComment
+        ));
+    }
+
+    exports.activate = activate;
+
+//
+// ─── DEACTIVATE ─────────────────────────────────────────────────────────────────
+//
+
+    function deactivate ( ) {
+        // And there was a place, nothing ever happened at....
+    }
+
+    exports.deactivate = deactivate;
 
 //
 // ─── GET ENVIRONMENTAL INFORMATION ──────────────────────────────────────────────
@@ -183,6 +223,126 @@
     }
 
 //
+// ─── INDENT BASED ON THE INDENTATION INFO ───────────────────────────────────────
+//
+
+    function generateIndentation ( ) {
+        return repeat( ' ' , linesFirstSpacing.spaces ) + computeTabs( linesFirstSpacing.tabs );
+    }
+
+//
+// ─── REPEAT TEXT ────────────────────────────────────────────────────────────────
+//
+
+    function repeat ( text, times ) {
+        let result = '';
+        for ( let index = 0; index < times; index ++ ) {
+            result += text;
+        }
+        return result;
+    }
+
+//
+// ─── GET TAB ────────────────────────────────────────────────────────────────────
+//
+
+    function computeTabs ( tabs ) {
+        if ( currentInsertSpacesStatus ) {
+            return repeat( ' ' , currentTabSize * tabs );
+        } else {
+            return repeat( '\t' , tabs );
+        }
+    }
+
+//
+// ─── REMOVE STARTING PARTS OF THE COMMENT ───────────────────────────────────────
+//
+
+    function removeStartingCommentParts ( ) {
+        let comment = currentLineString.trim( );
+        if ( comment.startsWith( oneLineCommentSign ) ) {
+            vscode.window.showInformationMessage(
+                comment.substring( oneLineCommentSign.length )
+            );
+        }
+    }
+
+//
+// ─── REPLACE COMMENT ON TEXT EDITOR ─────────────────────────────────────────────
+//
+
+    function replaceCommentOnEditor ( comment , spacings ) {
+        vscode.window.activeTextEditor.edit( textEditorEdit => {
+            textEditorEdit.replace(
+                vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
+                comment
+            );
+        });
+    }
+
+//
+// ─── GENERATE ADDITIONAL SPACINGS ───────────────────────────────────────────────
+//
+
+    function generateAdditionalSpacingsForComments ( ) {
+        let spacings = `\n${ generateIndentation( ) }`;
+        if ( relativeIndentationSize < 2 ) {
+            spacings += computeTabs( 1 );
+        }
+        return spacings;
+    }
+
+//
+// ─── COMMENT GENERATION BODY ────────────────────────────────────────────────────
+//
+
+    function generateCommentWithFormula ( func ) {
+        try {
+            // basic information:
+            loadEnvironmentalInformation( );
+
+            // language specific parts:
+            oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
+            if ( oneLineCommentSign === null ) {
+                vscode.window.showInformationMessage(
+                    `Comment Error: Language "${ currentLanguageId }" is not supported by Comment 5.`
+                );
+                return;
+            }
+
+            // generate comment
+            processCurrentLine( );
+
+            // generate the comment
+            let comment = func( );
+            if ( comment === null ) return;
+
+            // apply to editor
+            replaceCommentOnEditor( comment );
+
+            // done!
+            vscode.commands.executeCommand( 'cancelSelection' );
+
+        } catch ( err ) {
+            vscode.window.showInformationMessage(
+                `Comment 5 Error: ${ err.message } at ${ err.lineNumber }`
+            );
+        }
+    }
+
+// ────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+//
+// ────────────────────────────────────────────────────────────────────────── II ──────────
+//  :::::: S E L E C T I O N   C O M M E N T : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────
+//
+
+//
 // ─── GENERATE COMMENT ───────────────────────────────────────────────────────────
 //
 
@@ -225,36 +385,22 @@
     }
 
 //
-// ─── INDENT BASED ON THE INDENTATION INFO ───────────────────────────────────────
+// ─── ON GENERATE COMMENT ────────────────────────────────────────────────────────
 //
 
-    function generateIndentation ( ) {
-        return repeat( ' ' , linesFirstSpacing.spaces ) + computeTabs( linesFirstSpacing.tabs );
-    }
+    function onGenerateSectionComment ( ) {
+        generateCommentWithFormula( ( ) => {
+            // checking the input against the regex
+            if ( !lineFormat.test( currentLineString ) ) {
+                vscode.window.showInformationMessage(
+                    'Comment Error: Comment text must only contain basic alphabet and numbers.'
+                );
+                return null;
+            }
 
-//
-// ─── REPEAT TEXT ────────────────────────────────────────────────────────────────
-//
-
-
-    function repeat ( text, times ) {
-        let result = '';
-        for ( let index = 0; index < times; index ++ ) {
-            result += text;
-        }
-        return result;
-    }
-
-//
-// ─── GET TAB ────────────────────────────────────────────────────────────────────
-//
-
-    function computeTabs ( tabs ) {
-        if ( currentInsertSpacesStatus ) {
-            return repeat( ' ' , currentTabSize * tabs );
-        } else {
-            return repeat( '\t' , tabs );
-        }
+            // return comment...
+            return generateCommentBasedOnIndentation( );
+        });
     }
 
 //
@@ -280,17 +426,17 @@
         return comment + generateAdditionalSpacingsForComments( );
     }
 
-//
-// ─── GENERATE ADDITIONAL SPACINGS ───────────────────────────────────────────────
-//
+// ────────────────────────────────────────────────────────────────────────────────
 
-    function generateAdditionalSpacingsForComments ( ) {
-        let spacings = `\n${ generateIndentation( ) }`;
-        if ( relativeIndentationSize < 2 ) {
-            spacings += computeTabs( 1 );
-        }
-        return spacings;
-    }
+
+
+
+
+//
+// ──────────────────────────────────────────────────────────────── III ──────────
+//  :::::: L I N E   C O M M E N T : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────────────────────
+//
 
 //
 // ─── GENERATE ADDITIONAL SPACING FOR LINES ──────────────────────────────────────
@@ -301,56 +447,11 @@
     }
 
 //
-// ─── REMOVE STARTING PARTS OF THE COMMENT ───────────────────────────────────────
-//
-
-    function removeStartingCommentParts ( ) {
-        let comment = currentLineString.trim( );
-        if ( comment.startsWith( oneLineCommentSign ) ) {
-            vscode.window.showInformationMessage(
-                comment.substring( oneLineCommentSign.length )
-            );
-        }
-    }
-
-//
-// ─── REPLACE COMMENT ON TEXT EDITOR ─────────────────────────────────────────────
-//
-
-    function replaceCommentOnEditor ( comment , spacings ) {
-        vscode.window.activeTextEditor.edit( textEditorEdit => {
-            textEditorEdit.replace(
-                vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
-                comment
-            );
-        });
-    }
-
-//
 // ─── GENERATE LINE COMMENT ──────────────────────────────────────────────────────
 //
 
     function generateLineComment ( width ) {
         return `${ generateIndentation( ) }${ oneLineCommentSign } ${ repeat( commentLineCharacter, width ) }\n`;;
-    }
-
-//
-// ─── ON GENERATE COMMENT ────────────────────────────────────────────────────────
-//
-
-    function onGenerateComment ( ) {
-        generateCommentWithFormula( ( ) => {
-            // checking the input against the regex
-            if ( !lineFormat.test( currentLineString ) ) {
-                vscode.window.showInformationMessage(
-                    'Comment 5 Error: Comment text must only contain basic alphabet and numbers.'
-                );
-                return null;
-            }
-
-            // return comment...
-            return generateCommentBasedOnIndentation( );
-        });
     }
 
 //
@@ -365,7 +466,7 @@
 // ─── ON GENERATE LINE ───────────────────────────────────────────────────────────
 //
 
-    function onGenerateLine ( ) {
+    function onGenerateLineComment ( ) {
         generateCommentWithFormula( ( ) => {
             let line;
             switch ( relativeIndentationSize ) {
@@ -383,70 +484,73 @@
         });
     }
 
+// ────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
 //
-// ─── COMMENT GENERATION BODY ────────────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────── IV ──────────
+//  :::::: F L A G   C O M M E N T : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────────────────────
 //
 
-    function generateCommentWithFormula ( func ) {
-        try {
-            // basic information:
-            loadEnvironmentalInformation( );
+//
+// ─── ON GENERATE FLAG ───────────────────────────────────────────────────────────
+//
 
-            // language specific parts:
-            oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
-            if ( oneLineCommentSign === null ) {
+    function onGenerateFlagComment ( ) {
+        generateCommentWithFormula( ( ) => {
+            // checking the input against the regex
+            if ( !lineFormat.test( currentLineString ) ) {
                 vscode.window.showInformationMessage(
-                    `Comment 5 Error: Language "${ currentLanguageId }" is not supported by Comment 5.`
+                    'Comment Error: Comment text must only contain basic alphabet and numbers.'
                 );
-                return;
+                return null;
             }
 
-            // generate comment
-            processCurrentLine( );
+            return generateFlagCommentString( );
+        });
+    }
 
-            // generate the comment
-            let comment = func( );
-            if ( comment === null ) return;
+//
+// ─── GENERATE FLAG COMMENT ──────────────────────────────────────────────────────
+//
 
-            // apply to editor
-            replaceCommentOnEditor( comment );
+    function generateFlagCommentString ( ) {
+        let text = makeFlagCommentText( currentLineString.toUpperCase( ).trim( ) );
+        let indentationText = generateIndentation( );
 
-            // done!
-            vscode.commands.executeCommand( 'cancelSelection' );
+        // line 1
+        let comment = `${ indentationText }${ oneLineCommentSign }\n`;
 
-        } catch ( err ) {
-            vscode.window.showInformationMessage(
-                `Comment 5 Error: ${ err.message } at ${ err.lineNumber }`
-            );
+        // line 2
+        comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , text.length + 40 )} XX ${ repeat( commentLineCharacter , 10 )}\n`;
+
+        // line 3
+        comment += `${ indentationText }${ oneLineCommentSign }   :::::: ${ text }: :  :   :    :     :        :          :\n`;
+
+        // line 4
+        comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 50 + text.length ) } \n`;
+
+        // line 5
+        comment += `${ indentationText }${ oneLineCommentSign }`;
+
+        // done
+        return comment;
+    }
+
+//
+// ─── MAKE TITLE TEXT ────────────────────────────────────────────────────────────
+//
+
+    function makeFlagCommentText ( text ) {
+        let title = '';
+        for ( let index = 0; index < text.length; index++ ) {
+            title += `${ text[ index ]} `;
         }
+        return title;
     }
-
-//
-// ─── BODY ───────────────────────────────────────────────────────────────────────
-//
-
-    function activate ( context ) {
-        // Generate comment command
-        context.subscriptions.push( vscode.commands.registerCommand(
-            'comment5.makeLineSectionComment', onGenerateComment
-        ));
-
-        // Generate line command
-        context.subscriptions.push( vscode.commands.registerCommand (
-            'comment5.makeLineLineComment', onGenerateLine
-        ));
-    }
-
-    exports.activate = activate;
-
-//
-// ─── DEACTIVATE ─────────────────────────────────────────────────────────────────
-//
-
-    function deactivate ( ) {
-        // And there was a place, nothing ever happened at....
-    }
-
-    exports.deactivate = deactivate;
 
 // ────────────────────────────────────────────────────────────────────────────────
