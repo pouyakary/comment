@@ -18,25 +18,37 @@
     "contributes": {
         "keybindings": [
             {
-                "command": "comment5.makeLineSectionComment",
+                "command": "comment.makeFlagComment",
+                "key": "ctrl+Y",
+                "mac": "cmd+Y",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "comment.makeFlagComment",
+                "key": "alt+Y",
+                "mac": "alt+Y",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "comment.makeSectionComment",
                 "key": "ctrl+y",
                 "mac": "cmd+y",
                 "when": "editorTextFocus"
             },
             {
-                "command": "comment5.makeLineSectionComment",
+                "command": "comment.makeSectionComment",
                 "key": "alt+y",
                 "mac": "alt+y",
                 "when": "editorTextFocus"
             },
             {
-                "command": "comment5.makeLineLineComment",
+                "command": "comment.makeLineComment",
                 "key": "alt+l",
                 "mac": "alt+l",
                 "when": "editorTextFocus"
             },
             {
-                "command": "comment5.makeLineLineComment",
+                "command": "comment.makeLineComment",
                 "key": "ctrl+l",
                 "mac": "cmd+l",
                 "when": "editorTextFocus"
