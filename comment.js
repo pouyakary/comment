@@ -268,14 +268,14 @@
     }
 
 //
-// ─── REPLACE COMMENT ON TEXT EDITOR ─────────────────────────────────────────────
+// ─── REPLACE LINE ───────────────────────────────────────────────────────────────
 //
 
-    function replaceCommentOnEditor ( comment , spacings ) {
+    function replaceLine ( line , text ) {
         vscode.window.activeTextEditor.edit( textEditorEdit => {
             textEditorEdit.replace(
-                vscode.window.activeTextEditor.document.lineAt( currentLine ).range,
-                comment
+                vscode.window.activeTextEditor.document.lineAt( line ).range,
+                text
             );
         });
     }
@@ -318,14 +318,14 @@
             if ( comment === null ) return;
 
             // apply to editor
-            replaceCommentOnEditor( comment );
+            replaceLine( currentLine, comment );
 
             // done!
             vscode.commands.executeCommand( 'cancelSelection' );
 
         } catch ( err ) {
             vscode.window.showInformationMessage(
-                `Comment 5 Error: ${ err.message } at ${ err.lineNumber }`
+                `Comment Error: "${ err.message }" at ${ err.lineNumber }`
             );
         }
     }
@@ -347,8 +347,8 @@
 //
 
     function generateSectionComment ( width ) {
-        let text = currentLineString.toUpperCase( ).trim( );
-        let indentationText = generateIndentation( );
+        const text = currentLineString.toUpperCase( ).trim( );
+        const indentationText = generateIndentation( );
 
         // line 1
         let result = `${ indentationText }${ oneLineCommentSign }\n`;
@@ -368,8 +368,8 @@
 //
 
     function generateInSectionComments ( ) {
-        let text = currentLineString.toUpperCase( ).trim( );
-        let indentationText = generateIndentation( );
+        const text = currentLineString.toUpperCase( ).trim( );
+        const indentationText = generateIndentation( );
 
         // line 1
         let result = `${ indentationText }${ oneLineCommentSign }\n`;
@@ -510,8 +510,31 @@
                 return null;
             }
 
-            return generateFlagCommentString( );
+            // generating the comment
+            return generateFlagCommentString( ) + generateAdditionalSpacingsForComments( );
         });
+    }
+
+//
+// ─── GET NUMBER INPUT FROM USER ─────────────────────────────────────────────────
+//
+
+    function getInputNumber ( ) {
+        // input
+        let promptNumber = vscode.window.showInputBox({
+            prompt: "Please give your flag number an index",
+            value: "1",
+            validateInput: ( value ) => {
+                if ( /^\s*[0-9]+\s*$/.test( value ) ) {
+                    return null;
+                } else {
+                    return "Input must be a number.";
+                }
+            }
+        });
+
+        // making it a number
+        return parseInt( promptNumber.trim( ) );
     }
 
 //
@@ -519,14 +542,18 @@
 //
 
     function generateFlagCommentString ( ) {
-        let text = makeFlagCommentText( currentLineString.toUpperCase( ).trim( ) );
-        let indentationText = generateIndentation( );
+        // info
+        const text = makeFlagCommentText( currentLineString.toUpperCase( ).trim( ) );
+        const indentationText = generateIndentation( );
+
+        // TEMP:
+        let index = getInputNumber( );
 
         // line 1
         let comment = `${ indentationText }${ oneLineCommentSign }\n`;
 
         // line 2
-        comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , text.length + 40 )} XX ${ repeat( commentLineCharacter , 10 )}\n`;
+        comment += generateFlagCommentSecondLine( index , text.length );
 
         // line 3
         comment += `${ indentationText }${ oneLineCommentSign }   :::::: ${ text }: :  :   :    :     :        :          :\n`;
@@ -535,10 +562,18 @@
         comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 50 + text.length ) } \n`;
 
         // line 5
-        comment += `${ indentationText }${ oneLineCommentSign }`;
+        comment += `${ indentationText }${ oneLineCommentSign }\n`;
 
         // done
         return comment;
+    }
+
+//
+// ─── GENERATE SECOND LINE ───────────────────────────────────────────────────────
+//
+
+    function generateFlagCommentSecondLine ( number , length ) {
+        return `${ generateIndentation( ) }${ oneLineCommentSign } ${ repeat( commentLineCharacter , length + 40 )} ${ roman( number ) } ${ repeat( commentLineCharacter , 10 )}\n`
     }
 
 //
@@ -551,6 +586,53 @@
             title += `${ text[ index ]} `;
         }
         return title;
+    }
+
+//
+// ─── ADJUST FLAG COMMENT NUMBERS ────────────────────────────────────────────────
+//
+
+    /**
+     * This function re arranges all the flag comment numbers, so you don't
+     * have to do it yourself.
+     */
+    function adjustFlagCommentNumbers ( ) {
+        // disabled for now:
+        return;
+
+        // info
+        const lineCount = vscode.window.activeTextEditor.document.lineCount;
+        const flagCommentSecondLineRegex = /^.*[\u2500]+ ([IVXLCDM])+ [\u2500]+$/;
+        let flagCounter = 0;
+
+        // adjusting
+        for ( let iteration = 0; iteration < lineCount; iteration++ ) {
+            let lineText = vscode.window.activeTextEditor.document.lineAt( iteration ).text;
+
+            if ( flagCommentSecondLineRegex.test( lineText ) ) {
+                let romanNumeral = flagCommentSecondLineRegex.exec( lineText );
+                let range = generateRangeForFlagReplace(
+                    iteration, romanNumeral.index, romanNumeral.length 
+                );
+                vscode.window.activeTextEditor.edit( textEditorEdit => {
+                    textEditorEdit.replace( range, roman( ++flagCounter ) );
+                });
+            }
+        }
+
+        // done
+        vscode.commands.executeCommand( 'cancelSelection' );
+    }
+
+//
+// ─── GENERATE RANGE FOR FLAG REPLACE ────────────────────────────────────────────
+//
+
+    function generateRangeForFlagReplace ( line, start, end ) {
+        return new vscode.Range(
+            new vscode.Position( line, start ),
+            new vscode.Position( line, start + end - 1 )
+        );
     }
 
 // ────────────────────────────────────────────────────────────────────────────────
