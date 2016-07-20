@@ -305,7 +305,7 @@
             oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
             if ( oneLineCommentSign === null ) {
                 vscode.window.showInformationMessage(
-                    `Comment Error: Language "${ currentLanguageId }" is not supported by Comment 5.`
+                    `Comment Error: Kary Comments can't be used in language "${ currentLanguageId }".`
                 );
                 return;
             }
