@@ -564,7 +564,7 @@
         comment += `${ indentationText }${ oneLineCommentSign }   :::::: ${ text }: :  :   :    :     :        :          :\n`;
 
         // line 4
-        comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 50 + text.length ) } \n`;
+        comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 50 + text.length ) }\n`;
 
         // line 5
         comment += `${ indentationText }${ oneLineCommentSign }\n\n`;
