@@ -135,6 +135,8 @@
             case 'powershell':
             case 'perl':
             case 'r':
+            case 'yaml':
+            case 'yml':
                 return '#';
 
             case 'tex':

@@ -56,7 +56,10 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 |---------------|-----------------------|-----------------------------------------------------------|
 | Flag          | `alt` + `shift` + `y` | You'll have to also give it the index number              |
 | Section Start | `alt` + `y`           | Section Comment for Indentation less than 2 and InSection comment for the rest    |
-| Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest 
+| Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest |
+
+## Whats new?
+- **3.0.7** &mdash; YAML is now supported.
 
 <br />
 <a href="http://www.karyfoundation.org/">
