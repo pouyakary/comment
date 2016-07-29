@@ -1,6 +1,8 @@
 
 # Comment _for Visual Studio Code_
 
+![](https://vsmarketplacebadge.apphb.com/version/karyfoundation.comment.svg) ![](https://vsmarketplacebadge.apphb.com/installs/karyfoundation.comment.svg) 
+
 ### Section Comment
 ![](http://www.karyfoundation.org/media-server/comment-vscode/screen.gif)
 

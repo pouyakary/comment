@@ -2,7 +2,7 @@
     "name": "comment",
     "displayName": "Comment for Code",
     "description": "Enjoy Section Comments of KFCS that you used to generate with Comment inside your Visual Studio Code with just alt+y.",
-    "version": "3.0.8",
+    "version": "3.0.9",
     "publisher": "karyfoundation",
     "icon": "icon.png",
     "engines": {
