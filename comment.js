@@ -441,14 +441,6 @@
 //
 
 //
-// ─── GENERATE ADDITIONAL SPACING FOR LINES ──────────────────────────────────────
-//
-
-    function generateAdditionalSpacingsForLines ( ) {
-        return `\n${ generateIndentation( ) }`;
-    }
-
-//
 // ─── GENERATE LINE COMMENT ──────────────────────────────────────────────────────
 //
 
@@ -473,16 +465,12 @@
             let line;
             switch ( relativeIndentationSize ) {
                 case 0:
-                    line = generateLineComment( 80 );
-                    break;
+                    return generateLineComment( 80 );
                 case 1:
-                    line = generateLineComment( 65 );
-                    break;
+                    return generateLineComment( 65 );
                 default:
-                    line = generateSeparatorComments( );
-                    break;
+                    return generateSeparatorComments( );
             }
-            return line + generateAdditionalSpacingsForLines( );
         });
     }
 

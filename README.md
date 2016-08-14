@@ -1,7 +1,7 @@
 
 # Comment _for Visual Studio Code_
 
-![](https://vsmarketplacebadge.apphb.com/version/karyfoundation.comment.svg) ![](https://vsmarketplacebadge.apphb.com/installs/karyfoundation.comment.svg) 
+![](https://vsmarketplacebadge.apphb.com/version/karyfoundation.comment.svg) ![](https://vsmarketplacebadge.apphb.com/installs/karyfoundation.comment.svg)  
 
 ### Section Comment
 ![](http://www.karyfoundation.org/media-server/comment-vscode/screen.gif)
@@ -61,6 +61,7 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 | Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest |
 
 ## Whats new?
+- **3.0.10** &mdash; Line comment improvements.
 - **3.0.7** &mdash; YAML is now supported.
 
 <br />
