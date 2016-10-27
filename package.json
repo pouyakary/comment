@@ -2,7 +2,7 @@
     "name": "comment",
     "displayName": "Comment for Code",
     "description": "Enjoy Section Comments of KFCS that you used to generate with Comment inside your Visual Studio Code with just alt+y.",
-    "version": "3.0.10",
+    "version": "4.0.0",
     "publisher": "karyfoundation",
     "icon": "icon.png",
     "engines": {
@@ -32,7 +32,27 @@
                 "key": "alt+l",
                 "when": "editorTextFocus"
             }
-        ]
+        ],
+        "commands": [
+            {
+                "command": "comment.makeSectionComment",
+                "title": "Generate Section Comment"
+            },
+            {
+                "command": "comment.makeLineComment",
+                "title": "Generate Line Comment"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "comment.makeSectionComment"
+                },
+                {
+                    "command": "comment.makeLineComment"
+                }
+            ]
+        }
     },
     "devDependencies": {
         "vscode": "0.10.x"
