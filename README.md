@@ -61,6 +61,7 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 | Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest |
 
 ## Whats new?
+- **4.0.1** &mdash; Supporting Uno and Fish languages.
 - **4.0.0** &mdash; Now having the awesome context menus.
 - **3.0.10** &mdash; Line comment improvements.
 - **3.0.7** &mdash; YAML is now supported.
