@@ -121,6 +121,7 @@
             case 'groovy':
             case 'less':
             case 'php':
+            case 'uno':
                 return '//';
 
             case 'ruby':
@@ -137,6 +138,7 @@
             case 'r':
             case 'yaml':
             case 'yml':
+            case 'fish':
                 return '#';
 
             case 'tex':
