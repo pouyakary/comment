@@ -120,6 +120,7 @@
             case 'stylus':
             case 'groovy':
             case 'less':
+            case 'pegjs':
             case 'php':
             case 'uno':
                 return '//';
