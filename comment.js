@@ -100,6 +100,7 @@
 
     function getOneLineLanguageCommentSignForCurrentLanguage ( ) {
         switch ( currentLanguageId ) {
+            case 'karyscript':
             case 'arendelle':
             case 'pageman':
             case 'javascript':
@@ -140,6 +141,7 @@
             case 'yaml':
             case 'yml':
             case 'fish':
+            case 'nearley':
                 return '#';
 
             case 'tex':
