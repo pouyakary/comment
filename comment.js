@@ -124,6 +124,7 @@
             case 'pegjs':
             case 'php':
             case 'uno':
+            case 'yuml':
                 return '//';
 
             case 'ruby':
