@@ -100,66 +100,68 @@
 
     function getOneLineLanguageCommentSignForCurrentLanguage ( ) {
         switch ( currentLanguageId ) {
-            case 'karyscript':
             case 'arendelle':
-            case 'pageman':
+            case 'cpp':
+            case 'csharp':
+            case 'go':
+            case 'groovy':
+            case 'haxe':
+            case 'java':
             case 'javascript':
             case 'javascriptreact':
-            case 'typescript':
-            case 'typescriptreact':
-            case 'swift':
-            case 'csharp':
-            case 'cpp':
-            case 'objective-c':
-            case 'processing':
-            case 'java':
+            case 'jison':
             case 'json':
-            case 'rust':
-            case 'go':
-            case 'scala':
-            case 'qml':
-            case 'stylus':
-            case 'groovy':
+            case 'karyscript':
             case 'less':
+            case 'objective-c':
+            case 'pageman':
             case 'pegjs':
             case 'php':
+            case 'processing':
+            case 'qml':
+            case 'rust':
+            case 'scala':
+            case 'stylus':
+            case 'swift':
+            case 'typescript':
+            case 'typescriptreact':
             case 'uno':
             case 'yuml':
                 return '//';
 
-            case 'ruby':
-            case 'python':
+            case 'bash':
+            case 'coffeescript':
+            case 'fish':
             case 'julia':
             case 'make':
             case 'makefile':
-            case 'shell':
-            case 'bash':
-            case 'shellscript':
-            case 'coffeescript':
-            case 'powershell':
+            case 'nearley':
             case 'perl':
+            case 'powershell':
+            case 'python':
             case 'r':
+            case 'ruby':
+            case 'shell':
+            case 'shellscript':
             case 'yaml':
             case 'yml':
-            case 'fish':
-            case 'nearley':
                 return '#';
 
-            case 'tex':
             case 'latex':
             case 'matlab':
             case 'octave':
+            case 'tex':
                 return '%';
 
-            case 'lua':
-            case 'haskell':
             case 'elm':
+            case 'haskell':
+            case 'lua':
                 return '--';
 
-            case 'scheme':
-            case 'racket':
-            case 'lisp':
             case 'clojure':
+            case 'lisp':
+            case 'racket':
+            case 'scheme':
                 return ';;;';
 
             case 'bat':
@@ -171,7 +173,7 @@
             case 'plaintext':
                 return commentLineCharacter + commentLineCharacter;
 
-            default :
+            default:
                 return null;
         }
     }
