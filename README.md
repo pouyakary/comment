@@ -3,7 +3,7 @@
 
 ![](https://vsmarketplacebadge.apphb.com/version/karyfoundation.comment.svg) ![](https://vsmarketplacebadge.apphb.com/installs/karyfoundation.comment.svg)
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/BYBIWfdpPnU" frameborder="0" allowfullscreen></iframe>
+<img src="https://user-images.githubusercontent.com/2157285/28877787-ace1415e-77b2-11e7-81fa-e4d3d7af50ec.gif" width="600" />
 
 ## Are you using KFCS?
 
