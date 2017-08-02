@@ -1,13 +1,11 @@
 
 # Comment _for Visual Studio Code_
 
-![](https://vsmarketplacebadge.apphb.com/version/karyfoundation.comment.svg) ![](https://vsmarketplacebadge.apphb.com/installs/karyfoundation.comment.svg)  
+![](https://vsmarketplacebadge.apphb.com/version/karyfoundation.comment.svg) ![](https://vsmarketplacebadge.apphb.com/installs/karyfoundation.comment.svg)
 
-### Section Comment
-![](http://www.karyfoundation.org/media-server/comment-vscode/screen.gif)
-
-### Flag comment
-![](https://cloud.githubusercontent.com/assets/2157285/16894346/850c6090-4b68-11e6-8a52-ad2be0d9efa0.gif)
+<video autoplay loop muted width="600">
+   <source src="https://webm.red/W3u0.webm" type="video/webm">
+</video>
 
 ## Are you using KFCS?
 
