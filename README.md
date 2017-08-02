@@ -61,6 +61,7 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 | Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest |
 
 ## Whats new?
+- **4.0.6** &mdash; SQL language is now supported;
 - **4.0.5** &mdash; Jison Language is now supported.
 - **4.0.4** &mdash; yUML language is now supported.
 - **4.0.3** &mdash; Nearley.js language is now supported.

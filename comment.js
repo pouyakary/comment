@@ -156,6 +156,7 @@
             case 'elm':
             case 'haskell':
             case 'lua':
+            case 'sql':
                 return '--';
 
             case 'clojure':
