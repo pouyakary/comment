@@ -3,9 +3,7 @@
 
 ![](https://vsmarketplacebadge.apphb.com/version/karyfoundation.comment.svg) ![](https://vsmarketplacebadge.apphb.com/installs/karyfoundation.comment.svg)
 
-<video autoplay loop muted width="600">
-   <source src="https://webm.red/W3u0.webm" type="video/webm">
-</video>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/BYBIWfdpPnU" frameborder="0" allowfullscreen></iframe>
 
 ## Are you using KFCS?
 
