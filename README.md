@@ -25,15 +25,23 @@ In order to reduce the settings time, this extension has a content-aware system,
 ──
 ── ──────────────────────────────────────────────── I ──────────
 ──   :::::: F L A G : :  :   :    :     :        :          :
-── ────────────────────────────────────────────────────────── 
+── ──────────────────────────────────────────────────────────
 ──
 
 ──
 ── ─── INDENTATION LEVEL 1 ────────────────────────────────────────────────────────
 ──
 
+──
+── ─────────────────────────────────────────────────── REVERSE SECTION HEADER ─────
+──
+
         ──
         ── ─── INDENTATION LEVEL 2 ─────────────────────────────────────────
+        ──
+
+        ──
+        ── ──────────────────────────────────── REVERSE LEVEL 2 HEADER ─────
         ──
 
                 ──
@@ -53,11 +61,13 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 | Comments      | Keybindings           | Additional Information                                    |
 |---------------|-----------------------|-----------------------------------------------------------|
 | Flag          | `alt` + `shift` + `y` | You'll have to also give it the index number              |
-| Section Start | `alt` + `y`           | Section Comment for Indentation less than 2 and InSection comment for the rest    |
+| Section Header | `alt` + `y`           | Section Comment for Indentation less than 2 and InSection comment for the rest    |
+| Reverse Section Start | `alt` + `m` | _same as section comment_ |
 | Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest |
 
 ## Whats new?
-- **4.0.6** &mdash; SQL language is now supported;
+- **5.0.0** &mdash; Reverse Section Comments are now supported.
+- **4.0.6** &mdash; SQL language is now supported.
 - **4.0.5** &mdash; Jison Language is now supported.
 - **4.0.4** &mdash; yUML language is now supported.
 - **4.0.3** &mdash; Nearley.js language is now supported.

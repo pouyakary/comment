@@ -60,7 +60,11 @@
 
         // Generate comment command
         context.subscriptions.push( vscode.commands.registerCommand(
-            'comment.makeSectionComment', onGenerateSectionComment
+            'comment.makeSectionComment', ( ) => onGenerateSectionComment( 'normal' )
+        ));
+
+        context.subscriptions.push( vscode.commands.registerCommand(
+            'comment.makeReverseSectionComment', ( ) => onGenerateSectionComment( 'reverse' )
         ));
 
         // Generate line command
@@ -103,6 +107,7 @@
             case 'arendelle':
             case 'cpp':
             case 'csharp':
+            case 'fsharp':
             case 'go':
             case 'groovy':
             case 'haxe':
@@ -358,14 +363,47 @@
 //
 
     function generateSectionComment ( width ) {
-        const text = currentLineString.toUpperCase( ).trim( );
-        const indentationText = generateIndentation( );
+        const text =
+            currentLineString.toUpperCase( ).trim( );
+        const indentationText =
+            generateIndentation( );
+        const startingLineChars =
+            repeat( commentLineCharacter , 3 )
+        const tailingLineChars =
+            repeat( commentLineCharacter, width - text.length - 5 )
 
         // line 1
         let result = `${ indentationText }${ oneLineCommentSign }\n`;
 
         // line 2
-        result += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 3 )} ${ text } ${ repeat( commentLineCharacter, width - text.length - 5 ) }\n`;
+        result += `${ indentationText }${ oneLineCommentSign } ${ startingLineChars } ${ text } ${ tailingLineChars }\n`;
+
+        // line 3
+        result += `${ indentationText }${ oneLineCommentSign }\n`
+
+        // done
+        return result;
+    }
+
+//
+// ─── GENERATE REVERSE SECTION COMMENT ───────────────────────────────────────────
+//
+
+    function generateReverseSectionComments ( width ) {
+        const text =
+            currentLineString.toUpperCase( ).trim( );
+        const indentationText =
+            generateIndentation( );
+        const startingLineChars =
+            repeat( commentLineCharacter , 5 )
+        const tailingLineChars =
+            repeat( commentLineCharacter, width - text.length - 7 )
+
+        // line 1
+        let result = `${ indentationText }${ oneLineCommentSign }\n`;
+
+        // line 2
+        result += `${ indentationText }${ oneLineCommentSign } ${ tailingLineChars } ${ text } ${ startingLineChars }\n`;
 
         // line 3
         result += `${ indentationText }${ oneLineCommentSign }\n`
@@ -399,7 +437,7 @@
 // ─── ON GENERATE COMMENT ────────────────────────────────────────────────────────
 //
 
-    function onGenerateSectionComment ( ) {
+    function onGenerateSectionComment ( kind = 'normal' ) {
         generateCommentWithFormula( ( ) => {
             // checking the input against the regex
             if ( !lineFormat.test( currentLineString ) ) {
@@ -410,7 +448,7 @@
             }
 
             // return comment...
-            return generateCommentBasedOnIndentation( );
+            return generateCommentBasedOnIndentation( kind );
         });
     }
 
@@ -418,16 +456,19 @@
 // ─── GENERATE COMMENT BASED ON INDENTATION ──────────────────────────────────────
 //
 
-    function generateCommentBasedOnIndentation ( ) {
-
+    function generateCommentBasedOnIndentation ( kind ) {
         let comment;
+        const sectionCommentGenerator =
+            ( kind === 'reverse'
+                ? generateReverseSectionComments
+                : generateSectionComment )
 
         switch ( relativeIndentationSize ) {
             case 0:
-                comment = generateSectionComment( 80 );
+                comment = sectionCommentGenerator( 80 );
                 break;
             case 1:
-                comment = generateSectionComment( 65 );
+                comment = sectionCommentGenerator( 65 );
                 break;
             default:
                 comment = generateInSectionComments( );
@@ -619,7 +660,7 @@
             if ( flagCommentSecondLineRegex.test( lineText ) ) {
                 let romanNumeral = flagCommentSecondLineRegex.exec( lineText );
                 let range = generateRangeForFlagReplace(
-                    iteration, romanNumeral.index, romanNumeral.length 
+                    iteration, romanNumeral.index, romanNumeral.length
                 );
                 vscode.window.activeTextEditor.edit( textEditorEdit => {
                     textEditorEdit.replace( range, roman( ++flagCounter ) );

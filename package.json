@@ -2,7 +2,7 @@
     "name": "comment",
     "displayName": "Comment for Code",
     "description": "Enjoy Section Comments of KFCS that you used to generate with Comment inside your Visual Studio Code with just alt+y.",
-    "version": "4.0.8",
+    "version": "5.0.0",
     "publisher": "karyfoundation",
     "icon": "icon.png",
     "engines": {
@@ -28,6 +28,11 @@
                 "when": "editorTextFocus"
             },
             {
+                "command": "comment.makeReverseSectionComment",
+                "key": "alt+m",
+                "when": "editorTextFocus"
+            },
+            {
                 "command": "comment.makeLineComment",
                 "key": "alt+l",
                 "when": "editorTextFocus"
@@ -36,11 +41,15 @@
         "commands": [
             {
                 "command": "comment.makeLineComment",
-                "title": "Generate Line Comment"
+                "title": "Line to KFCS Spacer"
             },
             {
                 "command": "comment.makeSectionComment",
-                "title": "Generate Section Comment"
+                "title": "Line to KFCS Header"
+            },
+            {
+                "command": "comment.makeReverseSectionComment",
+                "title": "Line to KFCS Reverse Header"
             }
         ],
         "menus": {
@@ -50,6 +59,9 @@
                 },
                 {
                     "command": "comment.makeLineComment"
+                },
+                {
+                    "command": "comment.makeReverseSectionComment"
                 }
             ]
         }
