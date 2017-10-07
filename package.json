@@ -41,15 +41,19 @@
         "commands": [
             {
                 "command": "comment.makeLineComment",
-                "title": "Line to KFCS Spacer"
+                "title": "Make a KFCS Spacer Comment"
             },
             {
                 "command": "comment.makeSectionComment",
-                "title": "Line to KFCS Header"
+                "title": "Make a KFCS Header Comment"
             },
             {
                 "command": "comment.makeReverseSectionComment",
-                "title": "Line to KFCS Reverse Header"
+                "title": "Make a KFCS Reverse Header Comment"
+            },
+            {
+                "command": "comment.makeFlagComment",
+                "title": "Make a Flag Comment"
             }
         ],
         "menus": {
