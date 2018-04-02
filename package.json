@@ -1,9 +1,13 @@
 {
     "name": "comment",
-    "displayName": "Comment for Code",
-    "description": "Enjoy Section Comments of KFCS that you used to generate with Comment inside your Visual Studio Code with just alt+y.",
-    "version": "5.0.0",
+    "displayName": "Comment IV",
+    "description": "The easiest way to to decorate your codes with Kary Comments in Visual Studio Code.",
+    "version": "5.0.1",
     "publisher": "karyfoundation",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pmkary/comment-vscode"
+	},
     "icon": "icon.png",
     "engines": {
         "vscode": "^0.10.1"
@@ -41,19 +45,19 @@
         "commands": [
             {
                 "command": "comment.makeLineComment",
-                "title": "Make a KFCS Spacer Comment"
+                "title": "Make a Kary Spacer Comment"
             },
             {
                 "command": "comment.makeSectionComment",
-                "title": "Make a KFCS Header Comment"
+                "title": "Make a Kary Header Comment"
             },
             {
                 "command": "comment.makeReverseSectionComment",
-                "title": "Make a KFCS Reverse Header Comment"
+                "title": "Make a Kary Reverse Header Comment"
             },
             {
                 "command": "comment.makeFlagComment",
-                "title": "Make a Flag Comment"
+                "title": "Make a Kary Comment"
             }
         ],
         "menus": {
