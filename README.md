@@ -66,6 +66,7 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 | Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest |
 
 ## Whats new?
+- **5.0.1** &mdash; GLSL Language Support Added.
 - **5.0.0** &mdash; Reverse Section Comments are now supported.
 - **4.0.6** &mdash; SQL language is now supported.
 - **4.0.5** &mdash; Jison Language is now supported.
@@ -76,8 +77,3 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 - **4.0.0** &mdash; Now having the awesome context menus.
 - **3.0.10** &mdash; Line comment improvements.
 - **3.0.7** &mdash; YAML is now supported.
-
-<br />
-<a href="http://www.karyfoundation.org/">
-    <img src="https://user-images.githubusercontent.com/2157285/28680500-c9ca905a-730b-11e7-99bf-2b249d97c17d.png" width="250"/>
-</a>

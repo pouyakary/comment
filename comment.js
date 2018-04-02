@@ -132,6 +132,7 @@
             case 'typescriptreact':
             case 'uno':
             case 'yuml':
+            case 'glsl':
                 return '//';
 
             case 'bash':
