@@ -1,77 +1,76 @@
 {
-	"name": "comment",
-	"displayName": "Kary Comments for Visual Studio Code",
-	"description": "The easiest way to decorate your codes with Kary Comments.",
-	"version": "5.0.1",
-	"publisher": "karyfoundation",
-	"icon": "icon.png",
-	"engines": {
-		"vscode": "^0.10.1"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./comment",
-	"contributes": {
-		"keybindings": [
-			{
-				"command": "comment.makeFlagComment",
-				"key": "alt+shift+y",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "comment.makeSectionComment",
-				"key": "alt+y",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "comment.makeReverseSectionComment",
-				"key": "alt+m",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "comment.makeLineComment",
-				"key": "alt+l",
-				"when": "editorTextFocus"
-			}
-		],
-		"commands": [
-			{
-				"command": "comment.makeLineComment",
-				"title": "Line to Kary Spacer"
-			},
-			{
-				"command": "comment.makeSectionComment",
-				"title": "Line to Kary Header"
-			},
-			{
-				"command": "comment.makeReverseSectionComment",
-				"title": "Line to Kary Reverse Header"
-			}
-		],
-		"menus": {
-			"editor/context": [
-				{
-					"command": "comment.makeSectionComment"
-				},
-				{
-					"command": "comment.makeLineComment"
-				},
-				{
-					"command": "comment.makeReverseSectionComment"
-				}
-			]
-		}
-	},
-	"devDependencies": {
-		"vscode": "0.10.x"
-	},
-	"__metadata": {
-		"id": "89789d74-b90b-4cbf-b846-c903d9929362",
-		"publisherDisplayName": "Pouya Kary",
-		"publisherId": "00c37c0d-e370-4cc2-8ab3-3fa32a26514a"
-	}
+    "name": "comment",
+    "displayName": "Comment for Code",
+    "description": "Enjoy Section Comments of KFCS that you used to generate with Comment inside your Visual Studio Code with just alt+y.",
+    "version": "5.0.0",
+    "publisher": "karyfoundation",
+    "icon": "icon.png",
+    "engines": {
+        "vscode": "^0.10.1"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./comment",
+    "contributes": {
+        "keybindings": [
+            {
+                "command": "comment.makeFlagComment",
+                "key": "alt+shift+y",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "comment.makeSectionComment",
+                "key": "alt+y",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "comment.makeReverseSectionComment",
+                "key": "alt+m",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "comment.makeLineComment",
+                "key": "alt+l",
+                "when": "editorTextFocus"
+            }
+        ],
+        "commands": [
+            {
+                "command": "comment.makeLineComment",
+                "title": "Make a KFCS Spacer Comment"
+            },
+            {
+                "command": "comment.makeSectionComment",
+                "title": "Make a KFCS Header Comment"
+            },
+            {
+                "command": "comment.makeReverseSectionComment",
+                "title": "Make a KFCS Reverse Header Comment"
+            },
+            {
+                "command": "comment.makeFlagComment",
+                "title": "Make a Flag Comment"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "comment.makeSectionComment"
+                },
+                {
+                    "command": "comment.makeLineComment"
+                },
+                {
+                    "command": "comment.makeReverseSectionComment"
+                }
+            ]
+        }
+    },
+    "devDependencies": {
+        "vscode": "0.10.x"
+    }
 }
