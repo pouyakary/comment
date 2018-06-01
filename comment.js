@@ -15,38 +15,40 @@
 // ─── SETTINGS ───────────────────────────────────────────────────────────────────
 //
 
-    "use strict";
+    "use strict"
 
 //
 // ─── IMPORTS ────────────────────────────────────────────────────────────────────
 //
 
-    var vscode = require( 'vscode' );
-    var roman  = require( './roman.js' );
+    const vscode = require( 'vscode' )
+    const roman  = require( './roman.js' )
 
 //
 // ─── CONSTANTS ──────────────────────────────────────────────────────────────────
 //
 
-    const commentLineCharacter = '\u2500';
-    const lineFormat = /^\s*([a-z ]|[0-9][0-9\.]*)+\s*$/i;
+    const commentLineCharacter =
+        '\u2500'
+    const lineFormat =
+        /^\s*([a-z ]|[0-9][0-9\.]*)+\s*$/i
 
 //
 // ─── DEFS ───────────────────────────────────────────────────────────────────────
 //
 
     // Environmental information
-    var oneLineCommentSign;
-    var currentLine;
-    var currentLineString;
-    var currentLanguageId;
-    var currentInsertSpacesStatus;
-    var currentTabSize;
+    var oneLineCommentSign
+    var currentLine
+    var currentLineString
+    var currentLanguageId
+    var currentInsertSpacesStatus
+    var currentTabSize
 
     // Information for processing...
-    var linesFirstSpacing;
-    var realIndentationSize;
-    var relativeIndentationSize;
+    var linesFirstSpacing
+    var realIndentationSize
+    var relativeIndentationSize
 
 //
 // ─── BODY ───────────────────────────────────────────────────────────────────────
@@ -56,24 +58,24 @@
         // Generate flag comment
         context.subscriptions.push( vscode.commands.registerCommand(
             'comment.makeFlagComment', onGenerateFlagComment
-        ));
+        ))
 
         // Generate comment command
         context.subscriptions.push( vscode.commands.registerCommand(
             'comment.makeSectionComment', ( ) => onGenerateSectionComment( 'normal' )
-        ));
+        ))
 
         context.subscriptions.push( vscode.commands.registerCommand(
             'comment.makeReverseSectionComment', ( ) => onGenerateSectionComment( 'reverse' )
-        ));
+        ))
 
         // Generate line command
         context.subscriptions.push( vscode.commands.registerCommand (
             'comment.makeLineComment', onGenerateLineComment
-        ));
+        ))
     }
 
-    exports.activate = activate;
+    exports.activate = activate
 
 //
 // ─── DEACTIVATE ─────────────────────────────────────────────────────────────────
@@ -83,7 +85,7 @@
         // And there was a place, nothing ever happened at....
     }
 
-    exports.deactivate = deactivate;
+    exports.deactivate = deactivate
 
 //
 // ─── GET ENVIRONMENTAL INFORMATION ──────────────────────────────────────────────
@@ -91,11 +93,16 @@
 
     function loadEnvironmentalInformation (  ) {
         // loading information
-        currentLine                 = vscode.window.activeTextEditor.selection.active.line;
-        currentLineString           = vscode.window.activeTextEditor.document.lineAt( currentLine ).text;
-        currentLanguageId           = vscode.window.activeTextEditor.document.languageId;
-        currentInsertSpacesStatus   = vscode.window.activeTextEditor.options.insertSpaces;
-        currentTabSize              = vscode.window.activeTextEditor.options.tabSize;
+        currentLine =
+            vscode.window.activeTextEditor.selection.active.line
+        currentLineString =
+            vscode.window.activeTextEditor.document.lineAt( currentLine ).text
+        currentLanguageId =
+            vscode.window.activeTextEditor.document.languageId
+        currentInsertSpacesStatus =
+            vscode.window.activeTextEditor.options.insertSpaces
+        currentTabSize =
+            vscode.window.activeTextEditor.options.tabSize
     }
 
 //
@@ -103,6 +110,15 @@
 //
 
     function getOneLineLanguageCommentSignForCurrentLanguage ( ) {
+        const currentToEOL =
+            getLineCommentCharacterForCurrentToEOLLanguages( )
+    }
+
+//
+// ─── GET ONE LINE COMMENT CHARACTERS ────────────────────────────────────────────
+//
+
+    function getLineCommentCharacterForCurrentToEOLLanguages ( ) {
         switch ( currentLanguageId ) {
             case 'arendelle':
             case 'cpp':
@@ -133,7 +149,7 @@
             case 'uno':
             case 'yuml':
             case 'glsl':
-                return '//';
+                return '//'
 
             case 'bash':
             case 'coffeescript':
@@ -151,37 +167,37 @@
             case 'shellscript':
             case 'yaml':
             case 'yml':
-                return '#';
+                return '#'
 
             case 'latex':
             case 'matlab':
             case 'octave':
             case 'tex':
-                return '%';
+                return '%'
 
             case 'elm':
             case 'haskell':
             case 'lua':
             case 'sql':
-                return '--';
+                return '--'
 
             case 'clojure':
             case 'lisp':
             case 'racket':
             case 'scheme':
-                return ';;;';
+                return ''
 
             case 'bat':
-                return '::';
+                return '::'
 
             case 'vb':
-                return "'";
+                return "'"
 
             case 'plaintext':
-                return commentLineCharacter + commentLineCharacter;
+                return commentLineCharacter + commentLineCharacter
 
             default:
-                return null;
+                return null
         }
     }
 
@@ -190,9 +206,12 @@
 //
 
     function processCurrentLine ( ) {
-        linesFirstSpacing       = getFirstSpacingOfTheLine( );
-        realIndentationSize     = getRealIndentationSize( linesFirstSpacing );
-        relativeIndentationSize = getKFCSRelativeIndentation( realIndentationSize );
+        linesFirstSpacing =
+            getFirstSpacingOfTheLine( )
+        realIndentationSize =
+            getRealIndentationSize( linesFirstSpacing )
+        relativeIndentationSize =
+            getKFCSRelativeIndentation( realIndentationSize )
     }
 
 //
@@ -200,27 +219,27 @@
 //
 
     function getFirstSpacingOfTheLine ( ) {
-        let tabs = 0;
-        let spaces = 0;
-        let index = 0;
+        let tabs = 0
+        let spaces = 0
+        let index = 0
 
         while ( index < currentLineString.length ) {
             switch ( currentLineString[ index ] ) {
                 case '\t':
-                    tabs++;
-                    index++;
-                    break;
+                    tabs++
+                    index++
+                    break
 
                 case ' ':
-                    spaces++;
-                    index++;
-                    break;
+                    spaces++
+                    index++
+                    break
 
                 default:
-                    return { 'tabs': tabs, 'spaces': spaces };
+                    return { tabs, spaces }
             }
         }
-        return { 'tabs': tabs, 'spaces': spaces };
+        return { tabs, spaces }
     }
 
 //
@@ -228,7 +247,7 @@
 //
 
     function getRealIndentationSize ( ) {
-        return linesFirstSpacing.tabs + Math.floor( linesFirstSpacing.spaces / currentTabSize );
+        return linesFirstSpacing.tabs + Math.floor( linesFirstSpacing.spaces / currentTabSize )
     }
 
 //
@@ -236,7 +255,7 @@
 //
 
     function getKFCSRelativeIndentation ( realIndentation ) {
-        return Math.floor( realIndentation / 2 );
+        return Math.floor( realIndentation / 2 )
     }
 
 //
@@ -244,7 +263,7 @@
 //
 
     function generateIndentation ( ) {
-        return repeat( ' ' , linesFirstSpacing.spaces ) + computeTabs( linesFirstSpacing.tabs );
+        return repeat( ' ' , linesFirstSpacing.spaces ) + computeTabs( linesFirstSpacing.tabs )
     }
 
 //
@@ -252,11 +271,10 @@
 //
 
     function repeat ( text, times ) {
-        let result = '';
-        for ( let index = 0; index < times; index ++ ) {
-            result += text;
-        }
-        return result;
+        let result = ''
+        for ( let index = 0; index < times; index ++ )
+            result += text
+        return result
     }
 
 //
@@ -264,11 +282,10 @@
 //
 
     function computeTabs ( tabs ) {
-        if ( currentInsertSpacesStatus ) {
-            return repeat( ' ' , currentTabSize * tabs );
-        } else {
-            return repeat( '\t' , tabs );
-        }
+        if ( currentInsertSpacesStatus )
+            return repeat( ' ' , currentTabSize * tabs )
+        else
+            return repeat( '\t' , tabs )
     }
 
 //
@@ -276,12 +293,11 @@
 //
 
     function removeStartingCommentParts ( ) {
-        let comment = currentLineString.trim( );
-        if ( comment.startsWith( oneLineCommentSign ) ) {
+        const comment =
+            currentLineString.trim( )
+        if ( comment.startsWith( oneLineCommentSign ) )
             vscode.window.showInformationMessage(
-                comment.substring( oneLineCommentSign.length )
-            );
-        }
+                comment.substring( oneLineCommentSign.length ) )
     }
 
 //
@@ -293,8 +309,8 @@
             textEditorEdit.replace(
                 vscode.window.activeTextEditor.document.lineAt( line ).range,
                 text
-            );
-        });
+            )
+        })
     }
 
 //
@@ -302,11 +318,11 @@
 //
 
     function generateAdditionalSpacingsForComments ( ) {
-        let spacings = `\n${ generateIndentation( ) }`;
-        if ( relativeIndentationSize < 2 ) {
-            spacings += computeTabs( 1 );
-        }
-        return spacings;
+        let spacings =
+            "\n" + generateIndentation( )
+        if ( relativeIndentationSize < 2 )
+            spacings += computeTabs( 1 )
+        return spacings
     }
 
 //
@@ -316,34 +332,37 @@
     function generateCommentWithFormula ( func ) {
         try {
             // basic information:
-            loadEnvironmentalInformation( );
+            loadEnvironmentalInformation( )
 
             // language specific parts:
-            oneLineCommentSign  = getOneLineLanguageCommentSignForCurrentLanguage( );
+            oneLineCommentSign =
+                getOneLineLanguageCommentSignForCurrentLanguage( )
             if ( oneLineCommentSign === null ) {
                 vscode.window.showInformationMessage(
-                    `Comment Error: Kary Comments can't be used in language "${ currentLanguageId }".`
-                );
-                return;
+                    "Comment Error: Kary Comments can't be used in language " + currentLanguageId + "."
+                )
+                return
             }
 
             // generate comment
-            processCurrentLine( );
+            processCurrentLine( )
 
             // generate the comment
-            let comment = func( );
-            if ( comment === null ) return;
+            let comment =
+                func( )
+            if ( comment === null )
+                return
 
             // apply to editor
-            replaceLine( currentLine, comment );
+            replaceLine( currentLine, comment )
 
             // done!
-            vscode.commands.executeCommand( 'cancelSelection' );
+            vscode.commands.executeCommand( 'cancelSelection' )
 
         } catch ( err ) {
             vscode.window.showInformationMessage(
                 `Comment Error: "${ err.message }" at ${ err.lineNumber }`
-            );
+            )
         }
     }
 
@@ -365,25 +384,28 @@
 
     function generateSectionComment ( width ) {
         const text =
-            currentLineString.toUpperCase( ).trim( );
+            currentLineString.toUpperCase( ).trim( )
         const indentationText =
-            generateIndentation( );
+            generateIndentation( )
         const startingLineChars =
             repeat( commentLineCharacter , 3 )
         const tailingLineChars =
             repeat( commentLineCharacter, width - text.length - 5 )
 
         // line 1
-        let result = `${ indentationText }${ oneLineCommentSign }\n`;
+        let result =
+            `${ indentationText }${ oneLineCommentSign }\n`
 
         // line 2
-        result += `${ indentationText }${ oneLineCommentSign } ${ startingLineChars } ${ text } ${ tailingLineChars }\n`;
+        result +=
+            indentationText + oneLineCommentSign + " " + startingLineChars + " " + text + " " + tailingLineChars + "\n"
 
         // line 3
-        result += `${ indentationText }${ oneLineCommentSign }\n`
+        result +=
+            indentationText + oneLineCommentSign + "\n"
 
         // done
-        return result;
+        return result
     }
 
 //
@@ -392,25 +414,28 @@
 
     function generateReverseSectionComments ( width ) {
         const text =
-            currentLineString.toUpperCase( ).trim( );
+            currentLineString.toUpperCase( ).trim( )
         const indentationText =
-            generateIndentation( );
+            generateIndentation( )
         const startingLineChars =
             repeat( commentLineCharacter , 5 )
         const tailingLineChars =
             repeat( commentLineCharacter, width - text.length - 7 )
 
         // line 1
-        let result = `${ indentationText }${ oneLineCommentSign }\n`;
+        let result =
+            indentationText + oneLineCommentSign + "\n"
 
         // line 2
-        result += `${ indentationText }${ oneLineCommentSign } ${ tailingLineChars } ${ text } ${ startingLineChars }\n`;
+        result +=
+            indentationText + oneLineCommentSign + " " + tailingLineChars + " " + text + " " + startingLineChars + "\n"
 
         // line 3
-        result += `${ indentationText }${ oneLineCommentSign }\n`
+        result +=
+            indentationText + oneLineCommentSign + "\n"
 
         // done
-        return result;
+        return result
     }
 
 //
@@ -418,20 +443,25 @@
 //
 
     function generateInSectionComments ( ) {
-        const text = currentLineString.toUpperCase( ).trim( );
-        const indentationText = generateIndentation( );
+        const text =
+            currentLineString.toUpperCase( ).trim( )
+        const indentationText =
+            generateIndentation( )
 
         // line 1
-        let result = `${ indentationText }${ oneLineCommentSign }\n`;
+        let result =
+            indentationText + oneLineCommentSign + "\n"
 
         // line 2
-        result += `${ indentationText }${ oneLineCommentSign } ${ text }\n`;
+        result +=
+            indentationText + oneLineCommentSign + " " + text + "\n"
 
         // line 3
-        result += `${ indentationText }${ oneLineCommentSign }\n`
+        result +=
+            indentationText + oneLineCommentSign + "\n"
 
         // done
-        return result;
+        return result
     }
 
 //
@@ -444,13 +474,13 @@
             if ( !lineFormat.test( currentLineString ) ) {
                 vscode.window.showInformationMessage(
                     'Comment Error: Comment text must only contain basic alphabet and numbers.'
-                );
-                return null;
+                )
+                return null
             }
 
             // return comment...
-            return generateCommentBasedOnIndentation( kind );
-        });
+            return generateCommentBasedOnIndentation( kind )
+        })
     }
 
 //
@@ -458,25 +488,26 @@
 //
 
     function generateCommentBasedOnIndentation ( kind ) {
-        let comment;
+        let comment
         const sectionCommentGenerator =
             ( kind === 'reverse'
                 ? generateReverseSectionComments
-                : generateSectionComment )
+                : generateSectionComment
+                )
 
         switch ( relativeIndentationSize ) {
             case 0:
-                comment = sectionCommentGenerator( 80 );
-                break;
+                comment = sectionCommentGenerator( 80 )
+                break
             case 1:
-                comment = sectionCommentGenerator( 65 );
-                break;
+                comment = sectionCommentGenerator( 65 )
+                break
             default:
-                comment = generateInSectionComments( );
-                break;
+                comment = generateInSectionComments( )
+                break
         }
 
-        return comment + generateAdditionalSpacingsForComments( );
+        return comment + generateAdditionalSpacingsForComments( )
     }
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -496,7 +527,7 @@
 //
 
     function generateLineComment ( width ) {
-        return `${ generateIndentation( ) }${ oneLineCommentSign } ${ repeat( commentLineCharacter, width ) }\n`;;
+        return `${ generateIndentation( ) }${ oneLineCommentSign } ${ repeat( commentLineCharacter, width ) }\n`
     }
 
 //
@@ -504,7 +535,7 @@
 //
 
     function generateSeparatorComments ( ) {
-        return `${ generateIndentation( ) }${ oneLineCommentSign } • • • • •`;
+        return `${ generateIndentation( ) }${ oneLineCommentSign } • • • • •`
     }
 
 //
@@ -513,16 +544,16 @@
 
     function onGenerateLineComment ( ) {
         generateCommentWithFormula( ( ) => {
-            let line;
+            let line
             switch ( relativeIndentationSize ) {
                 case 0:
-                    return generateLineComment( 80 );
+                    return generateLineComment( 80 )
                 case 1:
-                    return generateLineComment( 65 );
+                    return generateLineComment( 65 )
                 default:
-                    return generateSeparatorComments( );
+                    return generateSeparatorComments( )
             }
-        });
+        })
     }
 
 // ────────────────────────────────────────────────────────────────────────────────
@@ -547,13 +578,13 @@
             if ( !lineFormat.test( currentLineString ) ) {
                 vscode.window.showInformationMessage(
                     'Comment Error: Comment text must only contain basic alphabet and numbers.'
-                );
-                return null;
+                )
+                return null
             }
 
             // generating the comment
-            return generateFlagCommentString( index );
-        });
+            return generateFlagCommentString( index )
+        })
     }
 
 //
@@ -567,23 +598,23 @@
             value: "1",
             validateInput: ( value ) => {
                 if ( /^\s*[0-9]*\s*$/.test( value ) ) {
-                    return null;
+                    return null
                 } else {
-                    return "Input must be a number.";
+                    return "Input must be a number."
                 }
             }
-        });
+        })
 
         // prompt number
         promptNumber.then( value => {
-            let index;
+            let index
             if ( value == null || value == undefined ) {
-                index = 1;
+                index = 1
             } else {
-                index = value;
+                index = value
             }
-            createFlagComment( index );
-        });
+            createFlagComment( index )
+        })
     }
 
 //
@@ -592,29 +623,29 @@
 
     function generateFlagCommentString ( index ) {
         // info
-        const text = makeFlagCommentText( currentLineString.toUpperCase( ).trim( ) );
-        const indentationText = generateIndentation( );
+        const text = makeFlagCommentText( currentLineString.toUpperCase( ).trim( ) )
+        const indentationText = generateIndentation( )
 
         // line 1
-        let comment = `${ indentationText }${ oneLineCommentSign }\n`;
+        let comment = `${ indentationText }${ oneLineCommentSign }\n`
 
         // line 2
-        comment += generateFlagCommentSecondLine( index , text.length );
+        comment += generateFlagCommentSecondLine( index , text.length )
 
         // line 3
-        comment += `${ indentationText }${ oneLineCommentSign }   :::::: ${ text }: :  :   :    :     :        :          :\n`;
+        comment += `${ indentationText }${ oneLineCommentSign }   :::::: ${ text }: :  :   :    :     :        :          :\n`
 
         // line 4
-        comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 50 + text.length ) }\n`;
+        comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 50 + text.length ) }\n`
 
         // line 5
-        comment += `${ indentationText }${ oneLineCommentSign }\n\n`;
+        comment += `${ indentationText }${ oneLineCommentSign }\n\n`
 
         // line 7
-        comment += indentationText;
+        comment += indentationText
 
         // done
-        return comment;
+        return comment
     }
 
 //
@@ -630,11 +661,11 @@
 //
 
     function makeFlagCommentText ( text ) {
-        let title = '';
+        let title = ''
         for ( let index = 0; index < text.length; index++ ) {
-            title += `${ text[ index ]} `;
+            title += `${ text[ index ]} `
         }
-        return title;
+        return title
     }
 
 //
@@ -647,31 +678,7 @@
      */
     function adjustFlagCommentNumbers ( ) {
         // disabled for now:
-        return;
-
-        /*
-        const lineCount = vscode.window.activeTextEditor.document.lineCount;
-        const flagCommentSecondLineRegex = /^.*[\u2500]+ ([IVXLCDM])+ [\u2500]+$/;
-        let flagCounter = 0;
-
-        // adjusting
-        for ( let iteration = 0; iteration < lineCount; iteration++ ) {
-            let lineText = vscode.window.activeTextEditor.document.lineAt( iteration ).text;
-
-            if ( flagCommentSecondLineRegex.test( lineText ) ) {
-                let romanNumeral = flagCommentSecondLineRegex.exec( lineText );
-                let range = generateRangeForFlagReplace(
-                    iteration, romanNumeral.index, romanNumeral.length
-                );
-                vscode.window.activeTextEditor.edit( textEditorEdit => {
-                    textEditorEdit.replace( range, roman( ++flagCounter ) );
-                });
-            }
-        }
-
-        // done
-        vscode.commands.executeCommand( 'cancelSelection' );
-        */
+        return
     }
 
 //
@@ -682,7 +689,7 @@
         return new vscode.Range(
             new vscode.Position( line, start ),
             new vscode.Position( line, start + end - 1 )
-        );
+        )
     }
 
 // ────────────────────────────────────────────────────────────────────────────────
