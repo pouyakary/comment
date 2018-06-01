@@ -38,7 +38,7 @@
 //
 
     // Environmental information
-    var oneLineCommentSign
+    var languageCommentSignSettings
     var currentLine
     var currentLineString
     var currentLanguageId
@@ -110,8 +110,38 @@
 //
 
     function getOneLineLanguageCommentSignForCurrentLanguage ( ) {
+        // In case of comments like:
+        //  --
+        //  -- ─── TEXT ────────────────────────────────────
+        //  --
         const currentToEOL =
             getLineCommentCharacterForCurrentToEOLLanguages( )
+        if ( currentToEOL !== null )
+            return { start: currentToEOL, middle: currentToEOL, end: currentToEOL }
+
+        // In case of comments like:
+        //  /*
+        //   * ─── TEXT ────────────────────────────────────
+        //   */
+        const multiLineComment =
+            getMultiLineCommentCharacters( )
+
+        return multiLineComment
+    }
+
+//
+// ─── GET MULTI LINE COMMENT CHARACTERS ──────────────────────────────────────────
+//
+
+    function getMultiLineCommentCharacters ( ) {
+        switch ( currentLanguageId ) {
+            case "css":
+            case "c":
+                return { start: "/*", middle: " *", end: " */" }
+
+            default:
+                return null
+        }
     }
 
 //
@@ -295,9 +325,9 @@
     function removeStartingCommentParts ( ) {
         const comment =
             currentLineString.trim( )
-        if ( comment.startsWith( oneLineCommentSign ) )
+        if ( comment.startsWith( languageCommentSignSettings ) )
             vscode.window.showInformationMessage(
-                comment.substring( oneLineCommentSign.length ) )
+                comment.substring( languageCommentSignSettings.length ) )
     }
 
 //
@@ -335,9 +365,9 @@
             loadEnvironmentalInformation( )
 
             // language specific parts:
-            oneLineCommentSign =
+            languageCommentSignSettings =
                 getOneLineLanguageCommentSignForCurrentLanguage( )
-            if ( oneLineCommentSign === null ) {
+            if ( languageCommentSignSettings === null ) {
                 vscode.window.showInformationMessage(
                     "Comment Error: Kary Comments can't be used in language " + currentLanguageId + "."
                 )
@@ -394,15 +424,15 @@
 
         // line 1
         let result =
-            `${ indentationText }${ oneLineCommentSign }\n`
+            `${ indentationText }${ languageCommentSignSettings.start }\n`
 
         // line 2
         result +=
-            indentationText + oneLineCommentSign + " " + startingLineChars + " " + text + " " + tailingLineChars + "\n"
+            indentationText + languageCommentSignSettings.middle + " " + startingLineChars + " " + text + " " + tailingLineChars + "\n"
 
         // line 3
         result +=
-            indentationText + oneLineCommentSign + "\n"
+            indentationText + languageCommentSignSettings.end + "\n"
 
         // done
         return result
@@ -424,15 +454,15 @@
 
         // line 1
         let result =
-            indentationText + oneLineCommentSign + "\n"
+            indentationText + languageCommentSignSettings.start + "\n"
 
         // line 2
         result +=
-            indentationText + oneLineCommentSign + " " + tailingLineChars + " " + text + " " + startingLineChars + "\n"
+            indentationText + languageCommentSignSettings.middle + " " + tailingLineChars + " " + text + " " + startingLineChars + "\n"
 
         // line 3
         result +=
-            indentationText + oneLineCommentSign + "\n"
+            indentationText + languageCommentSignSettings.end + "\n"
 
         // done
         return result
@@ -450,15 +480,15 @@
 
         // line 1
         let result =
-            indentationText + oneLineCommentSign + "\n"
+            indentationText + languageCommentSignSettings.start + "\n"
 
         // line 2
         result +=
-            indentationText + oneLineCommentSign + " " + text + "\n"
+            indentationText + languageCommentSignSettings.middle + " " + text + "\n"
 
         // line 3
         result +=
-            indentationText + oneLineCommentSign + "\n"
+            indentationText + languageCommentSignSettings.end + "\n"
 
         // done
         return result
@@ -527,7 +557,7 @@
 //
 
     function generateLineComment ( width ) {
-        return `${ generateIndentation( ) }${ oneLineCommentSign } ${ repeat( commentLineCharacter, width ) }\n`
+        return generateSingleLineComment( repeat( commentLineCharacter, width ) )
     }
 
 //
@@ -535,7 +565,25 @@
 //
 
     function generateSeparatorComments ( ) {
-        return `${ generateIndentation( ) }${ oneLineCommentSign } • • • • •`
+        return generateSingleLineComment( "• • • • •" )
+    }
+
+//
+// ─── GENERATE A SINGLE LINE COMMENT ─────────────────────────────────────────────
+//
+
+    function generateSingleLineComment ( commentText ) {
+        const indentation =
+            generateIndentation( )
+        const shouldUseOneLineLook =
+            ( languageCommentSignSettings.start === languageCommentSignSettings.end &&
+              languageCommentSignSettings.start === languageCommentSignSettings.middle )
+
+        if ( shouldUseOneLineLook )
+            return  indentation + languageCommentSignSettings.start + commentText + "\n"
+        else
+            return  indentation + languageCommentSignSettings.start.trim( ) + " " +
+                    commentText + " " + languageCommentSignSettings.end.trim( ) + "\n"
     }
 
 //
@@ -593,26 +641,24 @@
 
     function onGenerateFlagComment ( ) {
         // input
-        let promptNumber = vscode.window.showInputBox({
+        const promptNumber = vscode.window.showInputBox({
             prompt: "Please give your flag number an index",
             value: "1",
             validateInput: ( value ) => {
-                if ( /^\s*[0-9]*\s*$/.test( value ) ) {
+                if ( /^\s*[0-9]*\s*$/.test( value ) )
                     return null
-                } else {
+                else
                     return "Input must be a number."
-                }
             }
         })
 
         // prompt number
         promptNumber.then( value => {
             let index
-            if ( value == null || value == undefined ) {
+            if ( value == null || value == undefined )
                 index = 1
-            } else {
+            else
                 index = value
-            }
             createFlagComment( index )
         })
     }
@@ -627,22 +673,30 @@
         const indentationText = generateIndentation( )
 
         // line 1
-        let comment = `${ indentationText }${ oneLineCommentSign }\n`
+        let comment =
+            indentationText + languageCommentSignSettings.start + "\n"
 
         // line 2
-        comment += generateFlagCommentSecondLine( index , text.length )
+        comment +=
+            generateFlagCommentSecondLine( index , text.length )
 
         // line 3
-        comment += `${ indentationText }${ oneLineCommentSign }   :::::: ${ text }: :  :   :    :     :        :          :\n`
+        comment +=
+            indentationText + languageCommentSignSettings.middle + "   :::::: " +
+            text + ": :  :   :    :     :        :          :\n"
 
         // line 4
-        comment += `${ indentationText }${ oneLineCommentSign } ${ repeat( commentLineCharacter , 50 + text.length ) }\n`
+        comment +=
+            indentationText + languageCommentSignSettings.middle + " " +
+            repeat( commentLineCharacter , 50 + text.length ) + "\n"
 
         // line 5
-        comment += `${ indentationText }${ oneLineCommentSign }\n\n`
+        comment +=
+            indentationText + languageCommentSignSettings.end + "\n\n"
 
         // line 7
-        comment += indentationText
+        comment +=
+            indentationText
 
         // done
         return comment
@@ -653,7 +707,17 @@
 //
 
     function generateFlagCommentSecondLine ( number , length ) {
-        return `${ generateIndentation( ) }${ oneLineCommentSign } ${ repeat( commentLineCharacter , length + 40 )} ${ roman( number ) } ${ repeat( commentLineCharacter , 10 )}\n`
+        return  (
+            generateIndentation( ) +
+            languageCommentSignSettings.middle +
+            " " +
+            repeat( commentLineCharacter , length + 40 ) +
+            " " +
+            roman( number ) +
+            " " +
+            repeat( commentLineCharacter , 10 ) +
+            "\n"
+        )
     }
 
 //
@@ -662,9 +726,8 @@
 
     function makeFlagCommentText ( text ) {
         let title = ''
-        for ( let index = 0; index < text.length; index++ ) {
-            title += `${ text[ index ]} `
-        }
+        for ( let index = 0; index < text.length; index++ )
+            title += text[ index ] + " "
         return title
     }
 
