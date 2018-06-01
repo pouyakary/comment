@@ -139,6 +139,14 @@
             case "c":
                 return { start: "/*", middle: " *", end: " */" }
 
+            case "html":
+            case "xml":
+            case "xhtml":
+            case "us":
+            case "xaml":
+            case "plist":
+                return { start: "<!--", middle: "  --", end: "  -->" }
+
             default:
                 return null
         }
