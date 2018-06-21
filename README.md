@@ -1,5 +1,5 @@
 
-# Comment V _for Visual Studio Code
+# Comment V for Visual Studio Code
 
 <img src="https://user-images.githubusercontent.com/2157285/28877787-ace1415e-77b2-11e7-81fa-e4d3d7af50ec.gif" width="600" />
 
@@ -64,6 +64,7 @@ Comment 5 is content-aware so you don't have to choose your section type of comm
 | Section End   | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest |
 
 ## Whats new?
+- **6.1.0** &mdash; A problem with Line comments regarding the spacings was fixed and also based on [a request](https://github.com/pmkary/comment-vscode/issues/5) six new characters are now accepted on the comment text: `-`, `+`, `:`, `@`, `?`, and `!`
 - **6.0.0** &mdash; After a lot of requests... It now supports Multi line comments! So languages like C, CSS, HTML, XML... are all now supported!
 - **5.0.1** &mdash; GLSL Language Support Added.
 - **5.0.0** &mdash; Reverse Section Comments are now supported.
