@@ -31,7 +31,9 @@
     const commentLineCharacter =
         '\u2500'
     const lineFormat =
-        /^\s*([a-z ]|[0-9][0-9\.]*)+\s*$/i
+        /^\s*([a-z ]|[0-9][0-9\.]*|[\:\-\+\@\!\?])+\s*$/i
+    const lineFormatErrorMessage =
+        "'Comment Error: Comment text must only contain basic alphabet, numbers, :, -, +, @, ?, and !"
 
 //
 // ─── DEFS ───────────────────────────────────────────────────────────────────────
@@ -510,9 +512,7 @@
         generateCommentWithFormula( ( ) => {
             // checking the input against the regex
             if ( !lineFormat.test( currentLineString ) ) {
-                vscode.window.showInformationMessage(
-                    'Comment Error: Comment text must only contain basic alphabet and numbers.'
-                )
+                vscode.window.showInformationMessage( lineFormatErrorMessage )
                 return null
             }
 
@@ -588,7 +588,7 @@
               languageCommentSignSettings.start === languageCommentSignSettings.middle )
 
         if ( shouldUseOneLineLook )
-            return  indentation + languageCommentSignSettings.start + commentText + "\n"
+            return  indentation + languageCommentSignSettings.start + " " + commentText + "\n"
         else
             return  indentation + languageCommentSignSettings.start.trim( ) + " " +
                     commentText + " " + languageCommentSignSettings.end.trim( ) + "\n"
@@ -632,9 +632,7 @@
         generateCommentWithFormula( ( ) => {
             // checking the input against the regex
             if ( !lineFormat.test( currentLineString ) ) {
-                vscode.window.showInformationMessage(
-                    'Comment Error: Comment text must only contain basic alphabet and numbers.'
-                )
+                vscode.window.showInformationMessage( lineFormatErrorMessage )
                 return null
             }
 
