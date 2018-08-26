@@ -217,6 +217,7 @@
 
             case 'elm':
             case 'haskell':
+            case 'purescript':
             case 'lua':
             case 'sql':
                 return '--'
