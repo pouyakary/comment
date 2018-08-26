@@ -16,13 +16,13 @@
 //
 
     "use strict"
-
 //
 // ─── IMPORTS ────────────────────────────────────────────────────────────────────
 //
 
-    const vscode = require( 'vscode' )
-    const roman  = require( './roman.js' )
+    const vscode        = require( 'vscode' )
+    const roman         = require( './roman.js' )
+    const settingsTable = require('./dictionary.js')
 
 //
 // ─── CONSTANTS ──────────────────────────────────────────────────────────────────
@@ -93,6 +93,7 @@
 // ─── GET ENVIRONMENTAL INFORMATION ──────────────────────────────────────────────
 //
 
+
     function loadEnvironmentalInformation (  ) {
         // loading information
         currentLine =
@@ -105,141 +106,6 @@
             vscode.window.activeTextEditor.options.insertSpaces
         currentTabSize =
             vscode.window.activeTextEditor.options.tabSize
-    }
-
-//
-// ─── GET ONE LINE COMMENT SIGN FOR CURRENT LANGUAGE ─────────────────────────────
-//
-
-    function getOneLineLanguageCommentSignForCurrentLanguage ( ) {
-        // In case of comments like:
-        //  --
-        //  -- ─── TEXT ────────────────────────────────────
-        //  --
-        const currentToEOL =
-            getLineCommentCharacterForCurrentToEOLLanguages( )
-        if ( currentToEOL !== null )
-            return { start: currentToEOL, middle: currentToEOL, end: currentToEOL }
-
-        // In case of comments like:
-        //  /*
-        //   * ─── TEXT ────────────────────────────────────
-        //   */
-        const multiLineComment =
-            getMultiLineCommentCharacters( )
-
-        return multiLineComment
-    }
-
-//
-// ─── GET MULTI LINE COMMENT CHARACTERS ──────────────────────────────────────────
-//
-
-    function getMultiLineCommentCharacters ( ) {
-        switch ( currentLanguageId ) {
-            case "css":
-            case "c":
-                return { start: "/*", middle: " *", end: " */" }
-
-            case "html":
-            case "xml":
-            case "xhtml":
-            case "us":
-            case "xaml":
-            case "plist":
-                return { start: "<!--", middle: "  --", end: "  -->" }
-
-            default:
-                return null
-        }
-    }
-
-//
-// ─── GET ONE LINE COMMENT CHARACTERS ────────────────────────────────────────────
-//
-
-    function getLineCommentCharacterForCurrentToEOLLanguages ( ) {
-        switch ( currentLanguageId ) {
-            case 'arendelle':
-            case 'cpp':
-            case 'csharp':
-            case 'fsharp':
-            case 'go':
-            case 'groovy':
-            case 'haxe':
-            case 'java':
-            case 'javascript':
-            case 'javascriptreact':
-            case 'jison':
-            case 'json':
-            case 'karyscript':
-            case 'less':
-            case 'objective-c':
-            case 'pageman':
-            case 'pegjs':
-            case 'php':
-            case 'processing':
-            case 'qml':
-            case 'rust':
-            case 'scala':
-            case 'stylus':
-            case 'swift':
-            case 'typescript':
-            case 'typescriptreact':
-            case 'uno':
-            case 'yuml':
-            case 'glsl':
-                return '//'
-
-            case 'bash':
-            case 'coffeescript':
-            case 'fish':
-            case 'julia':
-            case 'make':
-            case 'makefile':
-            case 'nearley':
-            case 'perl':
-            case 'powershell':
-            case 'python':
-            case 'r':
-            case 'ruby':
-            case 'shell':
-            case 'shellscript':
-            case 'yaml':
-            case 'yml':
-                return '#'
-
-            case 'latex':
-            case 'matlab':
-            case 'octave':
-            case 'tex':
-                return '%'
-
-            case 'elm':
-            case 'haskell':
-            case 'purescript':
-            case 'lua':
-            case 'sql':
-                return '--'
-
-            case 'clojure':
-            case 'lisp':
-            case 'racket':
-            case 'scheme':
-                return ''
-
-            case 'bat':
-                return '::'
-
-            case 'vb':
-                return "'"
-
-            case 'plaintext':
-                return commentLineCharacter + commentLineCharacter
-
-            default:
-                return null
-        }
     }
 
 //
@@ -359,11 +225,15 @@
 //
 
     function generateAdditionalSpacingsForComments ( ) {
-        let spacings =
-            "\n" + generateIndentation( )
-        if ( relativeIndentationSize < 2 )
-            spacings += computeTabs( 1 )
-        return spacings
+        if ( languageCommentSignSettings.sensitive ) {
+            return "\n"
+        } else {
+            let spacings =
+                "\n" + generateIndentation( )
+            if ( relativeIndentationSize < 2 )
+                spacings += computeTabs( 1 )
+            return spacings
+        }
     }
 
 //
@@ -375,9 +245,9 @@
             // basic information:
             loadEnvironmentalInformation( )
 
-            // language specific parts:
+            // language settings
             languageCommentSignSettings =
-                getOneLineLanguageCommentSignForCurrentLanguage( )
+                settingsTable( currentLanguageId )
             if ( languageCommentSignSettings === null ) {
                 vscode.window.showInformationMessage(
                     "Comment Error: Kary Comments can't be used in language " + currentLanguageId + "."
@@ -434,16 +304,20 @@
             repeat( commentLineCharacter, width - text.length - 5 )
 
         // line 1
-        let result =
-            `${ indentationText }${ languageCommentSignSettings.start }\n`
+        let result = ''
+
+        if ( !languageCommentSignSettings.sensitive )
+            result =
+                `${ indentationText }${ languageCommentSignSettings.chars.start }\n`
 
         // line 2
         result +=
-            indentationText + languageCommentSignSettings.middle + " " + startingLineChars + " " + text + " " + tailingLineChars + "\n"
+            indentationText + languageCommentSignSettings.chars.middle + " " + startingLineChars + " " + text + " " + tailingLineChars + "\n"
 
         // line 3
-        result +=
-            indentationText + languageCommentSignSettings.end + "\n"
+        if ( !languageCommentSignSettings.sensitive )
+            result +=
+                indentationText + languageCommentSignSettings.chars.end + "\n"
 
         // done
         return result
@@ -465,15 +339,15 @@
 
         // line 1
         let result =
-            indentationText + languageCommentSignSettings.start + "\n"
+            indentationText + languageCommentSignSettings.chars.start + "\n"
 
         // line 2
         result +=
-            indentationText + languageCommentSignSettings.middle + " " + tailingLineChars + " " + text + " " + startingLineChars + "\n"
+            indentationText + languageCommentSignSettings.chars.middle + " " + tailingLineChars + " " + text + " " + startingLineChars + "\n"
 
         // line 3
         result +=
-            indentationText + languageCommentSignSettings.end + "\n"
+            indentationText + languageCommentSignSettings.chars.end + "\n"
 
         // done
         return result
@@ -490,16 +364,18 @@
             generateIndentation( )
 
         // line 1
-        let result =
-            indentationText + languageCommentSignSettings.start + "\n"
+        let result = ""
+        if ( !languageCommentSignSettings.sensitive )
+            result = indentationText + languageCommentSignSettings.chars.start + "\n"
 
         // line 2
         result +=
-            indentationText + languageCommentSignSettings.middle + " " + text + "\n"
+            indentationText + languageCommentSignSettings.chars.middle + " " + text + "\n"
 
         // line 3
-        result +=
-            indentationText + languageCommentSignSettings.end + "\n"
+        if ( !languageCommentSignSettings.sensitive )
+            result +=
+                indentationText + languageCommentSignSettings.chars.end + "\n"
 
         // done
         return result
@@ -585,14 +461,14 @@
         const indentation =
             generateIndentation( )
         const shouldUseOneLineLook =
-            ( languageCommentSignSettings.start === languageCommentSignSettings.end &&
-              languageCommentSignSettings.start === languageCommentSignSettings.middle )
+            ( languageCommentSignSettings.chars.start === languageCommentSignSettings.chars.end &&
+              languageCommentSignSettings.chars.start === languageCommentSignSettings.chars.middle )
 
         if ( shouldUseOneLineLook )
-            return  indentation + languageCommentSignSettings.start + " " + commentText + "\n"
+            return  indentation + languageCommentSignSettings.chars.start + " " + commentText + "\n"
         else
-            return  indentation + languageCommentSignSettings.start.trim( ) + " " +
-                    commentText + " " + languageCommentSignSettings.end.trim( ) + "\n"
+            return  indentation + languageCommentSignSettings.chars.start.trim( ) + " " +
+                    commentText + " " + languageCommentSignSettings.chars.end.trim( ) + "\n"
     }
 
 //
@@ -681,7 +557,7 @@
 
         // line 1
         let comment =
-            indentationText + languageCommentSignSettings.start + "\n"
+            indentationText + languageCommentSignSettings.chars.start + "\n"
 
         // line 2
         comment +=
@@ -689,17 +565,17 @@
 
         // line 3
         comment +=
-            indentationText + languageCommentSignSettings.middle + "   :::::: " +
+            indentationText + languageCommentSignSettings.chars.middle + "   :::::: " +
             text + ": :  :   :    :     :        :          :\n"
 
         // line 4
         comment +=
-            indentationText + languageCommentSignSettings.middle + " " +
+            indentationText + languageCommentSignSettings.chars.middle + " " +
             repeat( commentLineCharacter , 50 + text.length ) + "\n"
 
         // line 5
         comment +=
-            indentationText + languageCommentSignSettings.end + "\n\n"
+            indentationText + languageCommentSignSettings.chars.end + "\n\n"
 
         // line 7
         comment +=
@@ -716,7 +592,7 @@
     function generateFlagCommentSecondLine ( number , length ) {
         return  (
             generateIndentation( ) +
-            languageCommentSignSettings.middle +
+            languageCommentSignSettings.chars.middle +
             " " +
             repeat( commentLineCharacter , length + 40 ) +
             " " +
