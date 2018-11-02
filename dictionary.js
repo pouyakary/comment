@@ -63,6 +63,7 @@
             case 'coffeescript':
             case 'julia':
             case 'python':
+            case 'nix':
             case 'yml':
             case 'yaml':
                 return {
