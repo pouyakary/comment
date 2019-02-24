@@ -19,6 +19,7 @@
             case 'karyscript':
             case 'less':
             case 'objective-c':
+            case 'ohm':
             case 'pegjs':
             case 'php':
             case 'processing':

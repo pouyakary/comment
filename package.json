@@ -1,80 +1,85 @@
 {
-    "name": "comment",
-    "displayName": "Comment V",
-    "description": "The easiest way to to decorate your codes with Kary Comments in Visual Studio Code.",
-    "version": "7.0.1",
-    "publisher": "karyfoundation",
+	"name": "comment",
+	"displayName": "Comment V",
+	"description": "The easiest way to to decorate your codes with Kary Comments in Visual Studio Code.",
+	"version": "7.0.2",
+	"publisher": "karyfoundation",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/pmkary/comment-vscode"
 	},
-    "icon": "icon.png",
-    "engines": {
-        "vscode": "^0.10.1"
-    },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "*"
-    ],
-    "main": "./comment",
-    "contributes": {
-        "keybindings": [
-            {
-                "command": "comment.makeFlagComment",
-                "key": "alt+shift+y",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "comment.makeSectionComment",
-                "key": "alt+y",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "comment.makeReverseSectionComment",
-                "key": "alt+m",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "comment.makeLineComment",
-                "key": "alt+l",
-                "when": "editorTextFocus"
-            }
-        ],
-        "commands": [
-            {
-                "command": "comment.makeLineComment",
-                "title": "Make a Kary Spacer Comment"
-            },
-            {
-                "command": "comment.makeSectionComment",
-                "title": "Make a Kary Header Comment"
-            },
-            {
-                "command": "comment.makeReverseSectionComment",
-                "title": "Make a Kary Reverse Header Comment"
-            },
-            {
-                "command": "comment.makeFlagComment",
-                "title": "Make a Kary Comment"
-            }
-        ],
-        "menus": {
-            "editor/context": [
-                {
-                    "command": "comment.makeSectionComment"
-                },
-                {
-                    "command": "comment.makeLineComment"
-                },
-                {
-                    "command": "comment.makeReverseSectionComment"
-                }
-            ]
-        }
-    },
-    "devDependencies": {
-        "vscode": "0.10.x"
-    }
+	"icon": "icon.png",
+	"engines": {
+		"vscode": "^0.10.1"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./comment",
+	"contributes": {
+		"keybindings": [
+			{
+				"command": "comment.makeFlagComment",
+				"key": "alt+shift+y",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "comment.makeSectionComment",
+				"key": "alt+y",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "comment.makeReverseSectionComment",
+				"key": "alt+m",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "comment.makeLineComment",
+				"key": "alt+l",
+				"when": "editorTextFocus"
+			}
+		],
+		"commands": [
+			{
+				"command": "comment.makeLineComment",
+				"title": "Make a Kary Spacer Comment"
+			},
+			{
+				"command": "comment.makeSectionComment",
+				"title": "Make a Kary Header Comment"
+			},
+			{
+				"command": "comment.makeReverseSectionComment",
+				"title": "Make a Kary Reverse Header Comment"
+			},
+			{
+				"command": "comment.makeFlagComment",
+				"title": "Make a Kary Comment"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "comment.makeSectionComment"
+				},
+				{
+					"command": "comment.makeLineComment"
+				},
+				{
+					"command": "comment.makeReverseSectionComment"
+				}
+			]
+		}
+	},
+	"devDependencies": {
+		"vscode": "0.10.x"
+	},
+	"__metadata": {
+		"id": "89789d74-b90b-4cbf-b846-c903d9929362",
+		"publisherDisplayName": "Pouya Kary",
+		"publisherId": "00c37c0d-e370-4cc2-8ab3-3fa32a26514a"
+	}
 }
