@@ -27,6 +27,11 @@
             case 'rust':
             case 'scala':
             case 'swift':
+            case 'terraform':
+                    return {
+                        sensitive:  true,
+                        chars:      { start: "#", middle: "#", end: "#" },
+                    }
             case 'typescript':
             case 'typescriptreact':
             case 'uno':
