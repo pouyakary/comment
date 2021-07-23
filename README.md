@@ -62,6 +62,7 @@ Comment V is content-aware so you don't have to choose your section type of comm
 > __NOTE__ <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.
 
 ## Whats new?
+- **7.0.3** &mdash; Languages V, Rust and Dart got added.
 - **7.0.2** &mdash; Added the Ohm language
 - **7.0.1** &mdash; nix language added by [@worldofspace](https://github.com/worldofpeace). (sorry for the late release...)
 - **7.0.0** &mdash; This is a big release. The engine is now tailored to be more flexible and generate really better comments for Python and similar indentation-sensative languages.
