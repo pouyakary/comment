@@ -104,6 +104,8 @@
             case 'lisp':
             case 'racket':
             case 'scheme':
+            case 'wast':
+            case 'wat':
                 return {
                     sensitive:  false,
                     chars:      { start: ";;", middle: ";;", end: ";;" },
