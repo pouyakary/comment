@@ -25,7 +25,6 @@
             case 'php':
             case 'processing':
             case 'qml':
-            case 'rust':
             case 'scala':
             case 'swift':
             case 'typescript':
@@ -41,6 +40,7 @@
             case 'fsharp':
             case 'go':
             case 'pageman':
+            case 'rust':
             case 'stylus':
             case 'yuml':
                 return {
