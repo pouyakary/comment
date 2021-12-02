@@ -1,4 +1,6 @@
 ## Whats new?
+- **7.0.5** &mdash; Rust Pest Language Added
+- **7.0.6** &mdash; Rust changed to sensitive
 - **7.0.5** &mdash; WebAssembly Text Format Added
 - **7.0.3** &mdash; Languages V, Rust and Dart got added.
 - **7.0.2** &mdash; Added the Ohm language

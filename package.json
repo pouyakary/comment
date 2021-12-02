@@ -2,7 +2,7 @@
 	"name": "comment",
 	"displayName": "Comment V",
 	"description": "The easiest way to to decorate your codes with Kary Comments in Visual Studio Code.",
-	"version": "7.0.6",
+	"version": "7.0.7",
 	"publisher": "karyfoundation",
 	"repository": {
 		"type": "git",
