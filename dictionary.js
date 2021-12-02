@@ -40,7 +40,7 @@
             case 'fsharp':
             case 'go':
             case 'pageman':
-            case 'pest':
+            case 'pestfile':
             case 'rust':
             case 'stylus':
             case 'yuml':
