@@ -9,6 +9,12 @@
             case 'cpp':
             case 'csharp':
             case 'dart':
+            case 'dockerfile':
+                return {
+                    sensitive:  false,
+                    chars:      { start: "#", middle: "#", end: "#" },
+                }
+
             case 'glsl':
             case 'groovy':
             case 'haxe':

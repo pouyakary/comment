@@ -1,4 +1,5 @@
 ## Whats new?
+- **7.0.6** &mdash; Dockerfile is now supported
 - **7.0.5** &mdash; Rust Pest Language Added
 - **7.0.6** &mdash; Rust changed to sensitive
 - **7.0.5** &mdash; WebAssembly Text Format Added
