@@ -32,6 +32,7 @@
             case 'processing':
             case 'qml':
             case 'scala':
+            case 'solidity':
             case 'swift':
             case 'typescript':
             case 'typescriptreact':
