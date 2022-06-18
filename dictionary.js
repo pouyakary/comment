@@ -126,6 +126,8 @@
                 }
 
             case 'vb':
+            case 'vbs':
+            case 'asp':
                 return {
                     sensitive:  false,
                     chars:      { start: "'", middle: "'", end: "'" },
