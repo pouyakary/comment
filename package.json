@@ -57,7 +57,7 @@
 			},
 			{
 				"command": "comment.makeFlagComment",
-				"title": "Make a Kary Comment"
+				"title": "Make a Kary Flag Comment"
 			}
 		],
 		"menus": {
