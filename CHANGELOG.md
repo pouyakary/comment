@@ -1,4 +1,5 @@
 ## Whats new?
+- **7.1.1** &mdash; Peggy support added.
 - **7.0.7** &mdash; Solidity support added.
 - **7.0.6** &mdash; Dockerfile is now supported
 - **7.0.5** &mdash; Rust Pest Language Added

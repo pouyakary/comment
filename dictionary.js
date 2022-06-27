@@ -51,6 +51,7 @@
             case 'rust':
             case 'stylus':
             case 'yuml':
+            case 'peggy':
                 return {
                     sensitive:  true,
                     chars:      { start: "//", middle: "//", end: "//" },
