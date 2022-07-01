@@ -1,4 +1,7 @@
 ## Whats new?
+- **10.0.0** &mdash; From this version all comments are titled with all caps, and are not sensitive. This enables
+more codes to use Comment and probably easier integration.<br><br>If you wish to have the previous mode, you can have the `"comment": { "legacy": true }` within your `settings.json` <br><br>
+
 - **7.1.1** &mdash; Peggy support added.
 - **7.0.7** &mdash; Solidity support added.
 - **7.0.6** &mdash; Dockerfile is now supported

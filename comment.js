@@ -46,6 +46,7 @@
     var currentLanguageId
     var currentInsertSpacesStatus
     var currentTabSize
+    let legacyMode = false
 
     // Information for processing...
     var linesFirstSpacing
@@ -56,7 +57,7 @@
 // ─── BODY ───────────────────────────────────────────────────────────────────────
 //
 
-    function activate ( context ) {
+    exports.activate = function activate ( context ) {
         // Generate flag comment
         context.subscriptions.push( vscode.commands.registerCommand(
             'comment.makeFlagComment', onGenerateFlagComment
@@ -77,8 +78,6 @@
         ))
     }
 
-    exports.activate = activate
-
 //
 // ─── DEACTIVATE ─────────────────────────────────────────────────────────────────
 //
@@ -93,7 +92,6 @@
 // ─── GET ENVIRONMENTAL INFORMATION ──────────────────────────────────────────────
 //
 
-
     function loadEnvironmentalInformation (  ) {
         // loading information
         currentLine =
@@ -106,7 +104,26 @@
             vscode.window.activeTextEditor.options.insertSpaces
         currentTabSize =
             vscode.window.activeTextEditor.options.tabSize
+
+        getConfigurations()
     }
+
+//
+// ─── GET CONFIGURATIONS ─────────────────────────────────────────────────────────
+//
+
+    function getConfigurations ( ) {
+        const commentConfigurations = vscode.workspace.getConfiguration("comment")
+        if (commentConfigurations === undefined || commentConfigurations === null) {
+            return
+        }
+
+        const legacyConfig = commentConfigurations.get("legacy")
+        if (legacyConfig && legacyConfig === true) {
+            legacyMode = true
+        }
+    }
+
 
 //
 // ─── PROCESS CURRENT LINE ───────────────────────────────────────────────────────
@@ -225,15 +242,14 @@
 //
 
     function generateAdditionalSpacingsForComments ( ) {
-        if ( languageCommentSignSettings.sensitive ) {
-            return "\n"
-        } else {
+        if ( legacyMode && !languageCommentSignSettings.sensitive ) {
             let spacings =
                 "\n" + generateIndentation( )
             if ( relativeIndentationSize < 2 )
                 spacings += computeTabs( 1 )
             return spacings
         }
+        return "\n"
     }
 
 //
@@ -290,23 +306,42 @@
 //
 
 //
+// ─── ALL CAPS ───────────────────────────────────────────────────────────────────
+//
+
+    function formatTitle ( text ) {
+        if (legacyMode) {
+            return text.toUpperCase().trim()
+        }
+        const words = text.toLowerCase().trim().split(/\s+/)
+        const allCapsWords = words.map( word => {
+            let copy = [...word]
+            copy[0] = copy[0].toUpperCase()
+            return copy.join("")
+        })
+        return allCapsWords.join(" ")
+    }
+
+//
 // ─── GENERATE COMMENT ───────────────────────────────────────────────────────────
 //
 
     function generateSectionComment ( width ) {
         const text =
-            currentLineString.toUpperCase( ).trim( )
+            formatTitle(currentLineString)
         const indentationText =
             generateIndentation( )
         const startingLineChars =
             repeat( commentLineCharacter , 3 )
         const tailingLineChars =
             repeat( commentLineCharacter, width - text.length - 5 )
+        const sensitive =
+            legacyMode && languageCommentSignSettings.sensitive
 
         // line 1
         let result = ''
 
-        if ( !languageCommentSignSettings.sensitive )
+        if ( sensitive )
             result =
                 `${ indentationText }${ languageCommentSignSettings.chars.start }\n`
 
@@ -315,7 +350,7 @@
             indentationText + languageCommentSignSettings.chars.middle + " " + startingLineChars + " " + text + " " + tailingLineChars + "\n"
 
         // line 3
-        if ( !languageCommentSignSettings.sensitive )
+        if ( sensitive )
             result +=
                 indentationText + languageCommentSignSettings.chars.end + "\n"
 
@@ -329,25 +364,31 @@
 
     function generateReverseSectionComments ( width ) {
         const text =
-            currentLineString.toUpperCase( ).trim( )
+            formatTitle(currentLineString)
         const indentationText =
             generateIndentation( )
         const startingLineChars =
             repeat( commentLineCharacter , 5 )
         const tailingLineChars =
             repeat( commentLineCharacter, width - text.length - 7 )
+        const sensitive =
+            legacyMode && languageCommentSignSettings.sensitive
 
         // line 1
-        let result =
-            indentationText + languageCommentSignSettings.chars.start + "\n"
+        let result = ''
+
+        if ( sensitive )
+            result =
+                `${ indentationText }${ languageCommentSignSettings.chars.start }\n`
 
         // line 2
         result +=
             indentationText + languageCommentSignSettings.chars.middle + " " + tailingLineChars + " " + text + " " + startingLineChars + "\n"
 
         // line 3
-        result +=
-            indentationText + languageCommentSignSettings.chars.end + "\n"
+        if ( sensitive )
+            result +=
+                indentationText + languageCommentSignSettings.chars.end + "\n"
 
         // done
         return result
