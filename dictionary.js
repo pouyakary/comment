@@ -6,15 +6,10 @@
     module.exports = languageName => {
         switch ( languageName ) {
             case 'arendelle':
+            case 'c':
             case 'cpp':
             case 'csharp':
             case 'dart':
-            case 'dockerfile':
-                return {
-                    sensitive:  false,
-                    chars:      { start: "#", middle: "#", end: "#" },
-                }
-
             case 'glsl':
             case 'groovy':
             case 'haxe':
@@ -58,6 +53,7 @@
                 }
 
             case 'bash':
+            case 'dockerfile':
             case 'fish':
             case 'make':
             case 'makefile':
