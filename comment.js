@@ -334,7 +334,7 @@
         const startingLineChars =
             repeat( commentLineCharacter , 3 )
         const tailingLineChars =
-            repeat( commentLineCharacter, width - text.length - 5 )
+            repeat( commentLineCharacter, width - text.length - 6 - languageCommentSignSettings.chars.middle.length)
         const sensitive =
             legacyMode && languageCommentSignSettings.sensitive
 
@@ -370,7 +370,7 @@
         const startingLineChars =
             repeat( commentLineCharacter , 5 )
         const tailingLineChars =
-            repeat( commentLineCharacter, width - text.length - 7 )
+            repeat( commentLineCharacter, width - text.length - 8 - languageCommentSignSettings.chars.middle.length )
         const sensitive =
             legacyMode && languageCommentSignSettings.sensitive
 
@@ -483,7 +483,7 @@
 //
 
     function generateLineComment ( width ) {
-        return generateSingleLineComment( repeat( commentLineCharacter, width ) )
+        return generateSingleLineComment( repeat( commentLineCharacter, width - 1 - languageCommentSignSettings.chars.middle.length ) )
     }
 
 //
