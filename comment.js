@@ -49,7 +49,7 @@
 
     var legacyMode  = false
     var fancyMode   = false
-    var signature   = '✣'
+    var ornament    = ''
 
     // Information for processing...
     var linesFirstSpacing
@@ -116,25 +116,12 @@
 //
 
     function getConfigurations ( ) {
-        const commentConfigurations = vscode.workspace.getConfiguration("comment")
-        if (commentConfigurations === undefined || commentConfigurations === null) {
-            return
-        }
 
-        const legacyConfig = commentConfigurations.get("legacy")
-        if (legacyConfig && legacyConfig === true) {
-            legacyMode = true
-        }
+        const commentConfigurations = vscode.workspace.getConfiguration('comment')
 
-        const fancyConfig = commentConfigurations.get("fancy")
-        if (fancyConfig && fancyConfig === true) {
-            fancyMode = true
-        }
-
-        const signatureConfig = commentConfigurations.get("signature")
-        if (signatureConfig && signatureConfig !== '') {
-            signature = signatureConfig
-        }
+        legacyMode  = commentConfigurations.get("legacy")
+        fancyMode   = commentConfigurations.get("fancy")
+        ornament    = commentConfigurations.get("ornament")
     }
 
 
@@ -347,7 +334,7 @@
         const startingLineChars =
             repeat( commentLineCharacter , 3 )
         const fancyModeSpacing =
-            fancyMode ? 3 + signature.length : 0
+            fancyMode ? 3 + ornament.length : 0
         const tailingLineChars =
             repeat( commentLineCharacter, width - text.length - 6 - languageCommentSignSettings.chars.middle.length - fancyModeSpacing)
         const sensitive =
@@ -370,7 +357,7 @@
             + text
             + " "
             + tailingLineChars
-            + (fancyMode ? " " + signature + " " + commentLineCharacter : '')
+            + (fancyMode ? " " + ornament + " " + commentLineCharacter : '')
             + "\n"
             )
 
@@ -419,9 +406,7 @@
         return result
     }
 
-//
-// ─── GENERATE INSECTION COMMENTS ────────────────────────────────────────────────
-//
+// ─── Generate In Section Comments ───────────────────────────────────────────────
 
     function generateInSectionComments ( ) {
         const text =
@@ -447,9 +432,7 @@
         return result
     }
 
-//
-// ─── ON GENERATE COMMENT ────────────────────────────────────────────────────────
-//
+// ─── On Generate Comment ────────────────────────────────────────────────────────
 
     function onGenerateSectionComment ( kind = 'normal' ) {
         generateCommentWithFormula( ( ) => {
@@ -464,9 +447,7 @@
         })
     }
 
-//
-// ─── GENERATE COMMENT BASED ON INDENTATION ──────────────────────────────────────
-//
+// ─── Generate Comment Based On Indentation ──────────────────────────────────────
 
     function generateCommentBasedOnIndentation ( kind ) {
         let comment
