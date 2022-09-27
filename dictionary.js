@@ -42,11 +42,11 @@
             case 'fsharp':
             case 'go':
             case 'pageman':
+            case 'peggy':
             case 'pestfile':
             case 'rust':
             case 'stylus':
             case 'yuml':
-            case 'peggy':
                 return {
                     sensitive:  true,
                     chars:      { start: "//", middle: "//", end: "//" },
@@ -64,6 +64,7 @@
             case 'ruby':
             case 'shell':
             case 'shellscript':
+            case 'terraform':
                 return {
                     sensitive:  false,
                     chars:      { start: "#", middle: "#", end: "#" },
