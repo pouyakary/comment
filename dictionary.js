@@ -47,6 +47,7 @@
             case 'rust':
             case 'stylus':
             case 'yuml':
+            case "scss":
                 return {
                     sensitive:  true,
                     chars:      { start: "//", middle: "//", end: "//" },
