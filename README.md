@@ -89,9 +89,7 @@ Comment V is content-aware so you don't have to choose your section type of comm
 
 > __NOTE__ <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.
 
-> __NOTE__ <br> To enable legacy mode:
-> ```json
-> "comment": {
->     "legacy":      false
-> },
-> ```
+## Settings
+Starting from the version 11, you can find the native VS Code settings in the preferences menu:
+
+![](https://user-images.githubusercontent.com/2157285/192586072-0f62588f-65e8-4d87-9925-d9f76340cffb.png)
