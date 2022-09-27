@@ -95,7 +95,7 @@
         }
     },
     "devDependencies": {
-        "vscode":      "^0.10.7"
+        "vscode":      "^1.1.37"
     },
     "__metadata": {
         "id":                      "89789d74-b90b-4cbf-b846-c903d9929362",
