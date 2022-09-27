@@ -46,7 +46,10 @@
     var currentLanguageId
     var currentInsertSpacesStatus
     var currentTabSize
-    let legacyMode = false
+
+    var legacyMode  = false
+    var fancyMode   = false
+    var signature   = '✣'
 
     // Information for processing...
     var linesFirstSpacing
@@ -121,6 +124,16 @@
         const legacyConfig = commentConfigurations.get("legacy")
         if (legacyConfig && legacyConfig === true) {
             legacyMode = true
+        }
+
+        const fancyConfig = commentConfigurations.get("fancy")
+        if (fancyConfig && fancyConfig === true) {
+            fancyMode = true
+        }
+
+        const signatureConfig = commentConfigurations.get("signature")
+        if (signatureConfig && signatureConfig !== '') {
+            signature = signatureConfig
         }
     }
 
@@ -333,8 +346,10 @@
             generateIndentation( )
         const startingLineChars =
             repeat( commentLineCharacter , 3 )
+        const fancyModeSpacing =
+            fancyMode ? 3 + signature.length : 0
         const tailingLineChars =
-            repeat( commentLineCharacter, width - text.length - 6 - languageCommentSignSettings.chars.middle.length)
+            repeat( commentLineCharacter, width - text.length - 6 - languageCommentSignSettings.chars.middle.length - fancyModeSpacing)
         const sensitive =
             legacyMode && languageCommentSignSettings.sensitive
 
@@ -347,7 +362,17 @@
 
         // line 2
         result +=
-            indentationText + languageCommentSignSettings.chars.middle + " " + startingLineChars + " " + text + " " + tailingLineChars + "\n"
+            ( indentationText
+            + languageCommentSignSettings.chars.middle
+            + " "
+            + startingLineChars
+            + " "
+            + text
+            + " "
+            + tailingLineChars
+            + (fancyMode ? " " + signature + " " + commentLineCharacter : '')
+            + "\n"
+            )
 
         // line 3
         if ( sensitive )
