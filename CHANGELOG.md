@@ -1,4 +1,6 @@
 ## Whats new?
+- **11.0.0** &mdash; Support for Terraform added.
+
 - **11.0.0** &mdash; A big update:<br><br>Added native settings in the VS Code Settings<br><br>Added a fancy mode where you can have a signature or ornament at the end of your comments.<br><br>A new system of width computation where the comment is included and they are exactly 80 or 65 in width.<br><br>Added  Fixed many problems in the previous version (I was lucked out of the vsce so sorry for the delay).
 
 - **10.1.0** &mdash; Fixed the problem with Dockerfile, CPP, Arendelle, Processing, Java, C and ...
