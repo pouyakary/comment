@@ -489,7 +489,12 @@
 //
 
     function generateLineComment ( width ) {
-        return generateSingleLineComment( repeat( commentLineCharacter, width - 1 - languageCommentSignSettings.chars.middle.length ) )
+        const fancyModeSpacing =
+            fancyMode ? 3 + ornament.length : 0
+        return generateSingleLineComment(
+            repeat( commentLineCharacter, width - 1 - languageCommentSignSettings.chars.middle.length - fancyModeSpacing ) +
+            ( fancyMode ? " " + ornament + " " + commentLineCharacter : "" )
+        )
     }
 
 //
