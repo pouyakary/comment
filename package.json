@@ -32,6 +32,16 @@
                     "default":         "✣",
                     "description":     "The Ornament used at the end of Section and line comments.",
                     "type":            "string"
+                },
+                "comment.levelOneCommentWidth": {
+                    "default":         80,
+                    "description":     "Total with of the comments in the root indentation (zero indent)",
+                    "type":            "number"
+                },
+                "comment.levelTwoCommentWidth": {
+                    "default":         65,
+                    "description":     "Total with of the comments in 2 or 3 indentation levels.",
+                    "type":            "number"
                 }
             }
         },
