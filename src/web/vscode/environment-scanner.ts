@@ -27,11 +27,11 @@ export function computeEnvironmentalSettings(): engine.protocols.EnvironmentPara
       : 4;
 
   return {
-    languageId:               currentLanguageId,
-    editorTabSize:            currentTabSize,
-    currentLineText:          currentLineString,
-    currentLineNumber:        currentLine,
-    editorInsertSpaceOrTab:   currentInsertSpacesStatus,
+    currentLineNumber:  currentLine,
+    currentLineText:    currentLineString,
+    tabWhiteSpaceMode:  currentInsertSpacesStatus,
+    editorTabSize:      currentTabSize,
+    languageId:         currentLanguageId,
   };
 }
 
