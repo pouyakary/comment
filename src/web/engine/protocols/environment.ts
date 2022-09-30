@@ -17,7 +17,7 @@ export enum TabWhitespaceKind {
  * a button. These parameters are computed by the host and then processed
  * to create the `GeneratorContext`
  */
-export interface EnvironmentParameters {
+export interface EditorParameters {
   /**
    * The ID of the current programming language. This is used
    * by the dictionary module to infer the language configurations.
