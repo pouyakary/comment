@@ -1,95 +1,65 @@
+# comment README
 
-# Comment V for Visual Studio Code
+This is the README for your extension "comment". After writing up a brief description, we recommend including the following sections.
 
-<img src="https://user-images.githubusercontent.com/2157285/28877787-ace1415e-77b2-11e7-81fa-e4d3d7af50ec.gif" width="600" />
+## Features
 
-<br>
+Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
->
-> ## ⚠️ Important Release Note for the Version 10
->
-> Within the version 10 and above, the style of comments
-> have been changed. Since there are many code bases that
-> use the legacy version. You can include this snippet
-> within your `settings.json` or inside the
-> `.vscode/settings.json` within your project so that
-> anyone on the codebase can benefit.
->
-> ```json
-> "comment": {
->     "legacy":      false
-> },
-> ```
+For example if there is an image subfolder under your extension project workspace:
 
-## What is this?
+\!\[feature X\]\(images/feature-x.png\)
 
-Comment V is a [Kary Comments](https://coding.standards.kary.us/comments) Generation Tool. Kary Comments are a part of the [Kary Coding Standards](https://coding.standards.kary.us) designed to bring richer layouts to the code. These comments are designed to work inside of that specifcitaion and with their own respective rules. So if you don't know them please read these articles before dowloading this extension.
+> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
-- [Overview of Kary Coding Standards](https://coding.standards.kary.us/)
-- [Introduction to Kary Comments](https://coding.standards.kary.us/comments/introduction)
-- [Sectioning Code](https://coding.standards.kary.us/comments/sectioning)
-- [Comments Reference](https://coding.standards.kary.us/comments/reference)
+## Requirements
 
-## Supported Comments
+If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
-```
-── ─── Section Comment ────────────────────────────────────────────────────────────
+## Extension Settings
 
-── ───────────────────────────────────────────────── Reversed Section Comment ─────
+Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-── ────────────────────────────────────────────────────────────────────────────────
-```
+For example:
 
-## Supported Comments (LEGACY MODE)
+This extension contributes the following settings:
 
-```
+* `myExtension.enable`: Enable/disable this extension.
+* `myExtension.thing`: Set to `blah` to do something.
 
-──
-── ──────────────────────────────────────────────── I ──────────
-──   :::::: F L A G : :  :   :    :     :        :          :
-── ──────────────────────────────────────────────────────────
-──
+## Known Issues
 
-──
-── ─── INDENTATION LEVEL 1 ────────────────────────────────────────────────────────
-──
+Calling out known issues can help limit users opening duplicate issues against your extension.
 
-──
-── ─────────────────────────────────────────────────── LEVEL 1 ENDING COMMENT ─────
-──
+## Release Notes
 
-        ──
-        ── ─── INDENTATION LEVEL 2 ─────────────────────────────────────────
-        ──
+Users appreciate release notes as you update your extension.
 
-        ──
-        ── ──────────────────────────────────── LEVEL 2 ENDING COMMENT ─────
-        ──
+### 1.0.0
 
-                ──
-                ── INDENTATION LEVEL 3
-                ──
+Initial release of ...
 
-                ── • • • • •
+### 1.0.1
 
-        ── ─────────────────────────────────────────────────────────────────
+Fixed issue #.
 
-── ────────────────────────────────────────────────────────────────────────────────
-```
+### 1.1.0
 
-## How to use?
-Comment V is content-aware so you don't have to choose your section type of comment. Comment uses `Kary Section Comment Width 80`, `Kary Section Comment Width 60` and `Kary Section InSection Comment` for start of your part and `Kary Line Comment Width 80`, `Kary Line Comment Width 60` and `Kary Separator Comment` for end of your section. What you have to do is to specify if the comment is start or the end of the section.
+Added features X, Y, and Z.
 
-| Comments              | Keybindings           | Additional Information                                                            |
-|-----------------------|-----------------------|-----------------------------------------------------------------------------------|
-| Flag                  | `alt` + `shift` + `y` | You'll have to also give it the index number                                      |
-| Section Header        | `alt` + `y`           | Section Comment for Indentation less than 2 and InSection comment for the rest    |
-| Reverse Section Start | `alt` + `m`           | _same as section comment_                                                         |
-| Section End           | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest       |
+---
 
-> __NOTE__ <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.
+## Working with Markdown
 
-## Settings
-Starting from the version 11, you can find the native VS Code settings in the preferences menu:
+You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
 
-![](https://user-images.githubusercontent.com/2157285/192586072-0f62588f-65e8-4d87-9925-d9f76340cffb.png)
+* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
+* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
+* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+
+## For more information
+
+* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
+* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+
+**Enjoy!**

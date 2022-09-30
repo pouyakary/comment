@@ -1,105 +1,50 @@
 {
-    "description":     "The easiest way to to decorate your codes with Kary Comments in Visual Studio Code.",
-    "displayName":     "Comment V",
-    "icon":            "icon.png",
-    "main":            "./comment",
-    "name":            "comment",
-    "publisher":       "karyfoundation",
-    "version":         "11.0.2",
-    "repository": {
-        "type":    "git",
-        "url":     "https://github.com/pmkary/comment-vscode"
-    },
-    "engines": {
-        "vscode":      "^0.10.1"
-    },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "*"
-    ],
-    "contributes": {
-        "configuration": {
-            "title":       "Comment V",
-            "properties": {
-                "comment.legacy": {
-                    "type":            "boolean",
-                    "default":         true,
-                    "description":     "If enabled it will render the legacy version of comments. This version has the ALL CAPS titles and the multi line and indentation system on some languages."
-                },
-				"comment.fancy": {
-                    "type":            "boolean",
-                    "default":         false,
-                    "description":     "If set true, Renders a Decoration Ornament at the end of Line and Section comments."
-                },
-				"comment.ornament": {
-                    "type":            "string",
-                    "default":         "✣",
-                    "description":     "The Ornament used at the end of Section and line comments."
-                }
-            }
-        },
-        "keybindings": [
-            {
-                "command":     "comment.makeFlagComment",
-                "key":         "alt+shift+y",
-                "when":        "editorTextFocus"
-            },
-            {
-                "command":     "comment.makeSectionComment",
-                "key":         "alt+y",
-                "when":        "editorTextFocus"
-            },
-            {
-                "command":     "comment.makeReverseSectionComment",
-                "key":         "alt+m",
-                "when":        "editorTextFocus"
-            },
-            {
-                "command":     "comment.makeLineComment",
-                "key":         "alt+l",
-                "when":        "editorTextFocus"
-            }
-        ],
-        "commands": [
-            {
-                "command":     "comment.makeLineComment",
-                "title":       "Make a Kary Spacer Comment"
-            },
-            {
-                "command":     "comment.makeSectionComment",
-                "title":       "Make a Kary Header Comment"
-            },
-            {
-                "command":     "comment.makeReverseSectionComment",
-                "title":       "Make a Kary Reverse Header Comment"
-            },
-            {
-                "command":     "comment.makeFlagComment",
-                "title":       "Make a Kary Flag Comment"
-            }
-        ],
-        "menus": {
-            "editor/context": [
-                {
-                    "command":     "comment.makeSectionComment"
-                },
-                {
-                    "command":     "comment.makeLineComment"
-                },
-                {
-                    "command":     "comment.makeReverseSectionComment"
-                }
-            ]
-        }
-    },
-    "devDependencies": {
-        "vscode":      "^1.1.37"
-    },
-    "__metadata": {
-        "id":                      "89789d74-b90b-4cbf-b846-c903d9929362",
-        "publisherDisplayName":    "Pouya Kary",
-        "publisherId":             "00c37c0d-e370-4cc2-8ab3-3fa32a26514a"
-    }
+  "name": "comment",
+  "displayName": "Comment VI",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.71.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:comment.helloWorld"
+  ],
+  "browser": "./dist/web/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "comment.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js",
+    "pretest": "yarn run compile-web",
+    "vscode:prepublish": "yarn run package-web",
+    "compile-web": "webpack",
+    "watch-web": "webpack --watch",
+    "package-web": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint src --ext ts",
+    "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.71.0",
+    "@types/mocha": "^9.1.1",
+    "eslint": "^8.20.0",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.4",
+    "@vscode/test-web": "^0.0.29",
+    "ts-loader": "^9.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "@types/webpack-env": "^1.17.0",
+    "assert": "^2.0.0",
+    "process": "^0.11.10"
+  }
 }
