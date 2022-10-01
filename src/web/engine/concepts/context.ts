@@ -24,4 +24,8 @@ export class GeneratorContext {
     this.userSettings     = userSettings;
     this.editorSettings   = editorSettings;
   }
+
+  get ornament(): concepts.Ornament {
+    return new concepts.Ornament(this.userSettings.ornament);
+  }
 }
