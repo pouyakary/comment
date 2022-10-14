@@ -1,12 +1,22 @@
 import * as vscode from 'vscode';
+import * as commands from './vscode/commands';
+
+// ─── Activation Function ───────────────────────────────────────────────── ✣ ─
 
 export function activate(context: vscode.ExtensionContext) {
+	// Registerer
+	function register(command: string, callback: () => void) {
+		context.subscriptions.push(
+			vscode.commands.registerCommand(command, callback)
+		);
+	}
 
-	let disposable = vscode.commands.registerCommand('comment.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello World from Comment VI in a web extension host!');
-	});
-
-	context.subscriptions.push(disposable);
+	// Line Comment
+	register('comment.vi.makeLineComment', commands.generateLineComment);
 }
 
-export function deactivate() {}
+// ─── Deactivation Function ─────────────────────────────────────────────── ✣ ─
+
+export function deactivate() {
+	// nothing to do
+}

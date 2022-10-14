@@ -1,9 +1,4 @@
-import * as protocols from '../protocols';
+import * as protocols from '../concepts';
 
 // ─── Line Comment ──────────────────────────────────────────────────────── ✣ ─
 
-export class LineComment implements protocols.CommentGeneratorProtocol {
-  public generate (context: protocols.GeneratorContext) {
-    return "";
-  }
-}

@@ -1,9 +1,3 @@
-// ─── Language Dictionary ───────────────────────────────────────────────── ✣ ─
-
-export interface LanguageDictionary {
-  readonly [LanguageIdentifier: string]:  LanguageConfigurations
-}
-
 // ─── Language Configurations ───────────────────────────────────────────── ✣ ─
 
 export interface LanguageConfigurations {

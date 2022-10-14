@@ -1,21 +1,26 @@
-import * as protocols from '../protocols';
+import * as concepts from '.';
 
 
 // ─── Indentation ───────────────────────────────────────────────────────── ✣ ─
 
 export class Indentation {
+  #context:     concepts.GeneratorContext;
   #indentSize:  number;
-  #tabSize:     number;
 
-  constructor (line: string, params: protocols.EditorParameters) {
-    this.#tabSize = params.editorTabSize;
+  constructor (context: concepts.GeneratorContext) {
+    this.#context = context;
     this.#indentSize = computeTheWhitespaceCharactersInTheBeginningOfALine(
-      line,
-      params.editorTabSize,
+      context.editorSettings.currentLineText,
+      context.editorSettings.editorTabSize,
     );
   }
 
-  /** how many tabs fit in the indentation */
+  /** Shortcut for the context tabsize. */
+  get #tabSize(): number {
+    return this.#context.editorSettings.editorTabSize;
+  }
+
+  /** how many tabs fit in the indentation. */
   get indentationLevel(): number {
     return Math.floor(this.#indentSize / this.#tabSize);
   }
@@ -25,9 +30,14 @@ export class Indentation {
     return Math.floor(this.indentationLevel / 2);
   }
 
-  /** regenerated whitespace based on the indentation size */
+  /** Regenerated whitespace based on the indentation size. */
   get asSpaces(): string {
     return ' '.repeat(this.#indentSize);
+  }
+
+  /** The whitespace that is used before the final cursor position. */
+  get whitespaceBeforeFinalCursorPosition(): string {
+    return this.asSpaces;
   }
 }
 
@@ -40,7 +50,7 @@ export class Indentation {
  */
 function computeTheWhitespaceCharactersInTheBeginningOfALine(
   line:     string,
-  tabSize:  number
+  tabSize:  number,
 ): number {
   let index   = 0;
   let spaces  = 0;
