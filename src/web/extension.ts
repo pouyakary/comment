@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import * as commands from './vscode/commands';
+import * as engine from './engine';
 
 // ─── Activation Function ───────────────────────────────────────────────── ✣ ─
 
@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 	}
 
 	// Line Comment
-	register('comment.vi.makeLineComment', commands.generateLineComment);
+	register('comment.vi.makeLineComment', engine.generators.generateLineComment);
 }
 
 // ─── Deactivation Function ─────────────────────────────────────────────── ✣ ─

@@ -1,4 +1,4 @@
-import * as engine      from '../../../engine';
+import * as engine      from '..';
 import * as skeleton    from './skeleton';
 
 // ─── Generate Line Comment ─────────────────────────────────────────────── ✣ ─

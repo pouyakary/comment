@@ -1,7 +1,7 @@
-import * as engine      from '../../../engine';
-import * as languages   from '../../languages';
-import * as parameters  from '../../parameters';
-import * as tools       from '../../tools';
+import * as engine      from '..';
+import * as languages   from '../../vscode/languages';
+import * as parameters  from '../../vscode/parameters';
+import * as tools       from '../../vscode/tools';
 
 // ─── Comment Generator Implementation Function ─────────────────────────── ✣ ─
 
