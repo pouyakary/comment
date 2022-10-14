@@ -2,7 +2,7 @@
     "browser":         "./dist/web/extension.js",
     "description":     "",
     "displayName":     "Comment VI",
-    "name":            "comment",
+    "name":            "comment-vi",
     "publisher":       "karyfoundation",
     "version":         "0.0.1",
     "engines": {
@@ -16,7 +16,7 @@
     ],
     "contributes": {
         "configuration": {
-            "title":       "Comment V",
+            "title":       "Comment VI",
             "properties": {
                 "comment.legacy": {
                     "default":         true,
@@ -42,59 +42,55 @@
                     "default":         65,
                     "description":     "Total with of the comments in 2 or 3 indentation levels.",
                     "type":            "number"
+                },
+                "comment.karyScopeLevel": {
+                    "default":         2,
+                    "description":     "Total with of the comments in 2 or 3 indentation levels.",
+                    "type":            "number"
                 }
             }
         },
         "keybindings": [
             {
-                "command":     "comment.makeFlagComment",
-                "key":         "alt+shift+y",
-                "when":        "editorTextFocus"
-            },
-            {
-                "command":     "comment.makeSectionComment",
+                "command":     "comment.vi.makeSectionComment",
                 "key":         "alt+y",
                 "when":        "editorTextFocus"
             },
             {
-                "command":     "comment.makeReverseSectionComment",
+                "command":     "comment.vi.makeReverseSectionComment",
                 "key":         "alt+m",
                 "when":        "editorTextFocus"
             },
             {
-                "command":     "comment.makeLineComment",
+                "command":     "comment.vi.makeLineComment",
                 "key":         "alt+l",
                 "when":        "editorTextFocus"
             }
         ],
         "commands": [
             {
-                "command":     "comment.makeLineComment",
+                "command":     "comment.vi.makeLineComment",
                 "title":       "Make a Kary Spacer Comment"
             },
             {
-                "command":     "comment.makeSectionComment",
+                "command":     "comment.vi.makeSectionComment",
                 "title":       "Make a Kary Header Comment"
             },
             {
-                "command":     "comment.makeReverseSectionComment",
+                "command":     "comment.vi.makeReverseSectionComment",
                 "title":       "Make a Kary Reverse Header Comment"
-            },
-            {
-                "command":     "comment.makeFlagComment",
-                "title":       "Make a Kary Flag Comment"
             }
         ],
         "menus": {
             "editor/context": [
                 {
-                    "command":     "comment.makeSectionComment"
+                    "command":     "comment.vi.makeSectionComment"
                 },
                 {
-                    "command":     "comment.makeLineComment"
+                    "command":     "comment.vi.makeLineComment"
                 },
                 {
-                    "command":     "comment.makeReverseSectionComment"
+                    "command":     "comment.vi.makeReverseSectionComment"
                 }
             ]
         }
@@ -105,7 +101,6 @@
         "package-web":             "webpack --mode production --devtool hidden-source-map",
         "pretest":                 "yarn run compile-web",
         "run-in-browser":          "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
-        "test":                    "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js",
         "vscode:prepublish":       "yarn run package-web",
         "watch-web":               "webpack --watch"
     },
