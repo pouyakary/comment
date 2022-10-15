@@ -72,7 +72,7 @@ export function createCommentGenerationSkeleton(
     const languageConfig =
       languages.loadLanguageSettings(environmentalSettings.languageId);
     if (languageConfig === null) {
-      tools.showError(`Language '${environmentalSettings.languageId} is not supported by Comment VI. Please make a issue in GitHub to add the support for it'`);
+      tools.showError(`Language '${environmentalSettings.languageId} is not supported. Please make an issue in GitHub to add the support for it.`);
       return;
     }
 
@@ -95,12 +95,16 @@ export function createCommentGenerationSkeleton(
 
     // Generating additional whitespace
     const lineBreaks = '\n'.repeat(2);
-    const spacesInTheLastLine =
+    const cursorIndentation =
       context.indentation.whitespaceBeforeFinalCursorPosition;
 
-    // final product
+    // Starting whitespace
+    const commentIndentation =
+      context.indentation.beginningIndentationWhitespace;
+
+    // Final product
     const finalProduct =
-      context.indentation.asSpaces + generatedComment + lineBreaks + spacesInTheLastLine;
+      commentIndentation + generatedComment + lineBreaks + cursorIndentation;
 
     // Performing the replace on editor
     tools.replaceLineWithCurrentSnippet(

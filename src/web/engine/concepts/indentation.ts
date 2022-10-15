@@ -26,13 +26,13 @@ export class Indentation {
   }
 
   /** Regenerated whitespace based on the indentation size. */
-  get asSpaces(): string {
+  get beginningIndentationWhitespace(): string {
     return ' '.repeat(this.#indentSize);
   }
 
   /** The whitespace that is used before the final cursor position. */
   get whitespaceBeforeFinalCursorPosition(): string {
-    return this.asSpaces;
+    return this.beginningIndentationWhitespace;
   }
 }
 
