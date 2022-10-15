@@ -21,7 +21,7 @@ function generator(context: engine.concepts.GeneratorContext): string {
     // Comment Grammar
     context.commentGrammarPrefix +
     // Line
-    '─'.repeat(context.commentWidthWithoutLanguageAndOrnamentParts) +
+    '─'.repeat(context.commentBodyAvailableSpace) +
     // Ornament
     context.ornament.render
   );

@@ -63,17 +63,19 @@ export class GeneratorContext {
   /**
    * The width of a comment without the ornament and language parts:
    * ```plaintext
-   * ◀──────────────────────────────────────────────────────────▶ A
-   * // ─── Comment Title ─────────────────────────────────── ✣ ─
-   * ◀─▶ B                                                  ◀───▶ C
+   * ◀────────────────────────────────────────────────▶ A
+   * // ─── Comment Title ───────────────────────── ✣ ─
+   * ◀─▶ B                                        ◀───▶ C
+   *    ◀────────────────────────────────────────▶ D
    * ```
    * - (A) Total comment length.
    * - (B) Comment Grammar Prefix.
    * - (C) Ornament Part.
+   * - (D) body available space
    *
-   * Width = A - (B + C)
+   * D = A - (B + C)
    */
-  get commentWidthWithoutLanguageAndOrnamentParts(): number {
+  get commentBodyAvailableSpace(): number {
     return this.totalCommentWidth
       - this.commentGrammarPrefix.length
       - this.ornament.size;
