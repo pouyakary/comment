@@ -2,6 +2,7 @@ import * as engine      from '..';
 import * as languages   from '../../vscode/languages';
 import * as parameters  from '../../vscode/parameters';
 import * as tools       from '../../vscode/tools';
+import * as validation  from '../validation';
 
 // ─── Comment Generator Implementation Function ─────────────────────────── ✣ ─
 
@@ -14,7 +15,7 @@ export type EditorParameters  = engine.protocols.EditorParameters;
  * givin the thumbs up sign.
  */
 export type CommentVerifier =
-  (context: engine.concepts.GeneratorContext) => string | null;
+  (context: engine.concepts.GeneratorContext) => validation.ValidationResult;
 
 /**
  * Generates the comment
@@ -93,7 +94,7 @@ export function createCommentGenerationSkeleton(
     const generatedComment = skeletonParams.commentGenerator(context);
 
     // Generating additional whitespace
-    const lineBreaks = '\n'.repeat(3);
+    const lineBreaks = '\n'.repeat(2);
     const spacesInTheLastLine =
       context.indentation.whitespaceBeforeFinalCursorPosition;
 

@@ -1,5 +1,6 @@
 import * as engine      from '..';
 import * as skeleton    from './skeleton';
+import * as constants   from '../constants';
 
 // ─── Generate Line Comment ─────────────────────────────────────────────── ✣ ─
 
@@ -21,7 +22,7 @@ function generator(context: engine.concepts.GeneratorContext): string {
     // Comment Grammar
     context.commentGrammarPrefix +
     // Line
-    '─'.repeat(context.commentBodyAvailableSpace) +
+    constants.COMMENT_LINE_CHARACTER.repeat(context.commentBodyAvailableSpace) +
     // Ornament
     context.ornament.render
   );

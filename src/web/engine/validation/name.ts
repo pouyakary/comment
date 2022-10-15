@@ -1,3 +1,6 @@
+import * as concepts    from '../concepts';
+import * as validation  from '.';
+
 // ─── Constants ─────────────────────────────────────────────────────────── ✣ ─
 
 const nameFormat =
@@ -5,6 +8,19 @@ const nameFormat =
 
 // ─── Validate ──────────────────────────────────────────────────────────── ✣ ─
 
-export function validateCommentName(name: string) {
-  return nameFormat.test(name);
+export function validateCommentName(
+  context: concepts.GeneratorContext
+): validation.ValidationResult {
+
+  if (/^\s*$/.test(context.whitespaceNormalizedInput)) {
+    return `Comment is empty.`;
+  }
+
+  const regexpTest = nameFormat.test(context.whitespaceNormalizedInput);
+
+  if (regexpTest) {
+    return null;
+  }
+
+  return `Comment text must only contain: basic alphabet, numbers, :, -, +, @, ?, and !. Other formats are not allowed.`;
 }

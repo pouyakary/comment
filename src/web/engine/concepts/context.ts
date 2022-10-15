@@ -18,14 +18,14 @@ export interface GeneratorContextConstructorParams {
  * of a convenience that provides shortcuts for common important information.
  */
 export class GeneratorContext {
-  readonly languageConfig:  protocols.LanguageConfigurations;
-  readonly userSettings:    protocols.UserSettings;
-  readonly editorSettings:  protocols.EditorParameters;
+  readonly #languageConfig:   protocols.LanguageConfigurations;
+  readonly #userSettings:     protocols.UserSettings;
+  readonly #editorSettings:   protocols.EditorParameters;
 
   constructor(params: GeneratorContextConstructorParams) {
-    this.userSettings   = params.userSettings;
-    this.editorSettings = params.editorSettings;
-    this.languageConfig = params.languageConfig;
+    this.#userSettings   = params.userSettings;
+    this.#editorSettings = params.editorSettings;
+    this.#languageConfig = params.languageConfig;
   }
 
   /**
@@ -36,11 +36,35 @@ export class GeneratorContext {
     return new concepts.Indentation(this);
   }
 
+  /** The current editor line data */
+  get line(): string {
+    return this.#editorSettings.currentLineText;
+  }
+
+  /**
+   * Whitespace normalized input of the comment generation system.
+   */
+  get whitespaceNormalizedInput(): string {
+    return this.line
+        .trim()
+        .split(/\s+/g).join(' ');
+  }
+
+  /** The current editor line number */
+  get lineNumber(): number {
+    return this.#editorSettings.currentLineNumber;
+  }
+
+  /** Editor tab size */
+  get tabSize(): number {
+    return this.#editorSettings.editorTabSize;
+  }
+
   /**
    * Returns the current ornament of the user settings.
    */
   get ornament(): concepts.Ornament {
-    return new concepts.Ornament(this.userSettings.ornament);
+    return new concepts.Ornament(this.#userSettings.ornament);
   }
 
   /**
@@ -57,7 +81,7 @@ export class GeneratorContext {
    * ```
    */
   get commentGrammarPrefix(): string {
-    return this.languageConfig.chars.middle + ' ';
+    return this.#languageConfig.chars.middle + ' ';
   }
 
   /**
@@ -80,6 +104,18 @@ export class GeneratorContext {
       - this.commentGrammarPrefix.length
       - this.ornament.size;
   }
+
+  get levelOneCommentWidth(): number {
+    return this.#userSettings.levelOneCommentWidth;
+  }
+
+  get levelTwoCommentWidth(): number {
+    return this.#userSettings.levelTwoCommentWidth;
+  }
+
+  get legacyModeIsOn(): boolean {
+    return this.#userSettings.legacyMode;
+  }
 }
 
 // ─── Compute The Result Comment Width ──────────────────────────────────── ✣ ─
@@ -87,8 +123,8 @@ export class GeneratorContext {
 function computeLineWidthBasedOnIndentation(context: GeneratorContext) {
   switch (context.indentation.karyStandardsRelativeIndentationLevel) {
     case 0:
-      return context.userSettings.levelOneCommentWidth;
+      return context.levelOneCommentWidth;
     default:
-      return context.userSettings.levelTwoCommentWidth;
+      return context.levelTwoCommentWidth;
   }
 }

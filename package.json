@@ -69,16 +69,16 @@
         ],
         "commands": [
             {
-                "command":     "comment.vi.makeLineComment",
-                "title":       "Make a Kary Spacer Comment"
-            },
-            {
                 "command":     "comment.vi.makeSectionComment",
-                "title":       "Make a Kary Header Comment"
+                "title":       "✤ Make a Section Comment"
             },
             {
                 "command":     "comment.vi.makeReverseSectionComment",
-                "title":       "Make a Kary Reverse Header Comment"
+                "title":       "✤ Make a Reverse Header Comment"
+            },
+            {
+                "command":     "comment.vi.makeLineComment",
+                "title":       "✤ Make a Line Comment"
             }
         ],
         "menus": {

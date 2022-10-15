@@ -12,7 +12,11 @@ export function activate(context: vscode.ExtensionContext) {
 	}
 
 	// Line Comment
-	register('comment.vi.makeLineComment', engine.generators.generateLineComment);
+	register('comment.vi.makeSectionComment',
+		engine.generators.generateSectionComment);
+
+	register('comment.vi.makeLineComment',
+		engine.generators.generateLineComment);
 }
 
 // ─── Deactivation Function ─────────────────────────────────────────────── ✣ ─

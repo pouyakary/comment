@@ -10,19 +10,14 @@ export class Indentation {
   constructor (context: concepts.GeneratorContext) {
     this.#context = context;
     this.#indentSize = computeTheWhitespaceCharactersInTheBeginningOfALine(
-      context.editorSettings.currentLineText,
-      context.editorSettings.editorTabSize,
+      context.line,
+      context.tabSize,
     );
-  }
-
-  /** Shortcut for the context tabsize. */
-  get #tabSize(): number {
-    return this.#context.editorSettings.editorTabSize;
   }
 
   /** how many tabs fit in the indentation. */
   get indentationLevel(): number {
-    return Math.floor(this.#indentSize / this.#tabSize);
+    return Math.floor(this.#indentSize / this.#context.tabSize);
   }
 
   /** Level of indentation, relative to the Kary Coding Standards. */
