@@ -8,7 +8,7 @@ import * as toolkit     from '../toolkit';
 
 export const generateSectionComment = skeleton.createCommentGenerationSkeleton({
   contextVerifier:    verifier,
-  commentGenerator:   generator,
+  commentGenerator:   sectionGenerator,
 });
 
 // ─── Verifier ──────────────────────────────────────────────────────────── ✣ ─
@@ -32,7 +32,7 @@ function verifier(
 
 // ─── Generator ─────────────────────────────────────────────────────────── ✣ ─
 
-function generator(context: engine.concepts.GeneratorContext): string {
+function sectionGenerator(context: engine.concepts.GeneratorContext): string {
   // // ─── Comment Title ─────────────────────────────────── ✣ ─
   // ◀─▶ A
   //    ◀──▶ B
@@ -57,6 +57,10 @@ function generator(context: engine.concepts.GeneratorContext): string {
 
   return a + b + c + d + e;
 }
+
+// ─────────────────────────────────────────────────────── Reverse Section ─ ✣ ─
+
+
 
 // ─── Title ─────────────────────────────────────────────────────────────── ✣ ─
 

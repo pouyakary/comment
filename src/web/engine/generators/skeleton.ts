@@ -100,7 +100,7 @@ export function createCommentGenerationSkeleton(
 
     // final product
     const finalProduct =
-      generatedComment + lineBreaks + spacesInTheLastLine;
+      context.indentation.asSpaces + generatedComment + lineBreaks + spacesInTheLastLine;
 
     // Performing the replace on editor
     tools.replaceLineWithCurrentSnippet(
