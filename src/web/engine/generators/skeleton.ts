@@ -1,35 +1,6 @@
-import * as engine      from '..';
-import * as languages   from '../../vscode/languages';
-import * as parameters  from '../../vscode/parameters';
-import * as tools       from '../../vscode/tools';
-import * as validation  from '../validation';
-
-// ─── Comment Generator Implementation Function ─────────────────────────── ✣ ─
-
-export type UserSettings      = engine.protocols.UserSettings;
-export type EditorParameters  = engine.protocols.EditorParameters;
-
-/**
- * If presented with an error returns a string explaining the error
- * or returns `null` to indicate the absence of problems and therefore
- * givin the thumbs up sign.
- */
-export type CommentVerifier =
-  (context: engine.concepts.GeneratorContext) => validation.ValidationResult;
-
-/**
- * Generates the comment
- */
-export type CommentGenerator =
-  (context: engine.concepts.GeneratorContext) => string;
-
-// ─── Comment Generator Skeleton Construction Parameters ────────────────── ✣ ─
-
-/** Parameters to establish the comment generator skeleton */
-export interface CommentGeneratorSkeletonParams {
-  contextVerifier:    CommentVerifier,
-  commentGenerator:   CommentGenerator,
-}
+import * as types       from './types';
+import * as concepts    from '../concepts';
+import * as protocols   from '../protocols';
 
 // ─── Comment Generation Skeleton ───────────────────────────────────────── ✣ ─
 
@@ -58,36 +29,28 @@ export interface CommentGeneratorSkeletonParams {
  * ---
  *
  * @param skeletonParams the parameters object
+ *
+ * @returns A function that takes the Skeleton parameters
+ *          and either generates a result or returns an error.
  */
 export function createCommentGenerationSkeleton(
-  skeletonParams: CommentGeneratorSkeletonParams
-) {
-  // Remember: This creates a function that when triggered does the job...
-  return () => {
-    // Scanning and processing the environment and the input value
-    const userSettings          = parameters.getUserSettings();
-    const environmentalSettings = parameters.computeEnvironmentalSettings();
+  skeletonParams: types.CommentGeneratorSkeletonParams
+): types.GeneratorSkeleton {
 
-    // Getting the language configuration
-    const languageConfig =
-      languages.loadLanguageSettings(environmentalSettings.languageId);
-    if (languageConfig === null) {
-      tools.showError(`Language '${environmentalSettings.languageId} is not supported. Please make an issue in GitHub to add the support for it.`);
-      return;
-    }
+  // Remember: This creates a function that when triggered does the job...
+  return (userSettings, editorParameters, languageConfig): string => {
 
     // Establish the GeneratorContext
-    const context = new engine.concepts.GeneratorContext({
+    const context = new concepts.GeneratorContext({
       userSettings:     userSettings,
-      editorSettings:   environmentalSettings,
+      editorSettings:   editorParameters,
       languageConfig:   languageConfig,
     });
 
     // Checking the parameters
     const possibleError = skeletonParams.contextVerifier(context);
     if (possibleError) {
-      tools.showError(possibleError);
-      return;
+      throw Error(possibleError);
     }
 
     // Computing the answer
@@ -106,10 +69,6 @@ export function createCommentGenerationSkeleton(
     const finalProduct =
       commentIndentation + generatedComment + lineBreaks + cursorIndentation;
 
-    // Performing the replace on editor
-    tools.replaceLineWithCurrentSnippet(
-      environmentalSettings.currentLineNumber,
-      finalProduct,
-    );
+    return finalProduct;
   };
 }

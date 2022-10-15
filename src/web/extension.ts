@@ -1,22 +1,11 @@
-import * as vscode from 'vscode';
-import * as engine from './engine';
+import * as vscode 				from 'vscode';
+import * as contributions from './vscode/contributions';
 
 // ─── Activation Function ───────────────────────────────────────────────── ✣ ─
 
 export function activate(context: vscode.ExtensionContext) {
-	// Registerer
-	function register(command: string, callback: () => void) {
-		context.subscriptions.push(
-			vscode.commands.registerCommand(command, callback)
-		);
-	}
-
-	// Line Comment
-	register('comment.vi.makeSectionComment',
-		engine.generators.generateSectionComment);
-
-	register('comment.vi.makeLineComment',
-		engine.generators.generateLineComment);
+	contributions.registerCommandProviders(context);
+	contributions.registerCompletionProviders(context);
 }
 
 // ─── Deactivation Function ─────────────────────────────────────────────── ✣ ─
