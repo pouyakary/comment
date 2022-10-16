@@ -1,6 +1,5 @@
 import * as types       from './types';
 import * as concepts    from '../concepts';
-import * as protocols   from '../protocols';
 
 // ─── Comment Generation Skeleton ───────────────────────────────────────── ✣ ─
 
@@ -56,14 +55,18 @@ export function createCommentGenerationSkeleton(
     // Computing the answer
     const generatedComment = skeletonParams.commentGenerator(context);
 
+    // Starting whitespace
+    const commentIndentation =
+      context.indentation.beginningIndentationWhitespace;
+
+    if (editorParameters.onlyRenderTheMainLine) {
+      return commentIndentation + generatedComment;
+    }
+
     // Generating additional whitespace
     const lineBreaks = '\n'.repeat(2);
     const cursorIndentation =
       context.indentation.whitespaceBeforeFinalCursorPosition;
-
-    // Starting whitespace
-    const commentIndentation =
-      context.indentation.beginningIndentationWhitespace;
 
     // Final product
     const finalProduct =

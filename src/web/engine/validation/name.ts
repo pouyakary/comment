@@ -3,8 +3,13 @@ import * as validation  from '.';
 
 // ─── Constants ─────────────────────────────────────────────────────────── ✣ ─
 
-const nameFormat =
+export const nameFormat =
   /^\s*([a-z ]|[0-9][0-9\.]*|[\:\-\+\@\!\?])+\s*$/i;
+
+// ─── Error Message ─────────────────────────────────────────────────────── ✣ ─
+
+export const nameValidationErrorMessage =
+  `Comment text must only contain: Basic Alphabet (a-zA-Z), digits(0-9), :, -, +, @, ?, and !`;
 
 // ─── Validate ──────────────────────────────────────────────────────────── ✣ ─
 
@@ -22,5 +27,5 @@ export function validateCommentName(
     return null;
   }
 
-  return `Comment text must only contain: basic alphabet, numbers, :, -, +, @, ?, and !. Other formats are not allowed.`;
+  return nameValidationErrorMessage;
 }

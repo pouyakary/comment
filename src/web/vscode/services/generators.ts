@@ -1,19 +1,26 @@
+import * as vscode      from 'vscode';
 import * as parameters  from '../parameters';
 import * as engine      from '../../engine';
 import * as languages   from '../languages';
 
-// ─── Wrap Generator Function ───────────────────────────────────────────── ✣ ─
+// ─── Result Type ───────────────────────────────────────────────────────── ✣ ─
 
 export interface GeneratorExecutionResult {
   lineNumber:   number,
-  result:      string,
+  result:       string,
 }
 
-export function runGenerator(
-  skeleton: engine.generators.GeneratorSkeleton
+// ─── Wrap Generator Function ───────────────────────────────────────────── ✣ ─
+
+export function executeGenerator(
+  skeleton:                   engine.generators.GeneratorSkeleton,
+  editorComputationOptions?:  parameters.EnvironmentComputationParameters,
 ): GeneratorExecutionResult {
+
   const userSettings      = parameters.getUserSettings();
-  const editorParameters  = parameters.computeEnvironmentalSettings();
+  const editorParameters  = parameters.computeEnvironmentalParameters(
+    editorComputationOptions,
+  );
 
   const languageConfig =
     languages.loadLanguageSettings(editorParameters.languageId);
@@ -21,8 +28,10 @@ export function runGenerator(
     throw Error(`Language '${editorParameters.languageId} is not supported. Please make an issue in GitHub to add the support for it.`);
   }
 
+  const result = skeleton(userSettings, editorParameters, languageConfig);
+
   return {
     lineNumber:   editorParameters.currentLineNumber,
-    result:       skeleton(userSettings, editorParameters, languageConfig)
+    result:       result,
   };
 }

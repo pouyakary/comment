@@ -41,4 +41,9 @@ export interface EditorParameters {
    * spaces instead and emulates the tab.
    */
   readonly tabWhiteSpaceMode: TabWhitespaceKind
+
+  /**
+   * Only render the main line
+   */
+  readonly onlyRenderTheMainLine: boolean
 }

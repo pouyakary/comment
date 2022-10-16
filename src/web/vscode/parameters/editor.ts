@@ -1,17 +1,28 @@
 import * as engine from '../../engine';
 import * as vscode from 'vscode';
 
+// ─── Options ───────────────────────────────────────────────────────────── ✣ ─
+
+export interface EnvironmentComputationParameters {
+  forcedPosition?:          vscode.Position,
+  forcedLineContent?:       string
+  justRenderTheMainLine?:   boolean
+}
+
 // ─── Compute Environmental Settings ────────────────────────────────────── ✣ ─
 
-export function computeEnvironmentalSettings(): engine.protocols.EditorParameters {
+export function computeEnvironmentalParameters(options?: EnvironmentComputationParameters): engine.protocols.EditorParameters {
+
   const currentEditor =
     vscode.window.activeTextEditor!;
 
   const currentLine =
-    currentEditor.selection.active.line;
+    options?.forcedPosition?.line
+      ?? currentEditor.selection.active.line;
 
   const currentLineString =
-    currentEditor.document.lineAt(currentLine).text;
+    options?.forcedLineContent
+      ?? currentEditor.document.lineAt(currentLine).text;
 
   const currentLanguageId =
     currentEditor.document.languageId;
@@ -26,11 +37,15 @@ export function computeEnvironmentalSettings(): engine.protocols.EditorParameter
       ? currentEditor.options.tabSize
       : 4;
 
+  const onlyRenderTheMainLine =
+    options?.justRenderTheMainLine ?? false;
+
   return {
-    currentLineNumber:  currentLine,
-    currentLineText:    currentLineString,
-    tabWhiteSpaceMode:  currentInsertSpacesStatus,
-    editorTabSize:      currentTabSize,
-    languageId:         currentLanguageId,
+    currentLineNumber:      currentLine,
+    currentLineText:        currentLineString,
+    tabWhiteSpaceMode:      currentInsertSpacesStatus,
+    editorTabSize:          currentTabSize,
+    languageId:             currentLanguageId,
+    onlyRenderTheMainLine:  onlyRenderTheMainLine,
   };
 }

@@ -69,22 +69,29 @@
         ],
         "commands": [
             {
+                "command":     "comment.vi.renameSectionComment",
+                "title":       "🧨 Edit Section Comment"
+            },
+            {
                 "command":     "comment.vi.makeSectionComment",
-                "title":       "✤ Make a Section Comment"
+                "title":       "🔨 Create Section Comment"
             },
             {
                 "command":     "comment.vi.makeReverseSectionComment",
-                "title":       "✤ Make a Reverse Header Comment"
+                "title":       "🔨 Create Reverse Header Comment"
             },
             {
                 "command":     "comment.vi.makeLineComment",
-                "title":       "✤ Make a Line Comment"
+                "title":       "🔨 Create Line Comment"
             }
         ],
         "menus": {
             "editor/context": [
                 {
                     "command":     "comment.vi.makeSectionComment"
+                },
+                {
+                    "command":     "comment.vi.renameSectionComment"
                 },
                 {
                     "command":     "comment.vi.makeLineComment"

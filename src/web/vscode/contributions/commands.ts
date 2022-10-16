@@ -28,7 +28,7 @@ export function registerCommandProviders(context: vscode.ExtensionContext) {
 
 function provideGenerator(skeleton: engine.generators.GeneratorSkeleton) {
 	try {
-		const finalProduct = services.runGenerator(skeleton);
+		const finalProduct = services.executeGenerator(skeleton);
 
 		tools.replaceLineWithCurrentSnippet(
 			finalProduct.lineNumber,
