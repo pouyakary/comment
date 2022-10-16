@@ -33,7 +33,10 @@ export class Indentation {
   /** The whitespace that is used before the final cursor position. */
   get whitespaceBeforeFinalCursorPosition(): string {
     let moreSpace = '';
-    if (this.#context.codeStartsAtOneMoreLevelOfIndentation) {
+    const shouldHaveOneMoreIndentationLevel =
+      !this.#context.isLanguageSensitive &&
+      this.#context.codeStartsAtOneMoreLevelOfIndentation;
+    if (shouldHaveOneMoreIndentationLevel) {
       moreSpace = ' '.repeat(this.#context.tabSize);
     }
     return this.beginningIndentationWhitespace + moreSpace;

@@ -116,5 +116,9 @@ export class GeneratorContext {
   get codeStartsAtOneMoreLevelOfIndentation(): boolean {
     return this.#userSettings.codeStartsAtOneMoreLevelOfIndentation;
   }
+
+  get isLanguageSensitive(): boolean {
+    return this.#languageConfig.sensitive;
+  }
 }
 
