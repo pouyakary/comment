@@ -71,7 +71,7 @@ export class GeneratorContext {
    * Width of the resulting comment. (Excluding the indentation)
    */
   get totalCommentWidth(): number {
-    return computeLineWidthBasedOnIndentation(this);
+    return this.rootLevelCommentWidth - (this.indentation.indentationLevel * this.indentationLevelWidthDifference);
   }
 
   /**
@@ -105,26 +105,12 @@ export class GeneratorContext {
       - this.ornament.size;
   }
 
-  get levelOneCommentWidth(): number {
-    return this.#userSettings.levelOneCommentWidth;
+  get rootLevelCommentWidth(): number {
+    return this.#userSettings.rootCommentWidth;
   }
 
-  get levelTwoCommentWidth(): number {
-    return this.#userSettings.levelTwoCommentWidth;
-  }
-
-  get legacyModeIsOn(): boolean {
-    return this.#userSettings.legacyMode;
+  get indentationLevelWidthDifference(): number {
+    return this.#userSettings.indentationLevelWidthDifference;
   }
 }
 
-// ─── Compute The Result Comment Width ──────────────────────────────────── ✣ ─
-
-function computeLineWidthBasedOnIndentation(context: GeneratorContext) {
-  switch (context.indentation.karyStandardsRelativeIndentationLevel) {
-    case 0:
-      return context.levelOneCommentWidth;
-    default:
-      return context.levelTwoCommentWidth;
-  }
-}

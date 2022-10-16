@@ -12,19 +12,15 @@ export function getUserSettings(): engine.protocols.UserSettings {
     ornament = commentConfigurations.get('ornament') ?? '';
   }
 
-  const legacyMode: boolean =
-    commentConfigurations.get('legacy') ?? false;
+  const rootCommentWidth: number =
+    commentConfigurations.get('rootCommentWidth') ?? 80;
 
-  const levelOneCommentWidth: number =
-    commentConfigurations.get('levelOneCommentWidth') ?? 80;
-
-  const levelTwoCommentWidth: number =
-    commentConfigurations.get('levelTwoCommentWidth') ?? 65;
+  const indentationLevelWidthDifference: number =
+    commentConfigurations.get('indentationLevelWidthDifference') ?? 8;
 
   return {
     ornament,
-    legacyMode,
-    levelOneCommentWidth,
-    levelTwoCommentWidth
+    rootCommentWidth:                 rootCommentWidth,
+    indentationLevelWidthDifference:  indentationLevelWidthDifference
   };
 }

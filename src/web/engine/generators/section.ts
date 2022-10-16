@@ -1,6 +1,5 @@
 import * as engine      from '..';
 import * as skeleton    from './skeleton';
-import * as constants   from '../constants';
 import * as validation  from '../validation';
 import * as toolkit     from '../toolkit';
 
@@ -58,16 +57,8 @@ function sectionGenerator(context: engine.concepts.GeneratorContext): string {
   return a + b + c + d + e;
 }
 
-// ─────────────────────────────────────────────────────── Reverse Section ─ ✣ ─
-
-
-
 // ─── Title ─────────────────────────────────────────────────────────────── ✣ ─
 
 function computeTitle(context: engine.concepts.GeneratorContext): string {
-  if (context.legacyModeIsOn) {
-    return context.whitespaceNormalizedInput.toLocaleUpperCase();
-  }
-
   return toolkit.capitalizeSentence(context.whitespaceNormalizedInput);
 }

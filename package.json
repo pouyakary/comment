@@ -18,11 +18,6 @@
         "configuration": {
             "title":       "Comment VI",
             "properties": {
-                "comment.legacy": {
-                    "default":         true,
-                    "description":     "If enabled it will render the legacy version of comments. This version has the ALL CAPS titles and the multi line and indentation system on some languages.",
-                    "type":            "boolean"
-                },
                 "comment.fancy": {
                     "default":         false,
                     "description":     "If set true, Renders a Decoration Ornament at the end of Line and Section comments.",
@@ -33,19 +28,14 @@
                     "description":     "The Ornament used at the end of Section and line comments.",
                     "type":            "string"
                 },
-                "comment.levelOneCommentWidth": {
+                "comment.rootCommentWidth": {
                     "default":         80,
-                    "description":     "Total with of the comments in the root indentation (zero indent)",
+                    "description":     "This is the length of the comment in the root indentation level. This also is the max length of the comments generated.",
                     "type":            "number"
                 },
-                "comment.levelTwoCommentWidth": {
-                    "default":         65,
-                    "description":     "Total with of the comments in 2 or 3 indentation levels.",
-                    "type":            "number"
-                },
-                "comment.karyScopeLevel": {
-                    "default":         2,
-                    "description":     "Total with of the comments in 2 or 3 indentation levels.",
+                "comment.indentationLevelWidthDifference": {
+                    "default":         8,
+                    "description":     "After each level of indentation the comment size is reduced by this amount. For example if you set your root comment size to 80, and then create a comment with two levels of indentation (two tabs behind it) the size of the comment will be: 80 - 2*8 = 64.",
                     "type":            "number"
                 }
             }
