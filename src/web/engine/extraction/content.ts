@@ -14,7 +14,7 @@ export function extractCommentContent(
   languageConfiguration:  protocols.LanguageCharacterConfigurations,
 ): CommentExtractionResult | null {
 
-  const regExpStart   = '^(\s*)';
+  const regExpStart   = '^(\\s*)';
   const commentSign   = encodeRegExp(languageConfiguration.middle);
   const regExpEnd     = ' ─── ((?:[a-zA-Z ]|[0-9][0-9\\.]*|[\\:\\-\\+\\@\\!\\?])+) ─+(?: .+ )?─$';
 

@@ -73,10 +73,13 @@ async function renameCommand() {
   );
 
   // replacing
-  tools.replaceLineWithCurrentSnippet(
+  await tools.replaceLineWithCurrentSnippet(
     finalProduct.lineNumber,
     finalProduct.result,
   );
+
+  // moving to the end of the line
+  await vscode.commands.executeCommand("cursorLineEnd");
 }
 
 // ─── Extract Current Content ───────────────────────────────────────────── ✣ ─

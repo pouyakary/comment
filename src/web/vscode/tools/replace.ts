@@ -2,7 +2,9 @@ import * as vscode from 'vscode';
 
 // ─── Replace Line With Given Snippet ───────────────────────────────────── ✣ ─
 
-export function replaceLineWithCurrentSnippet(line: number, text: string) {
+export async function replaceLineWithCurrentSnippet(
+  line: number, text: string
+) {
   const editor = vscode.window.activeTextEditor;
 
   if (editor) {
@@ -11,6 +13,6 @@ export function replaceLineWithCurrentSnippet(line: number, text: string) {
       textEditorEdit.replace(range, text);
     });
 
-    vscode.commands.executeCommand('cancelSelection');
+    await vscode.commands.executeCommand('cancelSelection');
   }
 }
