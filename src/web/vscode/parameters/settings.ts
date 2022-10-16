@@ -18,9 +18,13 @@ export function getUserSettings(): engine.protocols.UserSettings {
   const indentationLevelWidthDifference: number =
     commentConfigurations.get('indentationLevelWidthDifference') ?? 8;
 
+  const codeStartsAtOneMoreLevelOfIndentation: boolean =
+    commentConfigurations.get('codeStartsAtOneMoreLevelOfIndentation') ?? false;
+
   return {
     ornament,
     rootCommentWidth:                 rootCommentWidth,
-    indentationLevelWidthDifference:  indentationLevelWidthDifference
+    indentationLevelWidthDifference:  indentationLevelWidthDifference,
+    codeStartsAtOneMoreLevelOfIndentation: codeStartsAtOneMoreLevelOfIndentation,
   };
 }

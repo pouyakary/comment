@@ -112,5 +112,9 @@ export class GeneratorContext {
   get indentationLevelWidthDifference(): number {
     return this.#userSettings.indentationLevelWidthDifference;
   }
+
+  get codeStartsAtOneMoreLevelOfIndentation(): boolean {
+    return this.#userSettings.codeStartsAtOneMoreLevelOfIndentation;
+  }
 }
 
