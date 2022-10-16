@@ -64,14 +64,20 @@ export function createCommentGenerationSkeleton(
     }
 
     // Generating additional whitespace
-    const lineBreaks = '\n'.repeat(2);
+    const lineBreaks = '\n'.repeat(1);
     const cursorIndentation =
       context.indentation.whitespaceBeforeFinalCursorPosition;
 
-    // Final product
-    const finalProduct =
-      commentIndentation + generatedComment + lineBreaks + cursorIndentation;
+    let upperLine   = '';
+    let bottomLine  = '';
+    if (languageConfig.chars.start !== languageConfig.chars.end) {
+      upperLine   = commentIndentation + languageConfig.chars.start + '\n';
+      bottomLine  = commentIndentation + languageConfig.chars.end   + '\n';
+    }
 
-    return finalProduct;
+    const mainLine              = commentIndentation + generatedComment + '\n';
+    const additionalWhitespace  = lineBreaks + cursorIndentation;
+
+    return upperLine + mainLine + bottomLine + additionalWhitespace;
   };
 }

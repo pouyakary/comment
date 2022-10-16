@@ -6,7 +6,6 @@ import * as contributions from './vscode/contributions';
 export function activate(context: vscode.ExtensionContext) {
 	contributions.registerRenameProviders(context);
 	contributions.registerCommandProviders(context);
-	contributions.registerCompletionProviders(context);
 }
 
 // ─── Deactivation Function ─────────────────────────────────────────────── ✣ ─
