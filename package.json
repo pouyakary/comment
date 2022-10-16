@@ -1,7 +1,7 @@
 {
     "browser":         "./dist/web/extension.js",
     "description":     "",
-    "displayName":     "Comment ✨",
+    "displayName":     "Comment 6",
     "name":            "comment",
     "publisher":       "karyfoundation",
     "version":         "20.0.0",
@@ -16,7 +16,7 @@
     ],
     "contributes": {
         "configuration": {
-            "title":       "Comment VI",
+            "title":       "Comment 6",
             "properties": {
                 "comment.fancy": {
                     "default":         false,
@@ -47,45 +47,45 @@
         },
         "keybindings": [
             {
-                "command":     "comment.vi.makeSectionComment",
+                "command":     "comment.makeSectionComment",
                 "key":         "alt+y",
                 "when":        "editorTextFocus"
             },
             {
-                "command":     "comment.vi.makeLineComment",
+                "command":     "comment.makeLineComment",
                 "key":         "alt+l",
                 "when":        "editorTextFocus"
             },
             {
-                "command":     "comment.vi.renameSectionComment",
+                "command":     "comment.renameSectionComment",
                 "key":         "ctrl+alt+cmd+y",
                 "when":        "editorTextFocus"
             }
         ],
         "commands": [
             {
-                "command":     "comment.vi.renameSectionComment",
+                "command":     "comment.renameSectionComment",
                 "title":       "🧨 Edit Section Comment"
             },
             {
-                "command":     "comment.vi.makeSectionComment",
+                "command":     "comment.makeSectionComment",
                 "title":       "🔧 Create Section Comment"
             },
             {
-                "command":     "comment.vi.makeLineComment",
+                "command":     "comment.makeLineComment",
                 "title":       "🔨 Create Line Comment"
             }
         ],
         "menus": {
             "editor/context": [
                 {
-                    "command":     "comment.vi.makeSectionComment"
+                    "command":     "comment.makeSectionComment"
                 },
                 {
-                    "command":     "comment.vi.renameSectionComment"
+                    "command":     "comment.renameSectionComment"
                 },
                 {
-                    "command":     "comment.vi.makeLineComment"
+                    "command":     "comment.makeLineComment"
                 }
             ]
         }

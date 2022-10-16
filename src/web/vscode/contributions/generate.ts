@@ -17,10 +17,10 @@ export function registerCommandProviders(context: vscode.ExtensionContext) {
 	}
 
 	// Line Comment
-	register('comment.vi.makeSectionComment',
+	register('comment.makeSectionComment',
 		engine.generators.generateSectionComment);
 
-	register('comment.vi.makeLineComment',
+	register('comment.makeLineComment',
 		engine.generators.generateLineComment);
 }
 

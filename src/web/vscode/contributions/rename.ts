@@ -10,7 +10,7 @@ import * as languages   from '../languages';
 export function registerRenameProviders(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'comment.vi.renameSectionComment',
+      'comment.renameSectionComment',
       renameCommand,
     ),
   );
