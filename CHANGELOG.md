@@ -1,4 +1,22 @@
 ## Whats new?
+
+# Comment 6!
+This version is a complete (yes complete!) rewrite of the whole extension. The extension is now written in a really clean TypeScript code base. Now is built on top  of the Visual Studio Code __Web Extension API__ and therefore works on web! And is way more customizable then before.
+
+This means from this version you can edit your existing comments!
+
+![Screen recording that shows the editing of a comment in Comment](https://user-images.githubusercontent.com/2157285/196059190-7adef113-05ad-4727-bbc2-dd84a860c146.gif)
+
+The whole things is now much much more clean. After years of using and applying Comment V to my life and writing more than a 100 code bases with it, I've applied what I've learned to the new version. There are now only two comment types: Section Comment and Line Comment. All the others were shiny objects that in time were obsolete and useless to the actual projects.
+
+I'm going to bring more and more language features on the comments. Probably decorations for them and the code is now more clean and can be easily ported to other editors if someone is up for it.
+
+Also the previous version [is available for download in the GitHub releases](https://github.com/pouyakary/ProColors/releases/tag/11.0.2) if you miss it and want it back.
+
+Really hope you like this one :)
+
+---
+
 - **11.0.2** &mdash; Support for SCSS added.
 - **11.0.1** &mdash; Support for Terraform added.
 

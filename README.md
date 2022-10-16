@@ -1,6 +1,6 @@
 
 # Comment 6 ✨
-With ❤️ by Pouda.
+With ❤️ by Dragon's Lover.
 
 Comment 6 is a way to decorate your code with lines. What it does is it generates headings for parts of your code. I have always hard a really hard time to keep track of where a function starts and where it ends, and there are millions of ways to tackle the problem. But when I write in a notebook, I simply write headers, and draw lines, why couldn't we have it in our codes?
 
@@ -38,3 +38,10 @@ And edit them whenever you want:
 
 > __NOTE 💡__ <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.
 
+<br><br><br>
+
+<center>
+<a href="https://kary.us">
+<img width="100" src="https://user-images.githubusercontent.com/2157285/129073689-4d48b4f2-6b04-4665-91bc-896eb1d13340.png">
+</a>
+</center>
