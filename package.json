@@ -2,11 +2,12 @@
     "browser":         "./dist/web/extension.js",
     "description":     "",
     "displayName":     "Comment 6",
+    "icon":            "icon.png",
     "name":            "comment",
     "publisher":       "karyfoundation",
-    "version":         "20.0.2",
+    "version":         "20.0.3",
     "repository": {
-        "url": "https://github.com/pouyakary/comment.git"
+        "url":     "https://github.com/pouyakary/comment.git"
     },
     "engines": {
         "vscode":      "^1.71.0"
