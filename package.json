@@ -2,9 +2,9 @@
     "browser":         "./dist/web/extension.js",
     "description":     "",
     "displayName":     "Comment VI",
-    "name":            "comment-vi",
+    "name":            "comment",
     "publisher":       "karyfoundation",
-    "version":         "0.0.1",
+    "version":         "20.0.0",
     "engines": {
         "vscode":      "^1.71.0"
     },
@@ -59,6 +59,11 @@
             {
                 "command":     "comment.vi.makeLineComment",
                 "key":         "alt+l",
+                "when":        "editorTextFocus"
+            },
+            {
+                "command":     "comment.vi.renameSectionComment",
+                "key":         "ctrl+alt+cmd+y",
                 "when":        "editorTextFocus"
             }
         ],
