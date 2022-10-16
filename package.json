@@ -52,11 +52,6 @@
                 "when":        "editorTextFocus"
             },
             {
-                "command":     "comment.vi.makeReverseSectionComment",
-                "key":         "alt+m",
-                "when":        "editorTextFocus"
-            },
-            {
                 "command":     "comment.vi.makeLineComment",
                 "key":         "alt+l",
                 "when":        "editorTextFocus"
@@ -77,10 +72,6 @@
                 "title":       "🔨 Create Section Comment"
             },
             {
-                "command":     "comment.vi.makeReverseSectionComment",
-                "title":       "🔨 Create Reverse Header Comment"
-            },
-            {
                 "command":     "comment.vi.makeLineComment",
                 "title":       "🔨 Create Line Comment"
             }
@@ -95,9 +86,6 @@
                 },
                 {
                     "command":     "comment.vi.makeLineComment"
-                },
-                {
-                    "command":     "comment.vi.makeReverseSectionComment"
                 }
             ]
         }
