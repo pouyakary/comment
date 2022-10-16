@@ -1,95 +1,40 @@
 
-# Comment V for Visual Studio Code
+# Comment 6 ✨
+With ❤️ by Pouda.
 
-<img src="https://user-images.githubusercontent.com/2157285/28877787-ace1415e-77b2-11e7-81fa-e4d3d7af50ec.gif" width="600" />
+Comment 6 is a way to decorate your code with lines. What it does is it generates headings for parts of your code. I have always hard a really hard time to keep track of where a function starts and where it ends, and there are millions of ways to tackle the problem. But when I write in a notebook, I simply write headers, and draw lines, why couldn't we have it in our codes?
+
+With Comment 6 you can simply create these headings:
+
+![Screen recording of comment generation in Comment 6](https://user-images.githubusercontent.com/2157285/196059184-79542059-88da-45ff-a7a5-87cd804939bf.gif)
+
+And edit them whenever you want:
+
+![Screen recording that shows the editing of a comment in Comment](https://user-images.githubusercontent.com/2157285/196059190-7adef113-05ad-4727-bbc2-dd84a860c146.gif)
 
 <br>
 
->
-> ## ⚠️ Important Release Note for the Version 10
->
-> Within the version 10 and above, the style of comments
-> have been changed. Since there are many code bases that
-> use the legacy version. You can include this snippet
-> within your `settings.json` or inside the
-> `.vscode/settings.json` within your project so that
-> anyone on the codebase can benefit.
->
-> ```json
-> "comment": {
->     "legacy":      false
-> },
-> ```
+> __🧨 LOOKING FOR THE LEGACY VERSION?__ <br>
+> Comment 6 is a fully rewritten version. Every line of it is fully brand new. If you wish, you can download the last version of Comment V from [it's GitHub releases](https://github.com/pouyakary/ProColors/releases/tag/11.0.2).
 
-## What is this?
+<br>
 
-Comment V is a [Kary Comments](https://coding.standards.kary.us/comments) Generation Tool. Kary Comments are a part of the [Kary Coding Standards](https://coding.standards.kary.us) designed to bring richer layouts to the code. These comments are designed to work inside of that specifcitaion and with their own respective rules. So if you don't know them please read these articles before dowloading this extension.
+## Notes 💡
 
-- [Overview of Kary Coding Standards](https://coding.standards.kary.us/)
-- [Introduction to Kary Comments](https://coding.standards.kary.us/comments/introduction)
-- [Sectioning Code](https://coding.standards.kary.us/comments/sectioning)
-- [Comments Reference](https://coding.standards.kary.us/comments/reference)
+- __Indentation Matters__ &mdash; The way comment works is that you pick an empty line and indent as far as you wish your comment is going to be indented. You then start typing the comment and then use the menu or keybindings to generate the comment. The size and indentation of your resulting comment is determined by that indentation.
 
-## Supported Comments
+- __Only Use These Comments To Create Logical Parts In Your Codes__ &mdash; Try to separate, types, functions, classes, the parts of the classes. The More organized you are the better.
 
-```
-── ─── Section Comment ────────────────────────────────────────────────────────────
+- __Adopt The Clarity Style To Your Codes__ &mdash; Try to have files that are minimal as possible. Have one class per file if you can. When a file move to more than a few hundred lines try to break it into different files. Try to write the best code you can. It always pays the efforts.
 
-── ───────────────────────────────────────────────── Reversed Section Comment ─────
 
-── ────────────────────────────────────────────────────────────────────────────────
-```
+## Keybindings
 
-## Supported Comments (LEGACY MODE)
+| Comments                  | Keybindings           |
+|---------------------------|-----------------------|
+| 🔧 Creating Section Comment  | `alt` + `y`           |
+| 🔨 Creating Line Comment     | `alt` + `l`           |
+| 🧨 Editing Section Comment   | `ctrl` + `alt` + `cmd` + `y` |
 
-```
+> __NOTE 💡__ <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.
 
-──
-── ──────────────────────────────────────────────── I ──────────
-──   :::::: F L A G : :  :   :    :     :        :          :
-── ──────────────────────────────────────────────────────────
-──
-
-──
-── ─── INDENTATION LEVEL 1 ────────────────────────────────────────────────────────
-──
-
-──
-── ─────────────────────────────────────────────────── LEVEL 1 ENDING COMMENT ─────
-──
-
-        ──
-        ── ─── INDENTATION LEVEL 2 ─────────────────────────────────────────
-        ──
-
-        ──
-        ── ──────────────────────────────────── LEVEL 2 ENDING COMMENT ─────
-        ──
-
-                ──
-                ── INDENTATION LEVEL 3
-                ──
-
-                ── • • • • •
-
-        ── ─────────────────────────────────────────────────────────────────
-
-── ────────────────────────────────────────────────────────────────────────────────
-```
-
-## How to use?
-Comment V is content-aware so you don't have to choose your section type of comment. Comment uses `Kary Section Comment Width 80`, `Kary Section Comment Width 60` and `Kary Section InSection Comment` for start of your part and `Kary Line Comment Width 80`, `Kary Line Comment Width 60` and `Kary Separator Comment` for end of your section. What you have to do is to specify if the comment is start or the end of the section.
-
-| Comments              | Keybindings           | Additional Information                                                            |
-|-----------------------|-----------------------|-----------------------------------------------------------------------------------|
-| Flag                  | `alt` + `shift` + `y` | You'll have to also give it the index number                                      |
-| Section Header        | `alt` + `y`           | Section Comment for Indentation less than 2 and InSection comment for the rest    |
-| Reverse Section Start | `alt` + `m`           | _same as section comment_                                                         |
-| Section End           | `alt` + `l`           | Line Comment for Indentation less than 2 and Separator comment for the rest       |
-
-> __NOTE__ <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.
-
-## Settings
-Starting from the version 11, you can find the native VS Code settings in the preferences menu:
-
-![](https://user-images.githubusercontent.com/2157285/192586072-0f62588f-65e8-4d87-9925-d9f76340cffb.png)
