@@ -5,6 +5,9 @@
     "name":            "comment",
     "publisher":       "karyfoundation",
     "version":         "20.0.2",
+    "repository": {
+        "url": "https://github.com/pouyakary/comment.git"
+    },
     "engines": {
         "vscode":      "^1.71.0"
     },
