@@ -11,7 +11,7 @@ The whole things is now much much more clean. After years of using and applying 
 
 I'm going to bring more and more language features on the comments. Probably decorations for them and the code is now more clean and can be easily ported to other editors if someone is up for it.
 
-Also the previous version [is available for download in the GitHub releases](https://github.com/pouyakary/ProColors/releases/tag/11.0.2) if you miss it and want it back.
+Also the previous version [is available for download in the GitHub releases](https://github.com/pouyakary/comment-vscode/releases/tag/v11.2.0) if you miss it and want it back.
 
 Really hope you like this one :)
 

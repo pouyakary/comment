@@ -4,7 +4,7 @@
     "displayName":     "Comment 6",
     "name":            "comment",
     "publisher":       "karyfoundation",
-    "version":         "20.0.0",
+    "version":         "20.0.1",
     "engines": {
         "vscode":      "^1.71.0"
     },

@@ -15,7 +15,7 @@ And edit them whenever you want:
 <br>
 
 > __🧨 LOOKING FOR THE LEGACY VERSION?__ <br>
-> Comment 6 is a fully rewritten version. Every line of it is fully brand new. If you wish, you can download the last version of Comment V from [it's GitHub releases](https://github.com/pouyakary/ProColors/releases/tag/11.0.2).
+> Comment 6 is a fully rewritten version. Every line of it is fully brand new. If you wish, you can download the last version of Comment V from [it's GitHub releases](https://github.com/pouyakary/comment-vscode/releases/tag/v11.2.0).
 
 <br>
 
