@@ -34,8 +34,8 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'v':
       case 'vala':
         return {
-            sensitive:  false,
-            chars:      { start: "//", middle: "//", end: "//" },
+            sensitive:        false,
+            commentGrammar:   "//",
         };
 
       case 'fsharp':
@@ -48,8 +48,8 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'yuml':
       case "scss":
         return {
-            sensitive:  true,
-            chars:      { start: "//", middle: "//", end: "//" },
+            sensitive:        true,
+            commentGrammar:   "//",
         };
 
       case 'bash':
@@ -66,8 +66,8 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'shellscript':
       case 'terraform':
         return {
-            sensitive:  false,
-            chars:      { start: "#", middle: "#", end: "#" },
+            sensitive:        false,
+            commentGrammar:   "#",
         };
 
       case 'coffeescript':
@@ -77,8 +77,8 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'yml':
       case 'yaml':
         return {
-            sensitive:  true,
-            chars:      { start: "#", middle: "#", end: "#" },
+            sensitive:        true,
+            commentGrammar:   "#",
         };
 
 
@@ -87,23 +87,23 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'octave':
       case 'tex':
         return {
-            sensitive:  false,
-            chars:      { start: "%", middle: "%", end: "%" },
+            sensitive:        false,
+            commentGrammar:   "%",
         };
 
       case 'elm':
       case 'haskell':
       case 'purescript':
         return {
-            sensitive:  true,
-            chars:      { start: "--", middle: "--", end: "--" },
+            sensitive:        true,
+            commentGrammar:   "--",
         };
 
       case 'lua':
       case 'sql':
         return {
-            sensitive:  false,
-            chars:      { start: "--", middle: "--", end: "--" },
+            sensitive:        false,
+            commentGrammar:   "--",
         };
 
       case 'clojure':
@@ -113,29 +113,29 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'wast':
       case 'wat':
         return {
-            sensitive:  false,
-            chars:      { start: ";;", middle: ";;", end: ";;" },
+            sensitive:        false,
+            commentGrammar:   ";;",
         };
 
       case 'bat':
         return {
-            sensitive:  false,
-            chars:      { start: "::", middle: "::", end: "::" },
+            sensitive:        false,
+            commentGrammar:   "::",
         };
 
       case 'vb':
       case 'vbs':
       case 'asp':
         return {
-            sensitive:  false,
-            chars:      { start: "'", middle: "'", end: "'" },
+            sensitive:        false,
+            commentGrammar:   "'",
         };
 
       case "css":
       case "c":
         return {
-            sensitive:  false,
-            chars:      { start: "/*", middle: " *", end: " */" },
+            sensitive:        false,
+            commentGrammar:   [ "/*", "*/"],
         };
 
       case "html":
@@ -145,14 +145,14 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case "xaml":
       case "plist":
         return {
-            sensitive:  false,
-            chars:      { start: "<!--", middle: "  --", end: "  -->" },
+            sensitive:        false,
+            commentGrammar:   ["<!--", "-->"],
         };
 
       case 'plaintext':
         return {
-            sensitive:  false,
-            chars:      { start: "--", middle: "--", end: "--" },
+            sensitive:        false,
+            commentGrammar:   "--",
         };
 
       default:

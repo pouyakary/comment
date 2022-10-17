@@ -29,14 +29,14 @@ export class Language {
 
   // ─── Constructor ───────────────────────────────────────────────── ✣ ─
 
-  constructor({chars, sensitive}: protocols.LanguageConfigurations) {
+  constructor({commentGrammar, sensitive}: protocols.LanguageConfigurations) {
     this.sensitive = sensitive;
-    if (chars.start !== chars.end) {
-      this.#leftComment   = chars.start + ' ';
-      this.#rightComment  = ' ' + chars.end;
+    if (typeof commentGrammar !== 'string') {
+      this.#leftComment   = commentGrammar[0] + ' ';
+      this.#rightComment  = ' ' + commentGrammar[1];
       return;
     }
-    this.#leftComment   = chars.middle + ' ';
+    this.#leftComment   = commentGrammar + ' ';
     this.#rightComment  = '';
   }
 
