@@ -1,5 +1,7 @@
 ## Whats new?
 
+- **20.1.0** &mdash; This version brings a much much better one line version of the comment for languages like C, HTML and CSS.
+
 # Comment 6!
 This version is a complete (yes complete!) rewrite of the whole extension. The extension is now written in a really clean TypeScript code base. Now is built on top  of the Visual Studio Code __Web Extension API__ and therefore works on web! And is way more customizable then before.
 
