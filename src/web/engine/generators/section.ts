@@ -13,7 +13,7 @@ export const generateSectionComment = skeleton.createCommentGenerationSkeleton({
 // ─── Verifier ──────────────────────────────────────────────────────────── ✣ ─
 
 function verifier(
-  context: engine.concepts.GeneratorContext
+  context: engine.concepts.Context
 ): validation.ValidationResult {
 
   const nameError = validation.validateCommentName(context);
@@ -31,7 +31,7 @@ function verifier(
 
 // ─── Generator ─────────────────────────────────────────────────────────── ✣ ─
 
-function sectionGenerator(context: engine.concepts.GeneratorContext): string {
+function sectionGenerator(context: engine.concepts.Context): string {
   // // ─── Comment Title ─────────────────────────────────── ✣ ─
   //    ◀──▶ B
   //        ◀────────────▶ C
@@ -57,6 +57,6 @@ function sectionGenerator(context: engine.concepts.GeneratorContext): string {
 
 // ─── Title ─────────────────────────────────────────────────────────────── ✣ ─
 
-function computeTitle(context: engine.concepts.GeneratorContext): string {
+function computeTitle(context: engine.concepts.Context): string {
   return toolkit.capitalizeSentence(context.whitespaceNormalizedInput);
 }

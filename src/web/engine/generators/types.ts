@@ -10,13 +10,13 @@ import * as validation  from '../validation';
  * givin the thumbs up sign.
  */
 export type CommentVerifier =
-  (context: concepts.GeneratorContext) => validation.ValidationResult;
+  (context: concepts.Context) => validation.ValidationResult;
 
 /**
  * Generates the comment
  */
 export type CommentGenerator =
-  (context: concepts.GeneratorContext) => string;
+  (context: concepts.Context) => string;
 
 // ─── Comment Generator Skeleton Construction Parameters ────────────────── ✣ ─
 

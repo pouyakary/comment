@@ -40,7 +40,7 @@ export function createCommentGenerationSkeleton(
   return (userSettings, editorParameters, languageConfig): string => {
 
     // Establish the GeneratorContext
-    const context = new concepts.GeneratorContext({
+    const context = new concepts.Context({
       userSettings:     userSettings,
       editorSettings:   editorParameters,
       languageConfig:   languageConfig,

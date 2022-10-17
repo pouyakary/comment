@@ -83,6 +83,8 @@ async function renameCommand() {
   await vscode.commands.executeCommand("cursorLineEnd");
 }
 
-// ─── Extract Current Content ───────────────────────────────────────────── ✣ ─
+// ─── Compute Final Cursor Position ─────────────────────────────────────── ✣ ─
 
+function computeFinalCursorPosition(context: engine.concepts.Context) {
 
+}

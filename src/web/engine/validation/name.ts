@@ -14,7 +14,7 @@ export const nameValidationErrorMessage =
 // ─── Validate ──────────────────────────────────────────────────────────── ✣ ─
 
 export function validateCommentName(
-  context: concepts.GeneratorContext
+  context: concepts.Context
 ): validation.ValidationResult {
 
   if (/^\s*$/.test(context.whitespaceNormalizedInput)) {

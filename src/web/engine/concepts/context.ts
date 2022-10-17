@@ -17,7 +17,7 @@ export interface GeneratorContextConstructorParams {
  * passed around in the factory line of comment generation and in parts, kind
  * of a convenience that provides shortcuts for common important information.
  */
-export class GeneratorContext {
+export class Context {
   readonly #languageConfig:   protocols.LanguageConfigurations;
   readonly #userSettings:     protocols.UserSettings;
   readonly #editorSettings:   protocols.EditorParameters;

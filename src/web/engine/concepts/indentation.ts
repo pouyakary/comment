@@ -4,10 +4,10 @@ import * as concepts from '.';
 // ─── Indentation ───────────────────────────────────────────────────────── ✣ ─
 
 export class Indentation {
-  #context:     concepts.GeneratorContext;
+  #context:     concepts.Context;
   #indentSize:  number;
 
-  constructor (context: concepts.GeneratorContext) {
+  constructor (context: concepts.Context) {
     this.#context = context;
     this.#indentSize = computeTheWhitespaceCharactersInTheBeginningOfALine(
       context.line,

@@ -11,13 +11,13 @@ export const generateLineComment = skeleton.createCommentGenerationSkeleton({
 
 // ─── Verifier ──────────────────────────────────────────────────────────── ✣ ─
 
-function verifier(context: engine.concepts.GeneratorContext): null {
+function verifier(context: engine.concepts.Context): null {
   return null;
 }
 
 // ─── Generator ─────────────────────────────────────────────────────────── ✣ ─
 
-function generator(context: engine.concepts.GeneratorContext): string {
+function generator(context: engine.concepts.Context): string {
   return(
     // Line
     constants.COMMENT_LINE_CHARACTER.repeat(context.commentBodyAvailableSpace) +
