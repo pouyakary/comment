@@ -67,21 +67,16 @@ export class GeneratorContext {
     return new concepts.Ornament(this.#userSettings.ornament);
   }
 
+  /** Returns the language configuration concept */
+  get language(): concepts.Language {
+    return new concepts.Language(this.#languageConfig);
+  }
+
   /**
    * Width of the resulting comment. (Excluding the indentation)
    */
   get totalCommentWidth(): number {
     return this.rootLevelCommentWidth - (this.indentation.indentationLevel * this.indentationLevelWidthDifference);
-  }
-
-  /**
-   * ```plaintext
-   * // ─── Comment Title ─────────────────────────────────── ✣ ─
-   * ◀─▶ comment grammar prefix
-   * ```
-   */
-  get commentGrammarPrefix(): string {
-    return this.#languageConfig.chars.middle + ' ';
   }
 
   /**
@@ -101,7 +96,7 @@ export class GeneratorContext {
    */
   get commentBodyAvailableSpace(): number {
     return this.totalCommentWidth
-      - this.commentGrammarPrefix.length
+      - this.language.totalCommentWidth
       - this.ornament.size;
   }
 
@@ -115,10 +110,6 @@ export class GeneratorContext {
 
   get codeStartsAtOneMoreLevelOfIndentation(): boolean {
     return this.#userSettings.codeStartsAtOneMoreLevelOfIndentation;
-  }
-
-  get isLanguageSensitive(): boolean {
-    return this.#languageConfig.sensitive;
   }
 }
 

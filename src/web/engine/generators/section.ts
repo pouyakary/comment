@@ -33,14 +33,12 @@ function verifier(
 
 function sectionGenerator(context: engine.concepts.GeneratorContext): string {
   // // ─── Comment Title ─────────────────────────────────── ✣ ─
-  // ◀─▶ A
   //    ◀──▶ B
   //        ◀────────────▶ C
   //                      ◀─────────────────────────────────▶ D
   //                                                         ◀───▶ E
 
-  // A
-  const a = context.commentGrammarPrefix;
+
   // B
   const b = toolkit.lineOfSize(3) + ' ';
   // C
@@ -54,7 +52,7 @@ function sectionGenerator(context: engine.concepts.GeneratorContext): string {
   // E
   const e = context.ornament.render;
 
-  return a + b + c + d + e;
+  return b + c + d + e;
 }
 
 // ─── Title ─────────────────────────────────────────────────────────────── ✣ ─

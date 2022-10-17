@@ -56,28 +56,24 @@ export function createCommentGenerationSkeleton(
     const generatedComment = skeletonParams.commentGenerator(context);
 
     // Starting whitespace
-    const commentIndentation =
-      context.indentation.beginningIndentationWhitespace;
-
     if (editorParameters.onlyRenderTheMainLine) {
-      return commentIndentation + generatedComment;
+      return context.language.wrapResultInComment(
+        context.indentation,
+        generatedComment
+      );
     }
 
     // Generating additional whitespace
     const lineBreaks = '\n'.repeat(1);
     const cursorIndentation =
       context.indentation.whitespaceBeforeFinalCursorPosition;
+    const additionalWhitespace = lineBreaks + cursorIndentation;
 
-    let upperLine   = '';
-    let bottomLine  = '';
-    if (languageConfig.chars.start !== languageConfig.chars.end) {
-      upperLine   = commentIndentation + languageConfig.chars.start + '\n';
-      bottomLine  = commentIndentation + languageConfig.chars.end   + '\n';
-    }
+    const mainLine = context.language.wrapResultInComment(
+      context.indentation,
+      generatedComment,
+    );
 
-    const mainLine              = commentIndentation + generatedComment + '\n';
-    const additionalWhitespace  = lineBreaks + cursorIndentation;
-
-    return upperLine + mainLine + bottomLine + additionalWhitespace;
+    return mainLine + '\n' + additionalWhitespace;
   };
 }

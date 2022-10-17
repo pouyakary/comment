@@ -34,7 +34,7 @@ export class Indentation {
   get whitespaceBeforeFinalCursorPosition(): string {
     let moreSpace = '';
     const shouldHaveOneMoreIndentationLevel =
-      !this.#context.isLanguageSensitive &&
+      !this.#context.language.sensitive &&
       this.#context.codeStartsAtOneMoreLevelOfIndentation;
     if (shouldHaveOneMoreIndentationLevel) {
       moreSpace = ' '.repeat(this.#context.tabSize);

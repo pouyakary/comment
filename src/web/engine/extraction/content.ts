@@ -1,4 +1,5 @@
 import * as protocols from '../protocols';
+import * as concepts  from '../concepts';
 
 // ─── Result ────────────────────────────────────────────────────────────── ✣ ─
 
@@ -10,15 +11,14 @@ export interface CommentExtractionResult {
 // ─── Extract Current Content ───────────────────────────────────────────── ✣ ─
 
 export function extractCommentContent(
-  editorParameters:       protocols.EditorParameters,
-  languageConfiguration:  protocols.LanguageCharacterConfigurations,
+  editorParameters:   protocols.EditorParameters,
+  language:           concepts.Language,
 ): CommentExtractionResult | null {
 
-  const regExpStart   = '^(\\s*)';
-  const commentSign   = encodeRegExp(languageConfiguration.middle);
-  const regExpEnd     = ' ─── ((?:[a-zA-Z ]|[0-9][0-9\\.]*|[\\:\\-\\+\\@\\!\\?])+) ─+(?: .+ )?─$';
+  const detectionRegExp = language.wrapCommentDetectionRegExp(
+    ' ─── ((?:[a-zA-Z ]|[0-9][0-9\\.]*|[\\:\\-\\+\\@\\!\\?])+) ─+(?: .+ )?─'
+  );
 
-  const detectionRegExp = new RegExp(regExpStart + commentSign + regExpEnd);
 
   /** If matched, group 1 is the indentation and group 2 is the content. */
   const matches = editorParameters.currentLineText.match(detectionRegExp);

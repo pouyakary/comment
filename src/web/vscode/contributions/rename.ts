@@ -34,9 +34,10 @@ async function renameCommand() {
   }
 
   // Extracting the information
+  const language = new engine.concepts.Language(languageConfiguration);
   const extractionResult = engine.extraction.extractCommentContent(
     scanningParameters,
-    languageConfiguration.chars,
+    language,
   );
   if (extractionResult === null) {
     tools.showError('Not a section comment.');

@@ -18,9 +18,7 @@ function verifier(context: engine.concepts.GeneratorContext): null {
 // ─── Generator ─────────────────────────────────────────────────────────── ✣ ─
 
 function generator(context: engine.concepts.GeneratorContext): string {
-  return (
-    // Comment Grammar
-    context.commentGrammarPrefix +
+  return(
     // Line
     constants.COMMENT_LINE_CHARACTER.repeat(context.commentBodyAvailableSpace) +
     // Ornament
