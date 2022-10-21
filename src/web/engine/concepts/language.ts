@@ -5,8 +5,6 @@ import * as concepts  from '../concepts';
 
 export class Language {
 
-  // ─── Storage ───────────────────────────────────────────────────── ✣ ─
-
   /**
    * ```plaintext
    * // ─── Comment Title ─────────────────────────────────── ✣ ─
@@ -27,7 +25,6 @@ export class Language {
 
   readonly sensitive:       boolean;
 
-  // ─── Constructor ───────────────────────────────────────────────── ✣ ─
 
   constructor({commentGrammar, sensitive}: protocols.LanguageConfigurations) {
     this.sensitive = sensitive;
@@ -40,13 +37,9 @@ export class Language {
     this.#rightComment  = '';
   }
 
-  // ─── Comment Width ─────────────────────────────────────────────── ✣ ─
-
   get totalCommentWidth(): number {
     return this.#leftComment.length + this.#rightComment.length;
   }
-
-  // ─── Wrap Result In Comments ───────────────────────────────────── ✣ ─
 
   wrapResultInComment(
     indentation:  concepts.Indentation,
@@ -56,14 +49,10 @@ export class Language {
       this.#leftComment + result + this.#rightComment;
   }
 
-  // ─── Wrap Regexp In Comment ────────────────────────────────────── ✣ ─
-
   wrapCommentDetectionRegExp(regExpBody: string) {
     return new RegExp('^(\\s*)' + Language.#encodeRegExp(this.#leftComment) +
       regExpBody + Language.#encodeRegExp(this.#rightComment) + '$');
   }
-
-  // ─── Encode Regexp Sequence ────────────────────────────────────── ✣ ─
 
   static #encodeRegExp(sequence: string) {
     return sequence.replace(
