@@ -1,4 +1,7 @@
 {
+    "comment.fancy":                   true,
+    "comment.ornament":                "✣",
+    "comment.rootCommentWidth":        80,
     "editor.tabSize":                  2,
     "typescript.tsc.autoDetect":       "off",
     "files.exclude": {
