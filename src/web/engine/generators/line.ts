@@ -22,6 +22,6 @@ function generator(context: engine.concepts.Context): string {
     // Line
     constants.COMMENT_LINE_CHARACTER.repeat(context.commentBodyAvailableSpace) +
     // Ornament
-    context.ornament.render
+    context.ornament.render(context.indentation)
   );
 }

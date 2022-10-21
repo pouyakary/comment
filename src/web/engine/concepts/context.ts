@@ -64,7 +64,10 @@ export class Context {
    * Returns the current ornament of the user settings.
    */
   get ornament(): concepts.Ornament {
-    return new concepts.Ornament(this.#userSettings.ornament);
+    return new concepts.Ornament(
+      this.#userSettings.ornament,
+      this.#userSettings.onlyRenderOrnamentInRootLevel,
+    );
   }
 
   /** Returns the language configuration concept */
@@ -97,7 +100,7 @@ export class Context {
   get commentBodyAvailableSpace(): number {
     return this.totalCommentWidth
       - this.language.totalCommentWidth
-      - this.ornament.size;
+      - this.ornament.size(this.indentation);
   }
 
   get rootLevelCommentWidth(): number {

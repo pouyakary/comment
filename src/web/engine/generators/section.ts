@@ -50,7 +50,7 @@ function sectionGenerator(context: engine.concepts.Context): string {
         - c.length
   );
   // E
-  const e = context.ornament.render;
+  const e = context.ornament.render(context.indentation);
 
   return b + c + d + e;
 }

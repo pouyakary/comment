@@ -21,10 +21,14 @@ export function getUserSettings(): engine.protocols.UserSettings {
   const codeStartsAtOneMoreLevelOfIndentation: boolean =
     commentConfigurations.get('codeStartsAtOneMoreLevelOfIndentation') ?? false;
 
+  const onlyRenderOrnamentInRootLevel: boolean =
+    commentConfigurations.get('onlyRenderOrnamentInRootLevel') ?? true;
+
   return {
-    ornament,
-    rootCommentWidth:                 rootCommentWidth,
-    indentationLevelWidthDifference:  indentationLevelWidthDifference,
     codeStartsAtOneMoreLevelOfIndentation: codeStartsAtOneMoreLevelOfIndentation,
+    indentationLevelWidthDifference:  indentationLevelWidthDifference,
+    onlyRenderOrnamentInRootLevel:    onlyRenderOrnamentInRootLevel,
+    ornament:                         ornament,
+    rootCommentWidth:                 rootCommentWidth,
   };
 }

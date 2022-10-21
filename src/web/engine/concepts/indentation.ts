@@ -41,6 +41,10 @@ export class Indentation {
     }
     return this.beginningIndentationWhitespace + moreSpace;
   }
+
+  get isNotRoot(): boolean {
+    return this.indentationLevel > 0;
+  }
 }
 
 // ─── Compute Line Indentation ──────────────────────────────────────────── ✣ ─

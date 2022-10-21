@@ -46,6 +46,11 @@
                     "default":         false,
                     "description":     "If checked, the generator will create one more level of indentation in the additional whitespace that is created after the cursor so the code is kind of nested inside of the comment.",
                     "type":            "boolean"
+                },
+                "comment.onlyRenderOrnamentInRootLevel": {
+                    "default":         true,
+                    "description":     "When set true, only renders the ornament if the comment is in the root level. Comments with more indentation will no longer take the ornament",
+                    "type":            "boolean"
                 }
             }
         },

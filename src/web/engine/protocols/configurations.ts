@@ -5,4 +5,5 @@ export interface UserSettings {
   rootCommentWidth:                       number,
   indentationLevelWidthDifference:        number,
   codeStartsAtOneMoreLevelOfIndentation:  boolean,
+  onlyRenderOrnamentInRootLevel:          boolean,
 }
