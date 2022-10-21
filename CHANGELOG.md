@@ -1,5 +1,7 @@
 ## Whats new?
 
+- **20.2.0** &mdash; An option in the settings (set to true on default) to only render ornaments in the root level.
+
 - **20.1.0** &mdash; This version brings a much much better one line version of the comment for languages like C, HTML and CSS.
 
 # Comment 6!
