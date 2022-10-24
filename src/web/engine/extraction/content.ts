@@ -1,5 +1,5 @@
-import * as protocols from '../protocols';
-import * as concepts  from '../concepts';
+import * as protocols   from '../protocols';
+import * as concepts    from '../concepts';
 
 // ─── Result ────────────────────────────────────────────────────────────── ✣ ─
 
@@ -16,8 +16,10 @@ export function extractCommentContent(
 ): CommentExtractionResult | null {
 
   const detectionRegExp = language.wrapCommentDetectionRegExp(
-    ' ─── ((?:[a-zA-Z ]|[0-9][0-9\\.]*|[\\:\\-\\+\\@\\!\\?])+) ─+(?: .+ )?─'
+    '─── ((?:[a-zA-Z ]|[0-9][0-9\\.]*|[\\:\\-\\+\\@\\!\\?])+) ─+(?: .+ ─)?'
   );
+
+  console.log(`regexp: '${detectionRegExp.source}'`);
 
 
   /** If matched, group 1 is the indentation and group 2 is the content. */
@@ -31,13 +33,4 @@ export function extractCommentContent(
     indentation:  matches[1]!,
     content:      matches[2]!,
   };
-}
-
-// ─── Safe Encode Regexp Part ───────────────────────────────────────────── ✣ ─
-
-function encodeRegExp(sequence: string) {
-  return sequence.replace(
-    /[\.\\\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:\-]/g,
-    (match: string) => `\\${match}`,
-  );
 }
