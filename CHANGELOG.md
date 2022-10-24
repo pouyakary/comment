@@ -1,5 +1,7 @@
 ## Whats new?
 
+- **20.3.0** &mdash; This version is mostly bug fixes. The comment detection system in editing the comment was broken and is now fully fixed. Also the comment editor now detects the ornament and preserves it so it will be only editing.
+
 - **20.2.0** &mdash; An option in the settings (set to true on default) to only render ornaments in the root level.
 
 - **20.1.0** &mdash; This version brings a much much better one line version of the comment for languages like C, HTML and CSS.
