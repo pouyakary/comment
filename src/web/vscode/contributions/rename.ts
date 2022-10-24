@@ -61,10 +61,15 @@ async function renameCommand() {
     return;
   }
 
+  const ornament = extractionResult.ornament !== ''
+        ? extractionResult.ornament
+        : undefined;
+
   // Parameters
   const generationParameters: parameters.EnvironmentComputationParameters = {
     justRenderTheMainLine:  true,
     forcedLineContent:      extractionResult.indentation + newCommentContent,
+    forcedOrnament:         ornament,
   };
 
   // Generated result

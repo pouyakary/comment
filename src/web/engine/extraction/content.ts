@@ -6,6 +6,7 @@ import * as concepts    from '../concepts';
 export interface CommentExtractionResult {
   indentation:  string;
   content:      string;
+  ornament:     string;
 }
 
 // ─── Extract Current Content ───────────────────────────────────────────── ✣ ─
@@ -16,13 +17,15 @@ export function extractCommentContent(
 ): CommentExtractionResult | null {
 
   const detectionRegExp = language.wrapCommentDetectionRegExp(
-    '─── ((?:[a-zA-Z ]|[0-9][0-9\\.]*|[\\:\\-\\+\\@\\!\\?])+) ─+(?: .+ ─)?'
+    '─── ((?:[a-zA-Z ]|[0-9][0-9\\.]*|[\\:\\-\\+\\@\\!\\?])+) ─+((?: .+ )?)─'
+    //   ^ capture 2:                                           ^ capture 3:
+    //     the content                                            the ornament
   );
 
-  console.log(`regexp: '${detectionRegExp.source}'`);
-
-
-  /** If matched, group 1 is the indentation and group 2 is the content. */
+  /**
+   * If matched, group 1 is the indentation and
+   * group 2 is the content and group 3 is the ornament.
+   */
   const matches = editorParameters.currentLineText.match(detectionRegExp);
 
   if (matches === null)  {
@@ -32,5 +35,6 @@ export function extractCommentContent(
   return {
     indentation:  matches[1]!,
     content:      matches[2]!,
+    ornament:     matches[3]!.trim(),
   };
 }

@@ -7,6 +7,7 @@ export interface EnvironmentComputationParameters {
   forcedPosition?:          vscode.Position,
   forcedLineContent?:       string
   justRenderTheMainLine?:   boolean
+  forcedOrnament?:          string
 }
 
 // ─── Compute Environmental Settings ────────────────────────────────────── ✣ ─

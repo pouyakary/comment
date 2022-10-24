@@ -17,10 +17,10 @@ export function executeGenerator(
   editorComputationOptions?:  parameters.EnvironmentComputationParameters,
 ): GeneratorExecutionResult {
 
-  const userSettings      = parameters.getUserSettings();
-  const editorParameters  = parameters.computeEnvironmentalParameters(
-    editorComputationOptions,
-  );
+  const userSettings =
+    parameters.getUserSettings(editorComputationOptions);
+  const editorParameters =
+    parameters.computeEnvironmentalParameters(editorComputationOptions);
 
   const languageConfig =
     languages.loadLanguageSettings(editorParameters.languageId);

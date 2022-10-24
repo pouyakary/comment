@@ -1,15 +1,22 @@
-import * as vscode from 'vscode';
-import * as engine from '../../engine';
+import * as vscode     from 'vscode';
+import * as engine     from '../../engine';
+import * as parameters from '.';
 
 // ─── Get User Settings ─────────────────────────────────────────────────── ✣ ─
 
-export function getUserSettings(): engine.protocols.UserSettings {
+export function getUserSettings(
+  environmentalSettings?: parameters.EnvironmentComputationParameters
+): engine.protocols.UserSettings {
+
   const commentConfigurations =
     vscode.workspace.getConfiguration('comment');
 
   let ornament = '';
   if (commentConfigurations.get('fancy') ?? false) {
     ornament = commentConfigurations.get('ornament') ?? '';
+  }
+  if (environmentalSettings?.forcedOrnament) {
+    ornament = environmentalSettings.forcedOrnament;
   }
 
   const rootCommentWidth: number =
@@ -22,7 +29,9 @@ export function getUserSettings(): engine.protocols.UserSettings {
     commentConfigurations.get('codeStartsAtOneMoreLevelOfIndentation') ?? false;
 
   const onlyRenderOrnamentInRootLevel: boolean =
-    commentConfigurations.get('onlyRenderOrnamentInRootLevel') ?? true;
+    environmentalSettings?.forcedOrnament !== undefined
+      ? false
+      : commentConfigurations.get('onlyRenderOrnamentInRootLevel') ??  true;
 
   return {
     codeStartsAtOneMoreLevelOfIndentation: codeStartsAtOneMoreLevelOfIndentation,
