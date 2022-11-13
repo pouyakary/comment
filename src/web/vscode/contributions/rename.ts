@@ -45,19 +45,19 @@ async function renameCommand() {
   }
 
   // Ask user for new comment content
-  const newCommentContent = await vscode.window.showInputBox({
-      prompt:   "🌺 Write the new comment content.",
-      value:    extractionResult.content.toLowerCase(),
+  const newContent = await vscode.window.showInputBox({
+    prompt:   "🌺 Write the new comment content.",
+    value:    extractionResult.content.toLowerCase(),
 
-      validateInput (value) {
-          if (engine.validation.nameFormat.test(value)) {
-              return null;
-          }
-          return engine.validation.nameValidationErrorMessage;
+    validateInput (value) {
+      if (engine.validation.nameFormat.test(value)) {
+        return null;
       }
+      return engine.validation.nameValidationErrorMessage;
+    }
   });
 
-  if (newCommentContent === undefined) {
+  if (newContent === undefined) {
     return;
   }
 
@@ -68,7 +68,7 @@ async function renameCommand() {
   // Parameters
   const generationParameters: parameters.EnvironmentComputationParameters = {
     justRenderTheMainLine:  true,
-    forcedLineContent:      extractionResult.indentation + newCommentContent,
+    forcedLineContent:      extractionResult.indentation + newContent,
     forcedOrnament:         ornament,
   };
 
@@ -85,5 +85,17 @@ async function renameCommand() {
   );
 
   // moving to the end of the line
-  await vscode.commands.executeCommand("cursorLineEnd");
+  const capitalizedTitle = engine.toolkit.capitalizeSentence(newContent);
+  const indexOfTitle     = finalProduct.result.indexOf(capitalizedTitle);
+  const endingIndex      = indexOfTitle + capitalizedTitle.length;
+
+  const selectionPosition = new vscode.Position(
+    finalProduct.lineNumber,
+    endingIndex,
+  );
+
+  vscode.window.activeTextEditor!.selection = new vscode.Selection(
+    selectionPosition,
+    selectionPosition,
+  );
 }
