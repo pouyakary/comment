@@ -1,4 +1,6 @@
 ## Whats new?
+- **21.1.0** &mdash; Now moving the cursor to the end of title after renaming.
+
 - **21.0.0** &mdash; New icon :)
 
 - **20.3.0** &mdash; This version is mostly bug fixes. The comment detection system in editing the comment was broken and is now fully fixed. Also the comment editor now detects the ornament and preserves it so it will be only editing.

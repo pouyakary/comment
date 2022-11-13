@@ -5,7 +5,8 @@
     "icon":            "icon.png",
     "name":            "comment",
     "publisher":       "karyfoundation",
-    "version":         "21.0.0",
+    "version":         "21.1.0",
+
     "repository": {
         "url":     "https://github.com/pouyakary/comment.git"
     },
@@ -83,6 +84,10 @@
             {
                 "command":     "comment.makeLineComment",
                 "title":       "🔨 Create Line Comment"
+            },
+            {
+                "command":     "comment.migrateDocument",
+                "title":       "🪛 Migrate Document Comments"
             }
         ],
         "menus": {
@@ -95,6 +100,9 @@
                 },
                 {
                     "command":     "comment.makeLineComment"
+                },
+                {
+                    "command":     "comment.migrateDocument"
                 }
             ]
         }
