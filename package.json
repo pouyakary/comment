@@ -101,9 +101,6 @@
                 {
                     "command":     "comment.makeLineComment"
                 },
-                {
-                    "command":     "comment.migrateDocument"
-                }
             ]
         }
     },
