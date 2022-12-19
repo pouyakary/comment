@@ -2,9 +2,9 @@ import * as engine      from '..';
 import * as skeleton    from './skeleton';
 import * as constants   from '../constants';
 
-// ─── Generate Line Comment ─────────────────────────────────────────────── ✣ ─
+// ─── Generate Separator Comment ────────────────────────────────────────── ✣ ─
 
-export const generateLineComment = skeleton.createCommentGenerationSkeleton({
+export const generateSeparatorComment = skeleton.createCommentGenerationSkeleton({
   contextVerifier:    verifier,
   commentGenerator:   generator,
 });
@@ -19,7 +19,7 @@ function verifier(context: engine.concepts.Context): null {
 
 function generator(context: engine.concepts.Context): string {
   return(
-    // Line
+    // Separator
     constants.COMMENT_LINE_CHARACTER.repeat(context.commentBodyAvailableSpace) +
     // Ornament
     context.ornament.render(context.indentation)

@@ -3,13 +3,13 @@ import * as vscode from 'vscode';
 // ─── Replace Line With Given Snippet ───────────────────────────────────── ✣ ─
 
 export async function replaceLineWithCurrentSnippet(
-  line: number, text: string
+  lineNumber: number, text: string
 ) {
   const editor = vscode.window.activeTextEditor;
 
   if (editor) {
     editor.edit(textEditorEdit => {
-      const {range} = editor.document.lineAt(line);
+      const {range} = editor.document.lineAt(lineNumber);
       textEditorEdit.replace(range, text);
     });
 

@@ -25,12 +25,12 @@
             "properties": {
                 "comment.fancy": {
                     "default":         false,
-                    "description":     "If set true, Renders a Decoration Ornament at the end of Line and Title comments.",
+                    "description":     "If set true, Renders a Decoration Ornament at the end of Separator and Title comments.",
                     "type":            "boolean"
                 },
                 "comment.ornament": {
                     "default":         "✣",
-                    "description":     "The Ornament used at the end of Title and line comments.",
+                    "description":     "The Ornament used at the end of Title and separator comments.",
                     "type":            "string"
                 },
                 "comment.rootCommentWidth": {
@@ -62,7 +62,7 @@
                 "when":        "editorTextFocus"
             },
             {
-                "command":     "comment.makeLineComment",
+                "command":     "comment.makeSeparatorComment",
                 "key":         "alt+l",
                 "when":        "editorTextFocus"
             },
@@ -82,8 +82,8 @@
                 "title":       "🔧 Create Title Comment"
             },
             {
-                "command":     "comment.makeLineComment",
-                "title":       "🔨 Create Line Comment"
+                "command":     "comment.makeSeparatorComment",
+                "title":       "🔨 Create Separator Comment"
             },
             {
                 "command":     "comment.migrateDocument",
@@ -99,7 +99,7 @@
                     "command":     "comment.renameTitleComment"
                 },
                 {
-                    "command":     "comment.makeLineComment"
+                    "command":     "comment.makeSeparatorComment"
                 }
             ]
         }

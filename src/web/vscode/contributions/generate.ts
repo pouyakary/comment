@@ -16,12 +16,11 @@ export function registerCommandProviders(context: vscode.ExtensionContext) {
 		);
 	}
 
-	// Line Comment
 	register('comment.makeTitleComment',
 		engine.generators.generateTitleComment);
 
-	register('comment.makeLineComment',
-		engine.generators.generateLineComment);
+	register('comment.makeSeparatorComment',
+		engine.generators.generateSeparatorComment);
 }
 
 // ─── Replacers ─────────────────────────────────────────────────────────── ✣ ─

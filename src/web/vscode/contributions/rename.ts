@@ -67,9 +67,9 @@ async function renameCommand() {
 
   // Parameters
   const generationParameters: parameters.EnvironmentComputationParameters = {
-    justRenderTheMainLine:  true,
-    forcedLineContent:      extractionResult.indentation + newContent,
-    forcedOrnament:         ornament,
+    justRenderTheMainLine:    true,
+    forcedLineContent:        extractionResult.indentation + newContent,
+    forcedOrnament:           ornament,
   };
 
   // Generated result

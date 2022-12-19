@@ -2,7 +2,8 @@
 # Comment 6 ✨
 With ❤️ by Dragon's Lover.
 
-Comment 6 is a way to decorate your code with lines. What it does is it generates headings for parts of your code. I have always hard a really hard time to keep track of where a function starts and where it ends, and there are millions of ways to tackle the problem. But when I write in a notebook, I simply write headers, and draw lines, why couldn't we have it in our codes?
+Comment 6 is a way to decorate your code with titles and separator lines to organize the portions of a file. I have always had a really hard time to keep track of where a function starts and where it ends. While there are millions of ways to tackle the problem, I simply wanted to have what I had in notebooks: good old lines.
+
 
 With Comment 6 you can simply create these headings:
 
@@ -33,7 +34,7 @@ And edit them whenever you want:
 | Comments                  | Keybindings           |
 |---------------------------|-----------------------|
 | 🔧 Creating Title Comment  | `alt` + `y`           |
-| 🔨 Creating Line Comment     | `alt` + `l`           |
+| 🔨 Creating Separator Comment     | `alt` + `l`           |
 | 🧨 Editing Title Comment   | `ctrl` + `alt` + `cmd` + `y` |
 
 > __NOTE 💡__ <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.

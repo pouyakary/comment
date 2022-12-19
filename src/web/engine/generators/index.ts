@@ -1,3 +1,3 @@
-export * from './line';
+export * from './separator';
 export * from './title';
 export * from './types';
