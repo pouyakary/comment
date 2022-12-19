@@ -1,5 +1,5 @@
 ## Whats new?
-- **22.0.0** &mdash; Renaming the Section comment to Title Comment and Line Comment to Separator Comment for better naming of these concepts.
+- **22.0.0** &mdash; Renaming the Section comment to Title Comment and Line Comment to Separator Comment for better naming of these concepts. &mdash; Now supports international characters for titles like é or ز. &mdash; Supports PineScript :)
 
 - **21.1.0** &mdash; Now moving the cursor to the end of title after renaming.
 
