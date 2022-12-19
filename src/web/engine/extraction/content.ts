@@ -17,9 +17,9 @@ export function extractCommentContent(
 ): CommentExtractionResult | null {
 
   const detectionRegExp = language.wrapCommentDetectionRegExp(
-    '─── ((?:[a-zA-Z ]|[0-9][0-9\\.]*|[\\:\\-\\+\\@\\!\\?])+) ─+((?: .+ )?)─'
-    //   ^ capture 2:                                           ^ capture 3:
-    //     the content                                            the ornament
+    '─── ((?:\\p{L}|[ 0-9\\.:\\-+@!\\?])+) ─+((?: .+ )?)─'
+    //   ^ capture 2:                         ^ capture 3:
+    //     the content                        the ornament
   );
 
   /**

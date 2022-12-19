@@ -50,8 +50,13 @@ export class Language {
   }
 
   wrapCommentDetectionRegExp(regExpBody: string) {
-    return new RegExp('^([ \\t]*)' + Language.#encodeRegExp(this.#leftComment) +
-      regExpBody + Language.#encodeRegExp(this.#rightComment) + '[ \\t]*$');
+    const code = ( '^([ \\t]*)'
+                 + Language.#encodeRegExp(this.#leftComment)
+                 + regExpBody
+                 + Language.#encodeRegExp(this.#rightComment)
+                 + '[ \\t]*$'
+                 );
+    return new RegExp(code, 'u');
   }
 
   static #encodeRegExp(sequence: string) {
