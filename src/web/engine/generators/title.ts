@@ -3,11 +3,11 @@ import * as skeleton    from './skeleton';
 import * as validation  from '../validation';
 import * as toolkit     from '../toolkit';
 
-// ─── Generate Section Comment ──────────────────────────────────────────── ✣ ─
+// ─── Generate Title Comment ──────────────────────────────────────────── ✣ ─
 
-export const generateSectionComment = skeleton.createCommentGenerationSkeleton({
+export const generateTitleComment = skeleton.createCommentGenerationSkeleton({
   contextVerifier:    verifier,
-  commentGenerator:   sectionGenerator,
+  commentGenerator:   titleGenerator,
 });
 
 // ─── Verifier ──────────────────────────────────────────────────────────── ✣ ─
@@ -21,7 +21,7 @@ function verifier(
     return nameError;
   }
 
-  const sizeError = validation.validateSectionCommentSize(context);
+  const sizeError = validation.validateTitleCommentSize(context);
   if (sizeError) {
     return sizeError;
   }
@@ -31,7 +31,7 @@ function verifier(
 
 // ─── Generator ─────────────────────────────────────────────────────────── ✣ ─
 
-function sectionGenerator(context: engine.concepts.Context): string {
+function titleGenerator(context: engine.concepts.Context): string {
   // // ─── Comment Title ─────────────────────────────────── ✣ ─
   //    ◀──▶ B
   //        ◀────────────▶ C

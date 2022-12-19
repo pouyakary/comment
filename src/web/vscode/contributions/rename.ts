@@ -10,7 +10,7 @@ import * as languages   from '../languages';
 export function registerRenameProviders(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'comment.renameSectionComment',
+      'comment.renameTitleComment',
       renameCommand,
     ),
   );
@@ -40,13 +40,13 @@ async function renameCommand() {
     language,
   );
   if (extractionResult === null) {
-    tools.showError('Not a section comment.');
+    tools.showError('Not a title comment.');
     return;
   }
 
   // Ask user for new comment content
   const newContent = await vscode.window.showInputBox({
-    prompt:   "🌺 Write the new comment content.",
+    prompt:   "🌺 Give Your Comment A New Title.",
     value:    extractionResult.content.toLowerCase(),
 
     validateInput (value) {
@@ -74,7 +74,7 @@ async function renameCommand() {
 
   // Generated result
   const finalProduct = services.executeGenerator(
-    engine.generators.generateSectionComment,
+    engine.generators.generateTitleComment,
     generationParameters
   );
 

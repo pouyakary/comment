@@ -32,9 +32,9 @@ And edit them whenever you want:
 
 | Comments                  | Keybindings           |
 |---------------------------|-----------------------|
-| 🔧 Creating Section Comment  | `alt` + `y`           |
+| 🔧 Creating Title Comment  | `alt` + `y`           |
 | 🔨 Creating Line Comment     | `alt` + `l`           |
-| 🧨 Editing Section Comment   | `ctrl` + `alt` + `cmd` + `y` |
+| 🧨 Editing Title Comment   | `ctrl` + `alt` + `cmd` + `y` |
 
 > __NOTE 💡__ <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.
 

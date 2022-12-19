@@ -25,12 +25,12 @@
             "properties": {
                 "comment.fancy": {
                     "default":         false,
-                    "description":     "If set true, Renders a Decoration Ornament at the end of Line and Section comments.",
+                    "description":     "If set true, Renders a Decoration Ornament at the end of Line and Title comments.",
                     "type":            "boolean"
                 },
                 "comment.ornament": {
                     "default":         "✣",
-                    "description":     "The Ornament used at the end of Section and line comments.",
+                    "description":     "The Ornament used at the end of Title and line comments.",
                     "type":            "string"
                 },
                 "comment.rootCommentWidth": {
@@ -57,7 +57,7 @@
         },
         "keybindings": [
             {
-                "command":     "comment.makeSectionComment",
+                "command":     "comment.makeTitleComment",
                 "key":         "alt+y",
                 "when":        "editorTextFocus"
             },
@@ -67,19 +67,19 @@
                 "when":        "editorTextFocus"
             },
             {
-                "command":     "comment.renameSectionComment",
+                "command":     "comment.renameTitleComment",
                 "key":         "ctrl+alt+cmd+y",
                 "when":        "editorTextFocus"
             }
         ],
         "commands": [
             {
-                "command":     "comment.renameSectionComment",
-                "title":       "🧨 Edit Section Comment"
+                "command":     "comment.renameTitleComment",
+                "title":       "🧨 Edit Title Comment"
             },
             {
-                "command":     "comment.makeSectionComment",
-                "title":       "🔧 Create Section Comment"
+                "command":     "comment.makeTitleComment",
+                "title":       "🔧 Create Title Comment"
             },
             {
                 "command":     "comment.makeLineComment",
@@ -93,14 +93,14 @@
         "menus": {
             "editor/context": [
                 {
-                    "command":     "comment.makeSectionComment"
+                    "command":     "comment.makeTitleComment"
                 },
                 {
-                    "command":     "comment.renameSectionComment"
+                    "command":     "comment.renameTitleComment"
                 },
                 {
                     "command":     "comment.makeLineComment"
-                },
+                }
             ]
         }
     },

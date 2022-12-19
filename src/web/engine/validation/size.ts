@@ -3,7 +3,7 @@ import * as validation  from '.';
 
 // ─── Validate Comment Size ─────────────────────────────────────────────── ✣ ─
 
-export function validateSectionCommentSize(
+export function validateTitleCommentSize(
   context: concepts.Context
 ): validation.ValidationResult {
 

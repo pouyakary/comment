@@ -1,4 +1,6 @@
 ## Whats new?
+- **22.0.0** &mdash; Renaming the Section comment to Title comment and Line Comment to Separator Comment for better naming of these concepts.
+
 - **21.1.0** &mdash; Now moving the cursor to the end of title after renaming.
 
 - **21.0.0** &mdash; New icon :)
@@ -16,7 +18,7 @@ This means from this version you can edit your existing comments!
 
 ![Screen recording that shows the editing of a comment in Comment](https://user-images.githubusercontent.com/2157285/196059190-7adef113-05ad-4727-bbc2-dd84a860c146.gif)
 
-The whole things is now much much more clean. After years of using and applying Comment V to my life and writing more than a 100 code bases with it, I've applied what I've learned to the new version. There are now only two comment types: Section Comment and Line Comment. All the others were shiny objects that in time were obsolete and useless to the actual projects.
+The whole things is now much much more clean. After years of using and applying Comment V to my life and writing more than a 100 code bases with it, I've applied what I've learned to the new version. There are now only two comment types: Title Comment and Line Comment. All the others were shiny objects that in time were obsolete and useless to the actual projects.
 
 I'm going to bring more and more language features on the comments. Probably decorations for them and the code is now more clean and can be easily ported to other editors if someone is up for it.
 
@@ -49,7 +51,7 @@ more codes to use Comment and probably easier integration.<br><br>If you wish to
 - **6.1.0** &mdash; A problem with Line comments regarding the spacings was fixed and also based on [a request](https://github.com/pmkary/comment-vscode/issues/5) six new characters are now accepted on the comment text: `-`, `+`, `:`, `@`, `?`, and `!`
 - **6.0.0** &mdash; After a lot of requests... It now supports Multi line comments! So languages like C, CSS, HTML, XML... are all now supported!
 - **5.0.1** &mdash; GLSL Language Support Added.
-- **5.0.0** &mdash; Reverse Section Comments are now supported.
+- **5.0.0** &mdash; Reverse Title Comments are now supported.
 - **4.0.6** &mdash; SQL language is now supported.
 - **4.0.5** &mdash; Jison Language is now supported.
 - **4.0.4** &mdash; yUML language is now supported.
