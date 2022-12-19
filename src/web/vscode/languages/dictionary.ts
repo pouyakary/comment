@@ -43,6 +43,8 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'pageman':
       case 'peggy':
       case 'pestfile':
+      case 'pine':
+      case 'pinescript':
       case 'rust':
       case 'stylus':
       case 'yuml':
