@@ -1,17 +1,16 @@
 {
-    "browser":         "./dist/web/extension.js",
-    "description":     "",
-    "displayName":     "Comment 6",
-    "icon":            "icon.png",
-    "name":            "comment",
-    "publisher":       "karyfoundation",
-    "version":         "22.0.0",
-
+    "browser": "./dist/web/extension.js",
+    "description": "",
+    "displayName": "Comment 6",
+    "icon": "icon.png",
+    "name": "comment",
+    "publisher": "karyfoundation",
+    "version": "22.0.0",
     "repository": {
-        "url":     "https://github.com/pouyakary/comment.git"
+        "url": "https://github.com/pouyakary/comment.git"
     },
     "engines": {
-        "vscode":      "^1.71.0"
+        "vscode": "^1.71.0"
     },
     "categories": [
         "Other"
@@ -21,112 +20,120 @@
     ],
     "contributes": {
         "configuration": {
-            "title":       "Comment 6",
+            "title": "Comment 6",
             "properties": {
                 "comment.fancy": {
-                    "default":         false,
-                    "description":     "If set true, Renders a Decoration Ornament at the end of Separator and Title comments.",
-                    "type":            "boolean"
+                    "default": false,
+                    "description": "If set true, Renders a Decoration Ornament at the end of Separator and Title comments.",
+                    "type": "boolean"
                 },
                 "comment.ornament": {
-                    "default":         "✣",
-                    "description":     "The Ornament used at the end of Title and separator comments.",
-                    "type":            "string"
+                    "default": "✣",
+                    "description": "The Ornament used at the end of Title and separator comments.",
+                    "type": "string"
                 },
                 "comment.rootCommentWidth": {
-                    "default":         80,
-                    "description":     "This is the length of the comment in the root indentation level. This also is the max length of the comments generated.",
-                    "type":            "number"
+                    "default": 80,
+                    "description": "This is the length of the comment in the root indentation level. This also is the max length of the comments generated.",
+                    "type": "number"
                 },
                 "comment.indentationLevelWidthDifference": {
-                    "default":         8,
-                    "description":     "After each level of indentation the comment size is reduced by this amount. For example if you set your root comment size to 80, and then create a comment with two levels of indentation (two tabs behind it) the size of the comment will be: 80 - 2*8 = 64.",
-                    "type":            "number"
+                    "default": 8,
+                    "description": "After each level of indentation the comment size is reduced by this amount. For example if you set your root comment size to 80, and then create a comment with two levels of indentation (two tabs behind it) the size of the comment will be: 80 - 2*8 = 64.",
+                    "type": "number"
                 },
                 "comment.codeStartsAtOneMoreLevelOfIndentation": {
-                    "default":         false,
-                    "description":     "If checked, the generator will create one more level of indentation in the additional whitespace that is created after the cursor so the code is kind of nested inside of the comment.",
-                    "type":            "boolean"
+                    "default": false,
+                    "description": "If checked, the generator will create one more level of indentation in the additional whitespace that is created after the cursor so the code is kind of nested inside of the comment.",
+                    "type": "boolean"
                 },
                 "comment.onlyRenderOrnamentInRootLevel": {
-                    "default":         true,
-                    "description":     "When set true, only renders the ornament if the comment is in the root level. Comments with more indentation will no longer take the ornament",
-                    "type":            "boolean"
+                    "default": true,
+                    "description": "When set true, only renders the ornament if the comment is in the root level. Comments with more indentation will no longer take the ornament",
+                    "type": "boolean"
+                },
+                "comment.additionalNewLines": {
+                    "default": 2,
+                    "description": "Sets how many new lines are generated after the title comment",
+                    "type": "number"
                 }
             }
         },
         "keybindings": [
             {
-                "command":     "comment.makeTitleComment",
-                "key":         "alt+y",
-                "when":        "editorTextFocus"
+                "command": "comment.makeTitleComment",
+                "key": "alt+y",
+                "when": "editorTextFocus"
             },
             {
-                "command":     "comment.makeSeparatorComment",
-                "key":         "alt+l",
-                "when":        "editorTextFocus"
+                "command": "comment.makeSeparatorComment",
+                "key": "alt+l",
+                "when": "editorTextFocus"
             },
             {
-                "command":     "comment.renameTitleComment",
-                "key":         "ctrl+alt+cmd+y",
-                "when":        "editorTextFocus"
+                "command": "comment.renameTitleComment",
+                "key": "ctrl+alt+cmd+y",
+                "when": "editorTextFocus"
             }
         ],
         "commands": [
             {
-                "command":     "comment.renameTitleComment",
-                "title":       "🧨 Edit Title Comment"
+                "command": "comment.renameTitleComment",
+                "title": "🧨 Edit Title Comment"
             },
             {
-                "command":     "comment.makeTitleComment",
-                "title":       "🔧 Create Title Comment"
+                "command": "comment.makeTitleComment",
+                "title": "🔧 Create Title Comment"
             },
             {
-                "command":     "comment.makeSeparatorComment",
-                "title":       "🔨 Create Separator Comment"
+                "command": "comment.makeSeparatorComment",
+                "title": "🔨 Create Separator Comment"
             },
             {
-                "command":     "comment.migrateDocument",
-                "title":       "🪛 Migrate Document Comments"
+                "command": "comment.migrateDocument",
+                "title": "🪛 Migrate Document Comments"
             }
         ],
         "menus": {
             "editor/context": [
                 {
-                    "command":     "comment.makeTitleComment"
+                    "command": "comment.makeTitleComment"
                 },
                 {
-                    "command":     "comment.renameTitleComment"
+                    "command": "comment.renameTitleComment"
                 },
                 {
-                    "command":     "comment.makeSeparatorComment"
+                    "command": "comment.makeSeparatorComment"
                 }
             ]
         }
     },
     "scripts": {
-        "compile-web":             "webpack",
-        "lint":                    "eslint src --ext ts",
-        "package-web":             "webpack --mode production --devtool hidden-source-map",
-        "pretest":                 "yarn run compile-web",
-        "run-in-browser":          "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
-        "vscode:prepublish":       "yarn run package-web",
-        "watch-web":               "webpack --watch"
+        "compile-web": "webpack",
+        "lint": "eslint src --ext ts",
+        "package-web": "webpack --mode production --devtool hidden-source-map",
+        "pretest": "yarn run compile-web",
+        "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
+        "vscode:prepublish": "yarn run package-web",
+        "watch-web": "webpack --watch"
     },
     "devDependencies": {
-        "@types/mocha":                        "^9.1.1",
-        "@types/vscode":                       "^1.71.0",
-        "@types/webpack-env":                  "^1.17.0",
-        "@typescript-eslint/eslint-plugin":    "^5.31.0",
-        "@typescript-eslint/parser":           "^5.31.0",
-        "@vscode/test-web":                    "^0.0.29",
-        "assert":                              "^2.0.0",
-        "eslint":                              "^8.20.0",
-        "mocha":                               "^10.0.0",
-        "process":                             "^0.11.10",
-        "ts-loader":                           "^9.3.1",
-        "typescript":                          "^4.7.4",
-        "webpack":                             "^5.74.0",
-        "webpack-cli":                         "^4.10.0"
+        "@types/mocha": "^9.1.1",
+        "@types/vscode": "^1.71.0",
+        "@types/webpack-env": "^1.17.0",
+        "@typescript-eslint/eslint-plugin": "^5.31.0",
+        "@typescript-eslint/parser": "^5.31.0",
+        "@vscode/test-web": "^0.0.29",
+        "assert": "^2.0.0",
+        "eslint": "^8.20.0",
+        "mocha": "^10.0.0",
+        "process": "^0.11.10",
+        "ts-loader": "^9.3.1",
+        "typescript": "^4.7.4",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0"
+    },
+    "dependencies": {
+        "yarn": "^1.22.19"
     }
 }

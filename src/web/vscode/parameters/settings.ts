@@ -33,11 +33,15 @@ export function getUserSettings(
       ? false
       : commentConfigurations.get('onlyRenderOrnamentInRootLevel') ??  true;
 
+  const additionalNewLines: number = 
+    commentConfigurations.get('additionalNewLines') ?? 2;
+
   return {
     codeStartsAtOneMoreLevelOfIndentation: codeStartsAtOneMoreLevelOfIndentation,
     indentationLevelWidthDifference:  indentationLevelWidthDifference,
     onlyRenderOrnamentInRootLevel:    onlyRenderOrnamentInRootLevel,
     ornament:                         ornament,
     rootCommentWidth:                 rootCommentWidth,
+    additionalNewLines:               additionalNewLines,
   };
 }
