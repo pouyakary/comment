@@ -1,4 +1,6 @@
 ## Whats new?
+- **23.0.0** &mdash; Added the optional setting for the new lines generated after a comment by [DL1NSA](https://github.com/DL1NSA)
+
 - **22.0.0** &mdash; Renaming the Section comment to Title Comment and Line Comment to Separator Comment for better naming of these concepts. &mdash; Now supports international characters for titles like é or ز. &mdash; Supports PineScript :)
 
 - **21.1.0** &mdash; Now moving the cursor to the end of title after renaming.
