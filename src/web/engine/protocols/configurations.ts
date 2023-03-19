@@ -6,4 +6,5 @@ export interface UserSettings {
   indentationLevelWidthDifference:        number,
   codeStartsAtOneMoreLevelOfIndentation:  boolean,
   onlyRenderOrnamentInRootLevel:          boolean,
+  additionalNewLines:                     number,
 }

@@ -63,17 +63,21 @@ export function createCommentGenerationSkeleton(
       );
     }
 
-    // Generating additional whitespace
-    const lineBreaks = '\n'.repeat(1);
-    const cursorIndentation =
-      context.indentation.whitespaceBeforeFinalCursorPosition;
-    const additionalWhitespace = lineBreaks + cursorIndentation;
-
     const mainLine = context.language.wrapResultInComment(
       context.indentation,
       generatedComment,
     );
 
-    return mainLine + '\n' + additionalWhitespace;
+    let additionalWhitespace = '';
+    // ─── Additionalwhitespace ────────────────────────────────────
+    if(userSettings.additionalNewLines > 0) {
+        // Generating additional whitespace
+        const lineBreaks = '\n'.repeat(userSettings.additionalNewLines );
+        const cursorIndentation =
+          context.indentation.whitespaceBeforeFinalCursorPosition;
+        additionalWhitespace = lineBreaks + cursorIndentation;
+    }
+
+    return mainLine + additionalWhitespace;
   };
 }
