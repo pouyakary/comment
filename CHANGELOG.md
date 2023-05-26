@@ -1,4 +1,5 @@
 ## Whats new?
+- **23.1.0** &mdash; Hopefully the problem that happened in the installation is resolved. [#28](https://github.com/pouyakary/comment/issues/28)
 - **23.0.0** &mdash; Added the optional setting for the new lines generated after a comment by [DL1NSA](https://github.com/DL1NSA)
 
 - **22.0.0** &mdash; Renaming the Section comment to Title Comment and Line Comment to Separator Comment for better naming of these concepts. &mdash; Now supports international characters for titles like é or ز. &mdash; Supports PineScript :)
