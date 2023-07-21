@@ -33,6 +33,7 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'uno':
       case 'v':
       case 'vala':
+      case 'zig':
         return {
             sensitive:        false,
             commentGrammar:   "//",
