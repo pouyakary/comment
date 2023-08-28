@@ -64,6 +64,7 @@ export function loadLanguageSettings(languageId: string): engine.protocols.Langu
       case 'perl':
       case 'powershell':
       case 'r':
+      case 'rego':
       case 'ruby':
       case 'shell':
       case 'shellscript':
