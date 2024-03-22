@@ -1,10 +1,9 @@
-import * as protocols from '../protocols';
-import * as concepts  from '../concepts';
+import * as protocols from "../protocols";
+import * as concepts from "../concepts";
 
 // ─── Language ──────────────────────────────────────────────────────────── ✣ ─
 
 export class Language {
-
   /**
    * ```plaintext
    * // ─── Comment Title ─────────────────────────────────── ✣ ─
@@ -13,7 +12,7 @@ export class Language {
    * ◀─▶ left comment
    * ```
    */
-  readonly #leftComment:    string;
+  readonly #leftComment: string;
 
   /**
    * ```plaintext
@@ -21,42 +20,42 @@ export class Language {
    *                                            right comment ◀─▶
    * ```
    */
-  readonly #rightComment:   string;
+  readonly #rightComment: string;
 
-  readonly sensitive:       boolean;
+  readonly sensitive: boolean;
 
-
-  constructor({commentGrammar, sensitive}: protocols.LanguageConfigurations) {
+  constructor({ commentGrammar, sensitive }: protocols.LanguageConfigurations) {
     this.sensitive = sensitive;
-    if (typeof commentGrammar !== 'string') {
-      this.#leftComment   = commentGrammar[0] + ' ';
-      this.#rightComment  = ' ' + commentGrammar[1];
+    if (typeof commentGrammar !== "string") {
+      this.#leftComment = commentGrammar[0] + " ";
+      this.#rightComment = " " + commentGrammar[1];
       return;
     }
-    this.#leftComment   = commentGrammar + ' ';
-    this.#rightComment  = '';
+    this.#leftComment = commentGrammar + " ";
+    this.#rightComment = "";
   }
 
   get totalCommentWidth(): number {
     return this.#leftComment.length + this.#rightComment.length;
   }
 
-  wrapResultInComment(
-    indentation:  concepts.Indentation,
-    result:       string
-  ) {
-    return indentation.beginningIndentationWhitespace +
-      this.#leftComment + result + this.#rightComment;
+  wrapResultInComment(indentation: concepts.Indentation, result: string) {
+    return (
+      indentation.beginningIndentationWhitespace +
+      this.#leftComment +
+      result +
+      this.#rightComment
+    );
   }
 
   wrapCommentDetectionRegExp(regExpBody: string) {
-    const code = ( '^([ \\t]*)'
-                 + Language.#encodeRegExp(this.#leftComment)
-                 + regExpBody
-                 + Language.#encodeRegExp(this.#rightComment)
-                 + '[ \\t]*$'
-                 );
-    return new RegExp(code, 'u');
+    const code =
+      "^([ \\t]*)" +
+      Language.#encodeRegExp(this.#leftComment) +
+      regExpBody +
+      Language.#encodeRegExp(this.#rightComment) +
+      "[ \\t]*$";
+    return new RegExp(code, "u");
   }
 
   static #encodeRegExp(sequence: string) {

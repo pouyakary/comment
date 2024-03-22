@@ -1,12 +1,12 @@
-import * as protocols from '../protocols';
-import * as concepts  from '.';
+import * as protocols from "../protocols";
+import * as concepts from ".";
 
 // ─── Generator Context Constructor Parameters ──────────────────────────── ✣ ─
 
 export interface GeneratorContextConstructorParams {
-  userSettings:     protocols.UserSettings;
-  editorSettings:   protocols.EditorParameters;
-  languageConfig:   protocols.LanguageConfigurations;
+  userSettings: protocols.UserSettings;
+  editorSettings: protocols.EditorParameters;
+  languageConfig: protocols.LanguageConfigurations;
 }
 
 // ─── Comment Environment Context ───────────────────────────────────────── ✣ ─
@@ -18,12 +18,12 @@ export interface GeneratorContextConstructorParams {
  * of a convenience that provides shortcuts for common important information.
  */
 export class Context {
-  readonly #languageConfig:   protocols.LanguageConfigurations;
-  readonly #userSettings:     protocols.UserSettings;
-  readonly #editorSettings:   protocols.EditorParameters;
+  readonly #languageConfig: protocols.LanguageConfigurations;
+  readonly #userSettings: protocols.UserSettings;
+  readonly #editorSettings: protocols.EditorParameters;
 
   constructor(params: GeneratorContextConstructorParams) {
-    this.#userSettings   = params.userSettings;
+    this.#userSettings = params.userSettings;
     this.#editorSettings = params.editorSettings;
     this.#languageConfig = params.languageConfig;
   }
@@ -45,9 +45,7 @@ export class Context {
    * Whitespace normalized input of the comment generation system.
    */
   get whitespaceNormalizedInput(): string {
-    return this.line
-        .trim()
-        .split(/\s+/g).join(' ');
+    return this.line.trim().split(/\s+/g).join(" ");
   }
 
   /** The current editor line number */
@@ -79,7 +77,10 @@ export class Context {
    * Width of the resulting comment. (Excluding the indentation)
    */
   get totalCommentWidth(): number {
-    return this.rootLevelCommentWidth - (this.indentation.indentationLevel * this.indentationLevelWidthDifference);
+    return (
+      this.rootLevelCommentWidth -
+      this.indentation.indentationLevel * this.indentationLevelWidthDifference
+    );
   }
 
   /**
@@ -98,9 +99,11 @@ export class Context {
    * D = A - (B + C)
    */
   get commentBodyAvailableSpace(): number {
-    return this.totalCommentWidth
-      - this.language.totalCommentWidth
-      - this.ornament.size(this.indentation);
+    return (
+      this.totalCommentWidth -
+      this.language.totalCommentWidth -
+      this.ornament.size(this.indentation)
+    );
   }
 
   get rootLevelCommentWidth(): number {
@@ -115,4 +118,3 @@ export class Context {
     return this.#userSettings.codeStartsAtOneMoreLevelOfIndentation;
   }
 }
-

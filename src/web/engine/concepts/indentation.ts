@@ -1,13 +1,12 @@
-import * as concepts from '.';
-
+import * as concepts from ".";
 
 // ─── Indentation ───────────────────────────────────────────────────────── ✣ ─
 
 export class Indentation {
-  #context:     concepts.Context;
-  #indentSize:  number;
+  #context: concepts.Context;
+  #indentSize: number;
 
-  constructor (context: concepts.Context) {
+  constructor(context: concepts.Context) {
     this.#context = context;
     this.#indentSize = computeTheWhitespaceCharactersInTheBeginningOfALine(
       context.line,
@@ -27,17 +26,17 @@ export class Indentation {
 
   /** Regenerated whitespace based on the indentation size. */
   get beginningIndentationWhitespace(): string {
-    return ' '.repeat(this.#indentSize);
+    return " ".repeat(this.#indentSize);
   }
 
   /** The whitespace that is used before the final cursor position. */
   get whitespaceBeforeFinalCursorPosition(): string {
-    let moreSpace = '';
+    let moreSpace = "";
     const shouldHaveOneMoreIndentationLevel =
       !this.#context.language.sensitive &&
       this.#context.codeStartsAtOneMoreLevelOfIndentation;
     if (shouldHaveOneMoreIndentationLevel) {
-      moreSpace = ' '.repeat(this.#context.tabSize);
+      moreSpace = " ".repeat(this.#context.tabSize);
     }
     return this.beginningIndentationWhitespace + moreSpace;
   }
@@ -55,20 +54,20 @@ export class Indentation {
  * @returns the number of tabs and spaces in the line
  */
 function computeTheWhitespaceCharactersInTheBeginningOfALine(
-  line:     string,
-  tabSize:  number,
+  line: string,
+  tabSize: number,
 ): number {
-  let index   = 0;
-  let spaces  = 0;
+  let index = 0;
+  let spaces = 0;
 
   while (index < line.length) {
     switch (line[index]) {
-      case '\t':
+      case "\t":
         spaces += tabSize;
         index++;
         break;
 
-      case ' ':
+      case " ":
         spaces++;
         index++;
         break;

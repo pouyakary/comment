@@ -1,4 +1,5 @@
 ## Whats new?
+
 - **23.3.0** &mdash; Added the Rego language by [Alessio Fiorentino](https://github.com/fioreale) and changed the activation event for better startup speed.
 - **23.2.0** &mdash; Added the Zig Language support.
 - **23.1.0** &mdash; Hopefully the problem that happened in the installation is resolved. [#28](https://github.com/pouyakary/comment/issues/28)
@@ -17,7 +18,8 @@
 - **20.1.0** &mdash; This version brings a much much better one line version of the comment for languages like C, HTML and CSS.
 
 # Comment 6!
-This version is a complete (yes complete!) rewrite of the whole extension. The extension is now written in a really clean TypeScript code base. Now is built on top  of the Visual Studio Code __Web Extension API__ and therefore works on web! And is way more customizable then before.
+
+This version is a complete (yes complete!) rewrite of the whole extension. The extension is now written in a really clean TypeScript code base. Now is built on top of the Visual Studio Code **Web Extension API** and therefore works on web! And is way more customizable then before.
 
 This means from this version you can edit your existing comments!
 
@@ -36,12 +38,12 @@ Really hope you like this one :)
 - **11.0.2** &mdash; Support for SCSS added.
 - **11.0.1** &mdash; Support for Terraform added.
 
-- **11.0.0** &mdash; A big update:<br><br>Added native settings in the VS Code Settings<br><br>Added a fancy mode where you can have a signature or ornament at the end of your comments.<br><br>A new system of width computation where the comment is included and they are exactly 80 or 65 in width.<br><br>Added  Fixed many problems in the previous version (I was lucked out of the vsce so sorry for the delay).
+- **11.0.0** &mdash; A big update:<br><br>Added native settings in the VS Code Settings<br><br>Added a fancy mode where you can have a signature or ornament at the end of your comments.<br><br>A new system of width computation where the comment is included and they are exactly 80 or 65 in width.<br><br>Added Fixed many problems in the previous version (I was lucked out of the vsce so sorry for the delay).
 
 - **10.1.0** &mdash; Fixed the problem with Dockerfile, CPP, Arendelle, Processing, Java, C and ...
 
 - **10.0.0** &mdash; From this version all comments are titled with all caps, and are not sensitive. This enables
-more codes to use Comment and probably easier integration.<br><br>If you wish to have the previous mode, you can have the `"comment": { "legacy": true }` within your `settings.json` <br><br>
+  more codes to use Comment and probably easier integration.<br><br>If you wish to have the previous mode, you can have the `"comment": { "legacy": true }` within your `settings.json` <br><br>
 
 - **7.1.1** &mdash; Peggy support added.
 - **7.0.7** &mdash; Solidity support added.

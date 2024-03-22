@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
-import * as contributions from './vscode/contributions';
+import * as vscode from "vscode";
+import * as contributions from "./vscode/contributions";
 
 // ─── Activation Function ───────────────────────────────────────────────── ✣ ─
 

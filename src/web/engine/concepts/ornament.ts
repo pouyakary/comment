@@ -1,24 +1,26 @@
-import * as concepts from '.';
+import * as concepts from ".";
 
 // ─── Ornament ──────────────────────────────────────────────────────────── ✣ ─
 
 export class Ornament {
-  #decoration:                    string;
+  #decoration: string;
   #onlyRenderOrnamentInRootLevel: boolean;
 
   constructor(decoration: string, onlyRenderOrnamentInRootLevel: boolean) {
-    this.#decoration                    = decoration;
+    this.#decoration = decoration;
     this.#onlyRenderOrnamentInRootLevel = onlyRenderOrnamentInRootLevel;
   }
 
   #shouldNotRender(indentation: concepts.Indentation) {
-    return (this.#onlyRenderOrnamentInRootLevel && indentation.isNotRoot)
-      || (this.#decoration === '');
+    return (
+      (this.#onlyRenderOrnamentInRootLevel && indentation.isNotRoot) ||
+      this.#decoration === ""
+    );
   }
 
   render(indentation: concepts.Indentation): string {
     if (this.#shouldNotRender(indentation)) {
-      return '';
+      return "";
     }
     return ` ${this.#decoration} ─`;
   }

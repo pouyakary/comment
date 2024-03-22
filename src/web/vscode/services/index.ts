@@ -1,1 +1,1 @@
-export * from './generators';
+export * from "./generators";
