@@ -79,6 +79,7 @@ export function loadLanguageSettings(
     case "coffeescript":
     case "julia":
     case "python":
+    case "pip-requirements":
     case "nix":
     case "yml":
     case "yaml":
