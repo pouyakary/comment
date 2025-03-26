@@ -19,6 +19,7 @@ export function loadLanguageSettings(
     case "javascriptreact":
     case "jison":
     case "json":
+    case "jsonc":
     case "karyscript":
     case "less":
     case "objective-c":
