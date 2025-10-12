@@ -1,7 +1,9 @@
 import * as protocols from "../protocols";
 import * as concepts from ".";
 
-// ─── Generator Context Constructor Parameters ──────────────────────────── ✣ ─
+// ─── Generator Context Constructor Parameters ────────────────────────────
+
+// MARK: Hello
 
 export interface GeneratorContextConstructorParams {
   userSettings: protocols.UserSettings;
@@ -9,7 +11,7 @@ export interface GeneratorContextConstructorParams {
   languageConfig: protocols.LanguageConfigurations;
 }
 
-// ─── Comment Environment Context ───────────────────────────────────────── ✣ ─
+// ─── Comment Environment Context ─────────────────────────────────────────
 
 /**
  * Generator context is the computed settings that is passed to the comment

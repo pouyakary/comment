@@ -1,6 +1,6 @@
 import * as concepts from ".";
 
-// ─── Ornament ──────────────────────────────────────────────────────────── ✣ ─
+// ─── Ornament ────────────────────────────────────────────────────────────────
 
 export class Ornament {
   #decoration: string;

@@ -1,7 +1,7 @@
 import * as protocols from "../protocols";
 import * as concepts from "../concepts";
 
-// ─── Language ──────────────────────────────────────────────────────────── ✣ ─
+// ─── Language ────────────────────────────────────────────────────────────────
 
 export class Language {
   /**

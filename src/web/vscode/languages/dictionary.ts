@@ -3,9 +3,11 @@ import * as engine from "../../engine";
 // ─── Load Language Settings ────────────────────────────────────────────── ✣ ─
 
 export function loadLanguageSettings(
-  languageId: string,
+  languageId: string
 ): engine.protocols.LanguageConfigurations | null {
   switch (languageId) {
+    // ─── C Family ────────────────────────────────────────────────
+
     case "arendelle":
     case "c":
     case "cpp":
@@ -41,6 +43,8 @@ export function loadLanguageSettings(
         commentGrammar: "//",
       };
 
+    // ─── Go Family ───────────────────────────────────────────────
+
     case "fsharp":
     case "go":
     case "pageman":
@@ -57,6 +61,8 @@ export function loadLanguageSettings(
         commentGrammar: "//",
       };
 
+    // ─── Bash Family ─────────────────────────────────────────────
+
     case "bash":
     case "dockerfile":
     case "fish":
@@ -68,6 +74,7 @@ export function loadLanguageSettings(
     case "r":
     case "rego":
     case "ruby":
+    case "crystal":
     case "shell":
     case "shellscript":
     case "terraform":
@@ -75,6 +82,8 @@ export function loadLanguageSettings(
         sensitive: false,
         commentGrammar: "#",
       };
+
+    // ─── Coffeescript Family ─────────────────────────────────────
 
     case "coffeescript":
     case "julia":
@@ -88,6 +97,8 @@ export function loadLanguageSettings(
         commentGrammar: "#",
       };
 
+    // ─── Latex Family ────────────────────────────────────────────
+
     case "latex":
     case "matlab":
     case "octave":
@@ -97,6 +108,8 @@ export function loadLanguageSettings(
         commentGrammar: "%",
       };
 
+    // ─── Elm Family ──────────────────────────────────────────────
+
     case "elm":
     case "haskell":
     case "purescript":
@@ -105,12 +118,16 @@ export function loadLanguageSettings(
         commentGrammar: "--",
       };
 
+    // ─── Lua Family ──────────────────────────────────────────────
+
     case "lua":
     case "sql":
       return {
         sensitive: false,
         commentGrammar: "--",
       };
+
+    // ─── Lisp Family ─────────────────────────────────────────────
 
     case "clojure":
     case "lisp":
@@ -123,11 +140,15 @@ export function loadLanguageSettings(
         commentGrammar: ";;",
       };
 
+    // ─── Bat Family ──────────────────────────────────────────────
+
     case "bat":
       return {
         sensitive: false,
         commentGrammar: "::",
       };
+
+    // ─── Vb Family ───────────────────────────────────────────────
 
     case "vb":
     case "vbs":
@@ -137,12 +158,16 @@ export function loadLanguageSettings(
         commentGrammar: "'",
       };
 
+    // ─── Css Family ──────────────────────────────────────────────
+
     case "css":
     case "c":
       return {
         sensitive: false,
         commentGrammar: ["/*", "*/"],
       };
+
+    // ─── Html Family ─────────────────────────────────────────────
 
     case "html":
     case "xml":
@@ -155,11 +180,15 @@ export function loadLanguageSettings(
         commentGrammar: ["<!--", "-->"],
       };
 
+    // ─── Plain Text ──────────────────────────────────────────────
+
     case "plaintext":
       return {
         sensitive: false,
         commentGrammar: "--",
       };
+
+    // ─── Error Case ──────────────────────────────────────────────
 
     default:
       return null;
