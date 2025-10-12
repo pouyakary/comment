@@ -5,7 +5,7 @@
     "icon":            "icon.png",
     "name":            "comment",
     "publisher":       "karyfoundation",
-    "version":         "24.0.0",
+    "version":         "24.1.0",
     "repository": {
         "url":     "https://github.com/pouyakary/comment.git"
     },
