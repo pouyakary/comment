@@ -1,7 +1,5 @@
 # Comment 6 ✨
 
-With ❤️ by Dragon's Lover.
-
 Comment 6 is a way to decorate your code with titles and separator lines to organize the portions of a file. I have always had a really hard time to keep track of where a function starts and where it ends. While there are millions of ways to tackle the problem, I simply wanted to have what I had in notebooks: good old lines.
 
 With Comment 6 you can simply create these headings:
@@ -27,6 +25,18 @@ And edit them whenever you want:
 
 - **Adopt The Clarity Style To Your Codes** &mdash; Try to have files that are minimal as possible. Have one class per file if you can. When a file move to more than a few hundred lines try to break it into different files. Try to write the best code you can. It always pays the efforts.
 
+## Minimap Support
+
+![](https://github.com/user-attachments/assets/1504b68b-fb5e-4067-b402-08652bc9b4b4)
+
+After championing for [Xcode Style Minimap Headers](https://github.com/microsoft/vscode/pull/190759) and getting it, I had the honor to contribute [Custom Minimap Section Header Marker](https://github.com/microsoft/vscode/pull/210271) rules, specifically to support Comment 6's Comments. Just copy and paste this to your settings.json and have fun!
+
+```json
+{
+  "editor.minimap.markSectionHeaderRegex": "(\\/\\* )?─── (?<label>[^─]+) ─+(?<separator> . ─)?( \\*\\/)?$"
+}
+```
+
 ## Keybindings
 
 | Comments                      | Keybindings                  |
@@ -36,11 +46,3 @@ And edit them whenever you want:
 | 🧨 Editing Title Comment      | `ctrl` + `alt` + `cmd` + `y` |
 
 > **NOTE 💡** <br> These keybindings are chosen such that they are both easy to use within QWERTY and Dvorak layouts.
-
-<br><br><br>
-
-<center>
-<a href="https://kary.us">
-<img width="100" src="https://user-images.githubusercontent.com/2157285/129073689-4d48b4f2-6b04-4665-91bc-896eb1d13340.png">
-</a>
-</center>
