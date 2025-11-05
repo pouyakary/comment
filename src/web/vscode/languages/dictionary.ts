@@ -34,6 +34,10 @@ export function loadLanguageSettings(
     case "swift":
     case "typescript":
     case "typescriptreact":
+    case "astro":
+    case "vue":
+    case "jsx":
+    case "tsx":
     case "uno":
     case "v":
     case "vala":
