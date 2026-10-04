@@ -74,9 +74,18 @@
                 "command":     "comment.renameTitleComment",
                 "key":         "ctrl+alt+cmd+y",
                 "when":        "editorTextFocus"
+            },
+            {
+                "command":     "justifier.justify",
+                "key":         "ctrl+alt+cmd+h",
+                "when":        "editorTextFocus"
             }
         ],
         "commands": [
+            {
+                "command":     "justifier.justify",
+                "title":       "🪭 Justify Comment"
+            },
             {
                 "command":     "comment.renameTitleComment",
                 "title":       "🧨 Edit Title Comment"
@@ -96,6 +105,9 @@
         ],
         "menus": {
             "editor/context": [
+                {
+                    "command":     "justifier.justify"
+                },
                 {
                     "command":     "comment.makeTitleComment"
                 },

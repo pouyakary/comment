@@ -1,22 +1,24 @@
 {
-    "comment.fancy":                   true,
-    "comment.ornament":                "✣",
-    "comment.rootCommentWidth":        80,
-    "editor.tabSize":                  2,
-    "typescript.tsc.autoDetect":       "off",
+    "comment.fancy": true,
+    "comment.ornament": "✣",
+    "comment.rootCommentWidth": 80,
+    "editor.tabSize": 2,
+    "typescript.tsc.autoDetect": "off",
     "files.exclude": {
-        "out":     false
+        "out": false
     },
     "search.exclude": {
-        "out":     true
+        "out": true
     },
     "cSpell.words": [
         "arendelle",
+        "blockquotes",
         "glsl",
         "haxe",
         "jison",
         "karyfoundation",
         "karyscript",
+        "monojustify",
         "nearley",
         "pageman",
         "pegjs",
