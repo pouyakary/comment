@@ -1,5 +1,11 @@
 ## Whats new?
 
+### Comment 7
+
+- **24.0.0** &mdash; In this new version we have a totally new feature called "Comment Justification!". You can now justify your comments to have a beautiful look and way more readability. The feature supports markdown and so you can go crazy with it!
+
+### Comment 6
+
 - **23.3.0** &mdash; Added the Rego language by [Alessio Fiorentino](https://github.com/fioreale) and changed the activation event for better startup speed.
 - **23.2.0** &mdash; Added the Zig Language support.
 - **23.1.0** &mdash; Hopefully the problem that happened in the installation is resolved. [#28](https://github.com/pouyakary/comment/issues/28)

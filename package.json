@@ -1,11 +1,11 @@
 {
     "browser":         "./dist/web/extension.js",
     "description":     "",
-    "displayName":     "Comment 6",
+    "displayName":     "Comment 7",
     "icon":            "icon.png",
     "name":            "comment",
     "publisher":       "karyfoundation",
-    "version":         "24.1.0",
+    "version":         "25.9.0",
     "repository": {
         "url":     "https://github.com/pouyakary/comment.git"
     },

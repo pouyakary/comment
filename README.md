@@ -17,6 +17,12 @@ And edit them whenever you want:
 
 <br>
 
+## Comment Justification
+
+![](https://github.com/pouyakary/vscode-comment-justifier/assets/2157285/92d71a5e-b281-4ffb-94e9-fe63940dfdd8)
+
+You can now justify your comments with the all new Comment 7! With this new experimental feature, you can justify your comments, with a markdown aware justification engine designed for readability of your codes.
+
 ## Notes 💡
 
 - **Indentation Matters** &mdash; The way comment works is that you pick an empty line and indent as far as you wish your comment is going to be indented. You then start typing the comment and then use the menu or keybindings to generate the comment. The size and indentation of your resulting comment is determined by that indentation.

@@ -28,9 +28,9 @@ import * as vscode from "vscode";
 import { detectStartOfTheComment } from "./sign";
 import { justifyMarkdown } from "./monojustify";
 
-// ─── Max Line Size ─────────────────────────────────────────────────────── ✣ ─
+// ─── Constants ─────────────────────────────────────────────────────────── ✣ ─
 
-const MAX_LINE_SIZE = 49;
+const MAX_LINE_SIZE = 42;
 
 // ─── Check If The Line Is Comment ──────────────────────────────────────── ✣ ─
 
@@ -67,12 +67,19 @@ export function justifyCurrentComment(): void {
   justifyLineComment(document, currentLine, commentSign);
 }
 
-// ─── Justify Line Comment ──────────────────────────────────────────────── ✣ ─
-
 // ─── Justify Line Comment (`//`, `#`, `--`, ...) ───────────────────────── ✣ ─
+//
+// The prefix MUST be peeled off every line before the body is handed to
+// the markdown justifier. Otherwise `//` is just another token in the
+// paragraph and gets woven into the middle of the output.
+//
+// Empty comment lines (bare `//` with no trailing space, or even with
+// no indentation) are treated as part of the comment — this is what
+// keeps a run of `// ...\n//\n// ...` from being seen as two separate
+// comments.
 
 function escapeRegExp(input: string): string {
-  return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return input.replace(/[.*+?$^{}()|[\]\\]/g, "\\$&");
 }
 
 function justifyLineComment(
@@ -80,19 +87,20 @@ function justifyLineComment(
   currentLine: number,
   commentSign: string,
 ): void {
-  // `commentSign` is like "    // ". Peel the sign out of it.
+  // `commentSign` is like `"    // "`. Peel the sign itself out.
   const signMatch = commentSign.match(/\S+/);
   if (!signMatch) return;
-  const sign = signMatch[0];            // e.g. "//", "///", "--", "#"
-  const signChar = sign[0];             // used for "/+", "#+", "-+"
+  const sign = signMatch[0];      // e.g. `"//"`, `"///"`, `"--"`, `"#"`
+  const signChar = sign[0];       // used for `/`, `-`, `#`
 
   // Indentation from the cursor line — we re-apply it on output.
   const indent = document.lineAt(currentLine).text.match(/^[ \t]*/)![0];
 
-  // A line is part of the comment if its trimmed content starts with
-  // the sign and is either exactly the sign, or has whitespace, or more
-  // of the sign's leading char after it. This deliberately ignores
-  // indentation, because editors often strip it from empty comment lines.
+  // A line belongs to this comment if, after stripping leading
+  // whitespace, it starts with `sign` and either is exactly `sign`, or
+  // the next char is whitespace, or is another char from the sign's
+  // leading run (e.g. `////` for `//`). Deliberately ignores indentation
+  // so bare `//` lines with no indent are picked up.
   const isCommentLine = (text: string): boolean => {
     const trimmed = text.trimStart();
     if (!trimmed.startsWith(sign)) return false;
@@ -101,13 +109,11 @@ function justifyLineComment(
     return /^\s/.test(rest) || rest.startsWith(signChar);
   };
 
-  // Strip "  //   " → "" and "  // hello" → "hello".
-  const stripRe = new RegExp(
-    `^[ \\t]*${escapeRegExp(signChar)}+[ \\t]?`,
-  );
+  // Strip `"  //   "` → `""`, `"  // hello"` → `"hello"`.
+  const stripRe = new RegExp(`^[ \\t]*${escapeRegExp(signChar)}+[ \\t]?`);
   const strip = (text: string): string => text.replace(stripRe, "");
 
-  // Expand the selection up/down while lines still belong to this comment.
+  // Expand up/down while lines still belong to this comment.
   let startLineIndex = currentLine;
   while (
     startLineIndex > 0 &&
@@ -139,6 +145,7 @@ function justifyLineComment(
   const justifiedLines =
     justifiedBody === "" ? [] : justifiedBody.split("\n");
 
+  // Empty output lines become a bare `sign` with no trailing space.
   const outLines = justifiedLines.map((line) =>
     line === "" ? emptyPrefix : prefix + line,
   );
@@ -154,29 +161,29 @@ function justifyLineComment(
 }
 
 // ─── Justify Block Comment (`/** ... */`, `/* ... */`) ─────────────────── ✣ ─
+//
+// Strips the per-line border prefix (`" * "`, `"  * "`, `"* "`, ...) from
+// every body line, justifies the bare markdown body, then re-applies the
+// SAME canonical prefix to every produced line. This preserves the `*`
+// column and makes repeated runs idempotent.
 
 function justifyBlockComment(
   document: vscode.TextDocument,
   block: ExtractedBlockComment,
 ): void {
-  const { startLineIndex, endLineIndex, startLine, endLine, bodyLines } = block;
-
-  // Every body line is guaranteed (by `extractBlockComment`) to start
-  // with `*` after trim. Detect the exact prefix from the first body
-  // line so a ` *  ` or ` *` convention doesn't get mangled.
-  const firstBody = bodyLines[0] ?? "";
-  const prefixMatch = firstBody.match(/^(\s*\*\s?)/);
-  const prefix = prefixMatch ? prefixMatch[1] : " * ";
-  const prefixTrimmed = prefix.replace(/\s+$/, "");
-
-  const strippedBody = bodyLines.map((line) => {
-    if (line.startsWith(prefix)) return line.slice(prefix.length);
-    const m = line.match(/^(\s*\*\s?)(.*)$/);
-    return m ? m[2] : line;
-  });
+  const {
+    startLineIndex,
+    endLineIndex,
+    startLine,
+    endLine,
+    prefix,
+    emptyPrefix,
+    bodyLines,
+  } = block;
 
   const bodyWidth = Math.max(10, MAX_LINE_SIZE - prefix.length);
-  const justifiedBody = justifyMarkdown(strippedBody.join("\n"), {
+
+  const justifiedBody = justifyMarkdown(bodyLines.join("\n"), {
     maxLineSize: bodyWidth,
   });
 
@@ -184,7 +191,7 @@ function justifyBlockComment(
     justifiedBody === "" ? [] : justifiedBody.split("\n");
 
   const newBodyLines = justifiedLines.map((line) =>
-    line === "" ? prefixTrimmed : prefix + line,
+    line === "" ? emptyPrefix : prefix + line,
   );
 
   const reconstructed = [startLine, ...newBodyLines, endLine];
@@ -199,13 +206,18 @@ function justifyBlockComment(
   vscode.workspace.applyEdit(edit);
 }
 
-// ─── Block Comment Extraction (unchanged) ──────────────────────────────── ✣ ─
+// ─── Block Comment Extraction ──────────────────────────────────────────── ✣ ─
 
 type ExtractedBlockComment = {
   startLineIndex: number;
   endLineIndex: number;
   startLine: string;
   endLine: string;
+  /** Canonical border prefix, e.g. `" * "`. */
+  prefix: string;
+  /** Prefix for lines that end up empty, e.g. `" *"` (no trailing space). */
+  emptyPrefix: string;
+  /** Body lines with the prefix stripped. */
   bodyLines: string[];
 };
 
@@ -226,26 +238,54 @@ function extractBlockComment(
   const endLineIndex = findBlockCommentEnd(document, startLineIndex);
   if (endLineIndex === null || endLineIndex === startLineIndex) return null;
 
-  const bodyLines: string[] = [];
+  const rawBodyLines: string[] = [];
   for (let line = startLineIndex + 1; line < endLineIndex; line++) {
-    bodyLines.push(document.lineAt(line).text);
+    rawBodyLines.push(document.lineAt(line).text);
   }
+  if (rawBodyLines.length === 0) return null;
 
-  if (bodyLines.length === 0) return null;
+  // Detect the canonical prefix from the first non-blank body line. It
+  // must be `whitespace* * optional-whitespace`. If a non-blank body
+  // line doesn't match this at all, we bail — the file isn't following
+  // a JSDoc-like convention and we don't want to guess.
+  const prefix = detectBlockCommentPrefix(rawBodyLines);
+  if (prefix === null) return null;
 
-  const bodyHasOnlyStarPrefix = bodyLines.every((line) =>
-    line.trim().startsWith("*"),
+  const bodyLines = rawBodyLines.map((line) =>
+    stripBlockCommentPrefix(line, prefix),
   );
-  if (!bodyHasOnlyStarPrefix) return null;
 
   return {
     startLineIndex,
     endLineIndex,
     startLine: startLineText,
     endLine: document.lineAt(endLineIndex).text,
+    prefix,
+    emptyPrefix: prefix.replace(/\s+$/, ""),
     bodyLines,
   };
 }
+
+function detectBlockCommentPrefix(bodyLines: string[]): string | null {
+  for (const line of bodyLines) {
+    if (line.trim() === "") continue;
+    const m = line.match(/^(\s*\*\s?)/);
+    if (m) return m[1];
+    return null; // a non-blank body line without a `*` border — not JSDoc
+  }
+  return null;
+}
+
+function stripBlockCommentPrefix(line: string, prefix: string): string {
+  if (line.trim() === "") return "";
+  if (line.startsWith(prefix)) return line.slice(prefix.length);
+  // Fallback for lines like `" *"` (no trailing space) or other minor
+  // deviations from the canonical prefix.
+  const m = line.match(/^(\s*\*\s?)(.*)$/);
+  return m ? m[2] : line;
+}
+
+// ─── Detection Helpers ─────────────────────────────────────────────────── ✣ ─
 
 function isBlockCommentCandidate(text: string): boolean {
   const trimmed = text.trim();
