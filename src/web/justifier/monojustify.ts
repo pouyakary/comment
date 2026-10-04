@@ -527,8 +527,7 @@ export function justifyMarkdown(
   const blocks = parseBlocks(lines);
   const rendered = renderBlocks(blocks, options.maxLineSize, justifier);
 
-  // Trim   leading/trailing  blank  lines
-  // that came from the split.
+  // Trim leading/trailing blank lines that came from the split.
   let start = 0;
   let end = rendered.length;
   while (start < end && rendered[start] === "") start++;
