@@ -11,15 +11,25 @@ const LIST_RE = /^(\s*)([-*+]|\d+[.)])(\s+)(.*)$/;
 // ─── Types ─────────────────────────────────────────────────────────────── ✣ ─
 
 export interface IMonoJustifierOptions {
-  /** Maximum number of characters per output line. Clamped to ≥ 10. */
-  maxLineSize: number;
   /**
-   * Threshold for the "badness" heuristic: how empty a line has to be,
-   * relative to its gaps, before we prefer to hyphenate a word instead
-   * of leaving the line ragged. Higher → split less eagerly.
+   * Maximum  number of characters per ou-
+   * tput line. Clamped to ≥ 10.
+   */
+  maxLineSize: number;
+
+  /**
+   * Threshold  for the "badness" heurist-
+   * ic: how  empty  a  line  has  to  be,
+   * relative  to its gaps, before we pre-
+   * fer to hyphenate a  word  instead  of
+   * leaving  the  line  ragged.  Higher →
+   * split less eagerly.
    */
   splitChunkEmptySpaceFactor?: number;
-  /** Character used to mark a split word. Default `"-"`. */
+  /**
+   * Character  used to mark a split word.
+   * Default `"-"`.
+   */
   splitHyphen?: string;
 }
 
@@ -61,7 +71,10 @@ export class MonoJustifier {
 
   // ─── Justify Text ────────────────────────────────────────────────────
 
-  /** Justify a blob of text line by line. Blank lines pass through. */
+  /**
+   * Justify  a blob of text line by line.
+   * Blank lines pass through.
+   */
   justifyText(input: string): string {
     return this.justifyLines(input.split(LINE_BREAK_RE)).join("\n");
   }
@@ -75,10 +88,13 @@ export class MonoJustifier {
 
   // ─── Extract Chunk ───────────────────────────────────────────────────
 
-  // Re-assembles words that a previous justification pass may have split
-  // across lines ("extr-" / "aordi-" / "nary"). A trailing split-hyphen
-  // on the last chunk of a line buffers that head so it can be glued to
-  // the first chunk of the next line.
+  // Re-assembles  words  that  a previous
+  // justification  pass  may  have  split
+  // across  lines  ("extr-"  / "aordi-" /
+  // "nary"). A trailing  split-hyphen  on
+  // the last chunk of a line buffers that
+  // head so it can be glued to the  first
+  // chunk of the next line.
 
   #extractChunks(lines: string[]): string[] {
     const chunks: string[] = [];
@@ -107,8 +123,9 @@ export class MonoJustifier {
       }
     }
 
-    // Dangling head: input ended mid-word. Flush it with its hyphen
-    // rather than silently dropping it.
+    // Dangling  head: input ended mid-wo-
+    // rd. Flush it with its hyphen rather
+    // than silently dropping it.
     if (pendingHead !== null) {
       chunks.push(pendingHead + this.#splitHyphen);
     }
@@ -120,11 +137,14 @@ export class MonoJustifier {
 
   // ─── Split Chunk ─────────────────────────────────────────────────────
 
-  // Caller guarantees `available >= 4` and `chunk.length >= 6`, so we
-  // always leave ≥1 char on each side plus room for the hyphen.
+  // Caller  guarantees  `available  >= 4`
+  // and `chunk.length >= 6`, so we always
+  // leave  ≥1 char on each side plus room
+  // for the hyphen.
 
   #splitChunk(chunk: string, available: number): [string, string] {
-    // 1 char for the preceding space, 1 for the trailing hyphen.
+    // 1  char  for the preceding space, 1
+    // for the trailing hyphen.
     const headRoom = available - 2;
     const headSize = Math.max(1, Math.min(headRoom, chunk.length - 3));
     return [chunk.slice(0, headSize), chunk.slice(headSize)];
@@ -184,10 +204,13 @@ export class MonoJustifier {
 
     flush();
 
-    // Orphan control: pull the last chunk of the penultimate line down
-    // so the last line isn't a single lonely word — but only when the
-    // resulting line still fits. (Original code could break the "each
-    // gap gets ≥1 space" invariant here.)
+    // Orphan control: pull the last chunk
+    // of the penultimate line down so the
+    // last  line  isn't  a  single lonely
+    // word — but only when the  resulting
+    // line  still  fits.  (Original  code
+    // could break the "each gap  gets  ≥1
+    // space" invariant here.)
     if (lines.length > 1) {
       const last = lines[lines.length - 1];
       const previous = lines[lines.length - 2];
@@ -226,8 +249,10 @@ export class MonoJustifier {
       const emptySize = this.#maxLineSize - contentLength;
       const isLast = i === lines.length - 1;
 
-      // Ragged last line (avoid stretching it), or a line that cannot
-      // legally be justified (less empty space than gaps → words fuse).
+      // Ragged  last line (avoid stretch-
+      // ing it), or a  line  that  cannot
+      // legally  be justified (less empty
+      // space than gaps → words fuse).
       if ((isLast && emptySize > raggedThreshold) || emptySize < gaps) {
         result.push(chunks.join(" "));
         continue;
@@ -240,7 +265,8 @@ export class MonoJustifier {
         spaces[counter++ % gaps] += " ";
       }
 
-      // Alternate distribution direction per line to break up rivers.
+      // Alternate  distribution direction
+      // per line to break up rivers.
       let line = "";
       for (let j = 0; j < gaps; j++) {
         const spaceIndex = i % 2 === 0 ? j : gaps - j - 1;
@@ -328,9 +354,12 @@ function parseBlocks(lines: string[]): Block[] {
       while (i < lines.length) {
         const itemLine = lines[i];
 
-        // Blank line: only ends the list if nothing at the same level
-        // follows. Otherwise it's a loose-list separator — preserve it
-        // by attaching a blank block to the previous item so empty
+        // Blank  line: only ends the list
+        // if nothing at  the  same  level
+        // follows.  Otherwise it's a loo-
+        // se-list separator — preserve it
+        // by  attaching  a blank block to
+        // the  previous  item  so   empty
         // comment lines round-trip.
         if (itemLine.trim() === "") {
           let j = i + 1;
@@ -353,11 +382,16 @@ function parseBlocks(lines: string[]): Block[] {
         const itemLines: string[] = [m[4]];
         i++;
 
-        // Continuations: anything that isn't a new item at this level,
-        // isn't a different block opener, and isn't blank. Indented
-        // continuations are trimmed to `contentIndent`; lazy (unindented)
-        // continuations are accepted as-is — this is what fixes the
-        // "list in the bottom doesn't get justified" case.
+        // Continuations:   anything  that
+        // isn't a new item at this level,
+        // isn't a different block opener,
+        // and isn't blank. Indented  con-
+        // tinuations  are trimmed to `co-
+        // ntentIndent`; lazy (unindented)
+        // continuations    are   accepted
+        // as-is — this is what fixes  the
+        // "list in the bottom doesn't get
+        // justified" case.
         while (i < lines.length) {
           const cont = lines[i];
           if (cont.trim() === "") break;
@@ -475,11 +509,14 @@ function renderBlock(
 // ─── Justify Markdown ──────────────────────────────────────────────────── ✣ ─
 
 /**
- * Justify markdown-formatted text (e.g. a code comment) at the given
- * width, preserving markdown structure.
+ * Justify markdown-formatted text (e.g. a
+ * code  comment)  at  the  given   width,
+ * preserving markdown structure.
  *
- * Supports: paragraphs, fenced code, horizontal rules, headings,
- * blockquotes (nested), unordered/ordered lists (nested).
+ * Supports:  paragraphs, fenced code, ho-
+ * rizontal rules,  headings,  blockquotes
+ * (nested),             unordered/ordered
+ * lists (nested).
  */
 export function justifyMarkdown(
   input: string,
@@ -490,7 +527,8 @@ export function justifyMarkdown(
   const blocks = parseBlocks(lines);
   const rendered = renderBlocks(blocks, options.maxLineSize, justifier);
 
-  // Trim leading/trailing blank lines that came from the split.
+  // Trim   leading/trailing  blank  lines
+  // that came from the split.
   let start = 0;
   let end = rendered.length;
   while (start < end && rendered[start] === "") start++;
